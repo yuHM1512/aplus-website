@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APLUS TECHNOLOGIES | Giải Pháp Lọc Nước Toàn Diện</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-fixed": "#dee0ff",
+                "on-secondary-fixed": "#001944",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#ffdbd2",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#454653",
+                "inverse-on-surface": "#f2eff9",
+                "surface-container-highest": "#e3e1eb",
+                "on-tertiary-fixed": "#3c0800",
+                "on-primary-container": "#8495ff",
+                "surface-container-high": "#e9e7f0",
+                "on-tertiary-fixed-variant": "#82270f",
+                "secondary-fixed": "#d9e2ff",
+                "background": "#fbf8ff",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "on-surface": "#1b1b22",
+                "surface-bright": "#fbf8ff",
+                "secondary-container": "#006ef4",
+                "surface": "#fbf8ff",
+                "outline-variant": "#c5c5d5",
+                "surface-container": "#efedf6",
+                "outline": "#757684",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#102590",
+                "on-background": "#1b1b22",
+                "on-secondary-container": "#fefcff",
+                "inverse-surface": "#2f3037",
+                "primary-fixed-dim": "#bbc3ff",
+                "tertiary": "#420a00",
+                "on-primary-fixed": "#000e5e",
+                "on-tertiary-container": "#f27a5b",
+                "surface-tint": "#4454bc",
+                "surface-container-low": "#f5f2fc",
+                "tertiary-fixed-dim": "#ffb4a1",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed-dim": "#afc6ff",
+                "surface-variant": "#e3e1eb",
+                "primary": "#001167",
+                "surface-dim": "#dbd9e2",
+                "tertiary-container": "#681500",
+                "on-secondary-fixed-variant": "#004299",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "inverse-primary": "#bbc3ff",
+                "on-primary-fixed-variant": "#293ba3",
+                "secondary": "#0056c3",
+                "brand-powder": "#B5DBFF",
+                "brand-offwhite": "#F2F3F4"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "stack-lg": "2rem",
+                "section-gap": "5rem",
+                "stack-sm": "0.5rem",
+                "stack-md": "1rem",
+                "gutter": "1rem",
+                "container-padding": "1.5rem"
+            },
+            "fontFamily": {
+                "h2": ["Inter"],
+                "h1-mobile": ["Inter"],
+                "h1": ["Inter"],
+                "body-lg": ["Inter"],
+                "h2-mobile": ["Inter"],
+                "h3": ["Inter"],
+                "body-md": ["Inter"],
+                "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                "h2": ["40px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "h1-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "h1": ["56px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "h2-mobile": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-sm": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .hero-wave-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .nav-link-active {
+            color: #0056c3; /* secondary from config */
+            font-weight: 700;
+            border-bottom: 2px solid #0056c3;
+            padding-bottom: 0.25rem;
+        }
+        /* Custom Hover States for Modern Flat Style */
+        .primary-btn-hover:hover {
+            background-color: #36D1FF;
+            color: #001167;
+        }
+        .secondary-btn-hover:hover {
+            background-color: #338bff; /* 10% lighter than #006EF5 approximately */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest">
+<div class="flex justify-between items-center w-full px-container-padding max-w-[1280px] mx-auto h-[80px]">
+<!-- Brand Logo -->
+<div class="flex items-center gap-2">
+<span class="text-h3 font-h3 font-extrabold text-primary">APLUS TECHNOLOGIES</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden lg:flex items-center gap-8">
+<a class="nav-link-active font-label-sm text-label-sm" href="#">Trang chủ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200 font-label-sm text-label-sm" href="#">Giới thiệu</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200 font-label-sm text-label-sm" href="#">Sản phẩm</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200 font-label-sm text-label-sm" href="#">Dịch vụ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200 font-label-sm text-label-sm" href="#">Dự án</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200 font-label-sm text-label-sm" href="#">Liên hệ</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-6">
+<a class="hidden md:block font-label-sm text-label-sm text-primary font-bold" href="tel:0935455558">
+                    0935 45 55 58
+                </a>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-[6px] font-label-sm text-label-sm font-bold active:scale-95 transition-transform">
+                    ĐĂNG KÝ KHẢO SÁT
+                </button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative bg-primary-container min-h-[600px] flex items-center overflow-hidden py-20">
+
+<div class="relative z-10 max-w-[1280px] mx-auto px-container-padding grid md:grid-cols-2 gap-12 items-center">
+<div class="text-on-primary-container space-y-stack-lg">
+<h1 class="font-h1 text-h1-mobile md:text-h1 uppercase leading-tight">
+                    GIẢI PHÁP LỌC NƯỚC <br/> TOÀN DIỆN
+                </h1>
+<p class="font-body-lg text-body-lg text-on-primary-container/90 max-w-lg">
+                    Ứng dụng công nghệ lọc nước tiên tiến nhất từ Châu Âu, APlus Technologies mang đến nguồn nước tinh khiết và an toàn tuyệt đối cho gia đình và doanh nghiệp của bạn.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-[#102590] text-white px-8 py-4 rounded-[6px] font-bold primary-btn-hover transition-all duration-300">
+                        XEM SẢN PHẨM
+                    </button>
+<button class="border-2 border-white text-white px-8 py-4 rounded-[6px] font-bold hover:bg-white/10 transition-all duration-300">
+                        TƯ VẤN NGAY
+                    </button>
+</div>
+</div>
+<div class="relative hidden md:block">
+<img class="w-full h-auto drop-shadow-2xl" data-alt="A professional, high-resolution product photograph of an industrial-grade water filtration system. The device features sleek chrome and deep blue housing, with visible transparent filter housings showing clean water. The background is a clean, minimalist laboratory setting with soft cool blue lighting to emphasize the technological and hygienic nature of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXrzaMOXTtbKN1iUkaS4Fub5GTApX9xwGkUZgbzlkaiRy6iYj6622Ly7m_V2djZuwFGmj4vVz_OVgCVyTBfQVOBTS4bYPgfC0_BNdkFvBBVNDdlrB98SLDISkWJoohgWW6byJ5mj5Pn6__tpIlJt8vipiLijJ9JbnnGjIl3mzVbCaIL-tfQz08eUYSZl7xDQ44iZ_EtcFyRQ6wc2oO7XXBeZeBs_X9bWDYSYsPMOukrl8NKoERnWKI"/>
+</div>
+</div>
+</section>
+<!-- 4 USP Row -->
+<section class="bg-surface-container-lowest py-16">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="flex items-center gap-4 p-6 bg-brand-powder rounded-[8px]">
+<div class="flex-shrink-0 w-12 h-12 bg-secondary flex items-center justify-center rounded-full text-on-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Tư vấn miễn phí</h4>
+<p class="text-label-sm text-on-surface-variant">Hỗ trợ 24/7 tận tâm</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-6 bg-brand-powder rounded-[8px]">
+<div class="flex-shrink-0 w-12 h-12 bg-secondary flex items-center justify-center rounded-full text-on-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">build</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Đơn giản bảo trì</h4>
+<p class="text-label-sm text-on-surface-variant">Thiết kế module thông minh</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-6 bg-brand-powder rounded-[8px]">
+<div class="flex-shrink-0 w-12 h-12 bg-secondary flex items-center justify-center rounded-full text-on-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Chi phí hợp lý</h4>
+<p class="text-label-sm text-on-surface-variant">Tiết kiệm ngân sách tối đa</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-6 bg-brand-powder rounded-[8px]">
+<div class="flex-shrink-0 w-12 h-12 bg-secondary flex items-center justify-center rounded-full text-on-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Chất lượng kiểm chứng</h4>
+<p class="text-label-sm text-on-surface-variant">Đạt chuẩn quốc tế ISO</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Tiles (Bento Grid Style) -->
+<section class="py-20 bg-background">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<div class="text-center mb-12">
+<h2 class="font-h2 text-h2-mobile md:text-h2 text-primary mb-4">DANH MỤC SẢN PHẨM</h2>
+<div class="w-20 h-1 bg-secondary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Large Item -->
+<div class="md:col-span-2 relative group overflow-hidden rounded-[8px] bg-brand-powder min-h-[300px]">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A wide-angle shot of a large-scale industrial water purification plant inside a modern factory. Shining stainless steel pipes, pressure tanks, and digital control panels dominate the scene. The lighting is bright and industrial, with a cool blue cast. This hero category image represents professional water systems." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhLqhk3c_zZGBHIemm6cxQSvL_Fe1UYPAP-y_mhhuzQfq9PlER2FPdZvlBDtvtYaDhbnDrun92PSuWNJDWoOeUA2ufwBY2Q4ZTpH5e9J6I9qFBHR6SHWeRCe31rvY5E0qnNcAJ0iN7xPHuaeZGmjQsZiDLCNk5kjRRw4WazgKnZzQT9E8ZoNzP-HN1v2gsn5qHrtzBeowDeMkt06jM2neVvLpiGOCGhgfET9XODxNTBorNLbLwwhTu"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 text-on-primary">
+<h3 class="font-h3 text-h3 mb-2 uppercase">Hệ Thống Lọc Tổng</h3>
+<p class="max-w-md mb-4 text-white/80">Giải pháp xử lý nước toàn bộ tòa nhà, nhà máy với công suất lớn.</p>
+<button class="bg-secondary text-white px-6 py-2 rounded-[6px] font-bold secondary-btn-hover transition-all">Khám phá ngay</button>
+</div>
+</div>
+<div class="relative group overflow-hidden rounded-[8px] bg-brand-powder min-h-[300px]">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Close up of a sleek, modern domestic under-sink RO water purifier with a dedicated chrome faucet dispensing clean water into a crystal clear glass. Bright, airy kitchen background with clean surfaces. The color palette is white and soft blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhpGSM_B_rUlRfuspM1vWFxR-UNuqYgbB1ptkPrktWTEQJAJpgeQ6pw7ZrBtdMN3RYsCP0BiL14gaiK6w8ldNMIto7yzI3B88PAvXWXttJ3UpoRDa1v0pX0wHoBF_IGfmGO7gzkaP_OR36v8pu2AE4Y6HOgrkr5oNFMcIoEvXCLQDa_jgAineNYJcHqgwnM90GsfKLgyDficeVoyMOMsYYQRLZ8gCKGVK7Z0Luwru2D7Ivv0LGpe7D"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 text-on-primary">
+<h3 class="font-h3 text-h3 mb-2 uppercase">Máy Lọc Nước RO</h3>
+<button class="text-secondary-fixed font-bold flex items-center gap-2 group">
+                            Xem chi tiết <span class="material-symbols-outlined transition-transform group-hover:translate-x-2">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="relative group overflow-hidden rounded-[8px] bg-brand-powder min-h-[300px]">
+<div class="absolute inset-0 bg-secondary/10 group-hover:bg-secondary/20 transition-all"></div>
+<div class="p-8 h-full flex flex-col justify-end">
+<span class="material-symbols-outlined text-secondary text-5xl mb-4">filter_alt</span>
+<h3 class="font-h3 text-h3 text-primary mb-2 uppercase">Lõi Lọc &amp; Linh Kiện</h3>
+<p class="text-on-surface-variant mb-4">Phụ kiện thay thế chính hãng cho mọi dòng máy.</p>
+<a class="text-secondary font-bold" href="#">Xem tất cả →</a>
+</div>
+</div>
+<div class="md:col-span-2 relative group overflow-hidden rounded-[8px] bg-brand-powder min-h-[300px]">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A macro photograph of high-quality water filtration materials: bright white activated carbon granules, amber ion exchange resin beads, and porous ceramic media. The lighting is sharp, revealing the intricate textures of the filter media against a clinical background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO1Wq4o82zQPuP4xYaBDzCOxxco8eGb6h-0RXkTMy7Hus1V3LXj-qMGgakwj8MdJM7OfJTmvINwtP-7gZQ1jYbKTRbN5mb71nWJvMGXKmM4ynRQFUrNLmGlyw8pvUOcQTKB9QEBG5u-Zvl5MQFFbGmax8zwEzBqIjso4MSXfynl9C5aIvGA2kFFdqB_dAPyaPO4OK9f05jxjDd5I2986T7gZmKmVFXDoTRJ4KVmFKlVxTf7f0W8EAd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 text-on-primary">
+<h3 class="font-h3 text-h3 mb-2 uppercase">Vật Liệu Lọc</h3>
+<button class="bg-secondary text-white px-6 py-2 rounded-[6px] font-bold secondary-btn-hover transition-all">Xem bảng giá</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Products (Tabbed) -->
+<section class="py-20 bg-brand-offwhite">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+<div>
+<h2 class="font-h2 text-h2-mobile md:text-h2 text-primary uppercase">SẢN PHẨM NỔI BẬT</h2>
+<p class="text-on-surface-variant">Top những giải pháp được tin dùng nhất năm 2024</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-bold">Tất cả</button>
+<button class="px-6 py-2 rounded-full bg-white text-primary font-bold border border-outline-variant hover:bg-primary hover:text-white transition-all">Hệ thống tổng</button>
+<button class="px-6 py-2 rounded-full bg-white text-primary font-bold border border-outline-variant hover:bg-primary hover:text-white transition-all">Máy lọc RO</button>
+<button class="px-6 py-2 rounded-full bg-white text-primary font-bold border border-outline-variant hover:bg-primary hover:text-white transition-all">Lõi lọc</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="bg-white rounded-[8px] overflow-hidden group border border-transparent hover:border-secondary transition-all">
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300" data-alt="Product shot of an APlus Industrial RO System Model 500, showing multiple vertical blue filter tanks and a stainless steel frame with a digital pressure gauge. White studio background, clean lighting, showing the scale and robust build quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKC5-QXIed59XkXCBbiXcRlltY-xQB6mD9YivD7JssZZqUuNuJeN8avdRa7lTUihcHPbTH3g_yqaLy6i_IKgfFc3Brrs0Q9aRjzH1yIpfzBZFO6JARl-USba9eaAwd6hnca-QGIiS4ZjVMc9lmVoXYxfvIVDaXVSWKV62dfvDY3U_q-WfNJ4I-9UmIGX9x4LsgW_P0cANiDS_oD2I-VvBkoyqb13VseSnjUyik5yyyD-nxkAoSsTR0"/>
+<div class="absolute top-4 left-4 bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full">BÁN CHẠY</div>
+</div>
+<div class="p-6">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Hệ Thống Tổng</p>
+<h4 class="font-bold text-primary mb-2 line-clamp-2">Hệ thống lọc nước đầu nguồn APlus AP-3000</h4>
+<div class="flex items-center gap-1 text-yellow-500 mb-4">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-sm text-on-surface-variant ml-2">(45)</span>
+</div>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-[6px] hover:bg-primary hover:text-white transition-all">CHI TIẾT</button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white rounded-[8px] overflow-hidden group border border-transparent hover:border-secondary transition-all">
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300" data-alt="Product shot of a sleek countertop water purifier with a touch panel display and a minimalist white finish. The design is contemporary and tech-focused. Studio lighting on a clean grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0jb4XnH-ll7X7epTyLR31v5gYLPjf-zU5upGNELrmMmjXeo9bei9pGsj0wxMsj2vSu4sq4mn9RV9h8SlYiMJUzBqkwjzmqLyDOl7LBpJeBK7wlaGrHyD5fvwX4dQwVjXbqI8ZcoYdPDZ6Wt3KPk-MFO-3wgP4bOjBbyiyfjmNf8pKDSYeEpoVxA38WY6JDnF3kBCVuV1hdfI94P3cBQypKk17ehEKgGAibgaP1EYlKAAy2W7MRpAg"/>
+</div>
+<div class="p-6">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Máy Lọc Nước RO</p>
+<h4 class="font-bold text-primary mb-2 line-clamp-2">Máy lọc nước RO APlus Luxury Gen-2</h4>
+<div class="flex items-center gap-1 text-yellow-500 mb-4">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-label-sm text-on-surface-variant ml-2">(32)</span>
+</div>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-[6px] hover:bg-primary hover:text-white transition-all">CHI TIẾT</button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white rounded-[8px] overflow-hidden group border border-transparent hover:border-secondary transition-all">
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300" data-alt="Close up of a set of colorful replacement water filter cartridges: sediment, pre-carbon, and membrane. Vibrant colors representing different stages of filtration, clean studio photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAySMYOr3BYyAgruZBn-NzeomtZg_hTGsVJxeAvNGSdzsJeYl7FFkh5AGYRXFQFMu6dhuH-Zc4XQZ0BX5Ir8eRf5Q7xgbBpGwqMyukv5Da049Wc0FHxT4PJUJOV4wtTBynB-V_cLndBUw-SzbRgPrZGkT-Z8cZj3Jd43aeY2Xm3v4Lbf14eMNFiBygeC5NuxqbhU3qwWqVdZoCE8HVERCHVyF6D3mlDPYOUEcu-RuPchCsUj3z889Oe"/>
+</div>
+<div class="p-6">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Lõi Lọc</p>
+<h4 class="font-bold text-primary mb-2 line-clamp-2">Bộ 3 lõi lọc thô APlus Standard No.123</h4>
+<div class="flex items-center gap-1 text-yellow-500 mb-4">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-sm text-on-surface-variant ml-2">(128)</span>
+</div>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-[6px] hover:bg-primary hover:text-white transition-all">CHI TIẾT</button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white rounded-[8px] overflow-hidden group border border-transparent hover:border-secondary transition-all">
+<div class="aspect-square relative overflow-hidden bg-surface-container-low">
+<img class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300" data-alt="High-end industrial stainless steel UV sterilizer unit for water treatment. Chrome finish reflects studio lights, looking sterile and advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzQuj1DrWGpq4SfH4YOvV7jLasPIT92rRwVFQ9i5J41FHlFxjcHzAj6QAtDVLy692bAReJR2BHbCsoQHgDR97qhV30vC3qeHRDtF0lhudXMw0BZpPg74fe4FFAwVB49eZYgiE4uvdJaA-O7Z911AieILaeDHKwhd6uktAYugcqL7hW7nXrdRr__TT1zKeThTKwAvqgAgszkXsfgJpwf5JQrZSnJgCdYciNrBqTiMMg2P05nkkRf4AA"/>
+<div class="absolute top-4 left-4 bg-error text-white text-[10px] font-bold px-3 py-1 rounded-full">GIẢM 20%</div>
+</div>
+<div class="p-6">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Thiết Bị Phụ Trợ</p>
+<h4 class="font-bold text-primary mb-2 line-clamp-2">Đèn UV diệt khuẩn APlus UltraViolet 55W</h4>
+<div class="flex items-center gap-1 text-yellow-500 mb-4">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-sm text-on-surface-variant ml-2">(18)</span>
+</div>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-[6px] hover:bg-primary hover:text-white transition-all">CHI TIẾT</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Counter -->
+<section class="py-16 bg-primary text-on-primary">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-stack-lg text-center">
+<div class="space-y-2">
+<div class="font-h1 text-h1 text-secondary-fixed">20+</div>
+<div class="font-label-sm uppercase tracking-widest opacity-80">Năm Kinh Nghiệm</div>
+</div>
+<div class="space-y-2">
+<div class="font-h1 text-h1 text-secondary-fixed">3000+</div>
+<div class="font-label-sm uppercase tracking-widest opacity-80">Khách Hàng</div>
+</div>
+<div class="space-y-2">
+<div class="font-h1 text-h1 text-secondary-fixed">100+</div>
+<div class="font-label-sm uppercase tracking-widest opacity-80">Đối Tác Chiến Lược</div>
+</div>
+<div class="space-y-2">
+<div class="font-h1 text-h1 text-secondary-fixed">51+</div>
+<div class="font-label-sm uppercase tracking-widest opacity-80">Dự Án Lớn</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-20 bg-background">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<div class="text-center mb-16">
+<h2 class="font-h2 text-h2-mobile md:text-h2 text-primary uppercase mb-4">DỊCH VỤ CHUYÊN NGHIỆP</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Chúng tôi đồng hành cùng khách hàng từ khâu khảo sát thực tế đến bảo trì định kỳ trọn đời sản phẩm.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-10 bg-brand-powder rounded-[8px] flex flex-col items-center text-center group hover:bg-secondary transition-all duration-300">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-secondary mb-6 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">travel_explore</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary group-hover:text-white mb-4">Khảo Sát Tận Nơi</h3>
+<p class="text-on-surface-variant group-hover:text-white/80">Phân tích mẫu nước và đo đạc thực địa để đưa ra phương án tối ưu nhất cho từng nguồn nước.</p>
+</div>
+<div class="p-10 bg-brand-powder rounded-[8px] flex flex-col items-center text-center group hover:bg-secondary transition-all duration-300">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-secondary mb-6 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">handyman</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary group-hover:text-white mb-4">Lắp Đặt Nhanh Chóng</h3>
+<p class="text-on-surface-variant group-hover:text-white/80">Đội ngũ kỹ thuật tay nghề cao, đảm bảo lắp đặt đúng tiêu chuẩn kỹ thuật và tính thẩm mỹ cao.</p>
+</div>
+<div class="p-10 bg-brand-powder rounded-[8px] flex flex-col items-center text-center group hover:bg-secondary transition-all duration-300">
+<div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-secondary mb-6 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl">settings_suggest</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary group-hover:text-white mb-4">Bảo Trì Định Kỳ</h3>
+<p class="text-on-surface-variant group-hover:text-white/80">Chăm sóc, thay thế lõi lọc và bảo dưỡng hệ thống định kỳ, đảm bảo nguồn nước luôn tinh khiết.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials & Blog -->
+<section class="py-20 bg-surface-container-low">
+<div class="max-w-[1280px] mx-auto px-container-padding grid grid-cols-1 lg:grid-cols-2 gap-16">
+<!-- Testimonials -->
+<div>
+<h2 class="font-h2 text-h3 text-primary mb-10 border-l-4 border-secondary pl-4 uppercase">Ý KIẾN KHÁCH HÀNG</h2>
+<div class="space-y-6">
+<div class="bg-white p-8 rounded-[8px] relative">
+<span class="material-symbols-outlined text-6xl text-secondary/10 absolute top-4 right-4">format_quote</span>
+<p class="italic text-on-surface-variant mb-6">"Hệ thống lọc nước APlus thực sự thay đổi chất lượng sống của gia đình tôi. Nước không còn mùi clo và vị ngọt tự nhiên rất dễ uống."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-secondary">NT</div>
+<div>
+<h4 class="font-bold text-primary">Nguyễn Thành Trung</h4>
+<p class="text-label-sm text-on-surface-variant">Chủ biệt thự Ciputra, Hà Nội</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-[8px] relative">
+<span class="material-symbols-outlined text-6xl text-secondary/10 absolute top-4 right-4">format_quote</span>
+<p class="italic text-on-surface-variant mb-6">"Chúng tôi tin tưởng APlus cho hệ thống lọc nước tại xưởng sản xuất thực phẩm. Kết quả kiểm nghiệm mẫu nước luôn đạt chuẩn an toàn."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-secondary">LV</div>
+<div>
+<h4 class="font-bold text-primary">Lê Văn Hùng</h4>
+<p class="text-label-sm text-on-surface-variant">Giám đốc SX - Công ty Thức Ăn Xanh</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Blog -->
+<div>
+<h2 class="font-h2 text-h3 text-primary mb-10 border-l-4 border-secondary pl-4 uppercase">KIẾN THỨC NƯỚC SẠCH</h2>
+<div class="space-y-8">
+<div class="flex gap-6 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 overflow-hidden rounded-[4px]">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A clean, scientific illustration or photo showing the multi-layer process of a water filter. Transparent cutaway showing sand, carbon, and resin layers with water droplets flowing through. Soft technical lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB0ZnqG042Gk8cVx6w7it1XktKIOqIlzqQCXVx4rbFBB-NcSPZY7dWMdJi6DcWkviB7-COnvsIC4AN2CHGhtwhTUVY4cXKVrSqOAN4_crnpCORjgaxp8isBhiBComPJWGM4vSTLOLTstjxXomL_XiQCquFypX66WNkc_Emf2Wl_euny6wf6k6Lb3ORXlEvN189pJbl7A1WpsUTScujMSLrJORPiXOcSe-UkDW9LoMB46J-IeT-_L2z"/>
+</div>
+<div>
+<h4 class="font-bold text-primary group-hover:text-secondary transition-colors mb-2">Cách nhận biết nguồn nước gia đình bị ô nhiễm kim loại nặng</h4>
+<p class="text-label-sm text-on-surface-variant">Thứ 3, 20/05/2024</p>
+</div>
+</div>
+<div class="flex gap-6 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 overflow-hidden rounded-[4px]">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A photo showing a professional technician in a clean blue uniform checking a digital meter connected to a water system. He looks focused and professional. Soft natural indoor light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx_cQNbnMN0meJBVaqOL9gIb0RmnIWEkDcHcSGBGA7uQhlWajJVgd1Nw9Foq-SeGIpRjgx6pEberuzqZiFzjVJoQfRR2I_anUuft4n7pzTvGhIIaA-p4kxspTdtlLz595ln3zj_45sNpdcyh4SToJYCM4vB7Wd6J_sfvZp42jaM03-haD_Uj8UnjVZiIc-ZmAQPmqD6rmbgE6tFjVxbiYCU2RFs1jTE6vLBT4Ld2MUdY65PrDsl12Q"/>
+</div>
+<div>
+<h4 class="font-bold text-primary group-hover:text-secondary transition-colors mb-2">Bao lâu nên thay lõi lọc nước một lần để đảm bảo an toàn?</h4>
+<p class="text-label-sm text-on-surface-variant">Thứ 6, 17/05/2024</p>
+</div>
+</div>
+<div class="flex gap-6 group cursor-pointer">
+<div class="w-32 h-24 flex-shrink-0 overflow-hidden rounded-[4px]">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="A beautiful, high-key photo of a family drinking water from clear glasses in a sunlit kitchen. The atmosphere is healthy, happy, and pure. Soft lighting, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkD_nDOI5evmPS-xEWNGF8iSf085hAptMWmGdzVPCCqiNn7lUbFlwbPBMll799ODFCbDszxFxrfwOAnWo36awKiYZlOGU_aPb8f_5zACijul6_MKNAZxdpkV0p5o2-cOl0HLjaLko_zKMGvgjoCG2sQxsfDIxfGVPrJ_vAq_hV5mvK2f0xEkJ8yVxLnpuPfyG5U5g_TIHUTwI1IezNTn2EkseQjUUS-FrmeMa7SZ6vE4BsegC_DY5B"/>
+</div>
+<div>
+<h4 class="font-bold text-primary group-hover:text-secondary transition-colors mb-2">Công nghệ lọc nước RO và Nano: Lựa chọn nào cho gia đình bạn?</h4>
+<p class="text-label-sm text-on-surface-variant">Thứ 2, 13/05/2024</p>
+</div>
+</div>
+<button class="text-secondary font-bold flex items-center gap-2 group mt-4">
+                        Xem tất cả bài viết <span class="material-symbols-outlined transition-transform group-hover:translate-x-2">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Banner -->
+<section class="py-16 bg-secondary text-white relative overflow-hidden">
+
+<div class="relative z-10 max-w-[1280px] mx-auto px-container-padding flex flex-col md:flex-row items-center justify-between gap-10">
+<div class="max-w-2xl">
+<h2 class="font-h2 text-h2-mobile md:text-h2 mb-4">SẴN SÀNG CHO NGUỒN NƯỚC TINH KHIẾT?</h2>
+<p class="text-body-lg opacity-90">Liên hệ ngay để được kỹ thuật viên chuyên nghiệp đến khảo sát và tư vấn giải pháp phù hợp nhất với nguồn nước của bạn.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="bg-white text-secondary px-10 py-5 rounded-[6px] font-bold text-lg hover:bg-primary-fixed transition-all shadow-lg active:scale-95">
+                    GỌI TƯ VẤN: 0935 45 55 58
+                </button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-primary text-on-primary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-stack-lg py-20 px-container-padding max-w-[1280px] mx-auto">
+<!-- Brand Info -->
+<div class="space-y-6">
+<h3 class="font-h3 text-h3 font-bold">APLUS TECHNOLOGIES</h3>
+<p class="text-body-md opacity-80 leading-relaxed">
+                    Đơn vị hàng đầu cung cấp giải pháp xử lý nước công nghệ cao tại Việt Nam. Chúng tôi cam kết mang lại nguồn nước chuẩn tinh khiết.
+                </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-secondary transition-colors" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+</div>
+</div>
+<!-- Quick Links -->
+<div class="space-y-6">
+<h4 class="font-bold text-xl border-b border-white/20 pb-2">Về Chúng Tôi</h4>
+<nav class="flex flex-col gap-3">
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Giới thiệu</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Dự án tiêu biểu</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Đối tác</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Tuyển dụng</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Liên hệ</a>
+</nav>
+</div>
+<!-- Products/Policies -->
+<div class="space-y-6">
+<h4 class="font-bold text-xl border-b border-white/20 pb-2">Dịch Vụ &amp; Chính Sách</h4>
+<nav class="flex flex-col gap-3">
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Sản phẩm</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Dịch vụ bảo trì</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Chính sách bảo hành</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Chính sách vận chuyển</a>
+<a class="text-on-primary/80 hover:text-secondary-fixed transition-colors" href="#">Quy định đổi trả</a>
+</nav>
+</div>
+<!-- Contact Info -->
+<div class="space-y-6">
+<h4 class="font-bold text-xl border-b border-white/20 pb-2">Liên Hệ</h4>
+<div class="space-y-4">
+<div class="flex items-start gap-3 opacity-80">
+<span class="material-symbols-outlined">location_on</span>
+<span>Số 123, Đường Thành Công, Quận Cầu Giấy, Hà Nội</span>
+</div>
+<div class="flex items-center gap-3 opacity-80">
+<span class="material-symbols-outlined">call</span>
+<span>0935 45 55 58</span>
+</div>
+<div class="flex items-center gap-3 opacity-80">
+<span class="material-symbols-outlined">mail</span>
+<span>info@aplustechnologies.vn</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Copyright -->
+<div class="border-t border-white/10 py-8 px-container-padding max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-label-sm opacity-60">
+<p>© 2024 APLUS TECHNOLOGIES. Chuyên gia lọc nước hàng đầu Việt Nam.</p>
+<div class="flex gap-6">
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Scroll Animation for Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+
+        // Hover scale interaction for product cards logic
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => button.classList.add('scale-95'));
+            button.addEventListener('mouseup', () => button.classList.remove('scale-95'));
+            button.addEventListener('mouseleave', () => button.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

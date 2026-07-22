@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sản phẩm | APLUS TECHNOLOGIES</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#dee0ff",
+                        "on-secondary-fixed": "#001944",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffdbd2",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#454653",
+                        "inverse-on-surface": "#f2eff9",
+                        "surface-container-highest": "#e3e1eb",
+                        "on-tertiary-fixed": "#3c0800",
+                        "on-primary-container": "#8495ff",
+                        "surface-container-high": "#e9e7f0",
+                        "on-tertiary-fixed-variant": "#82270f",
+                        "secondary-fixed": "#d9e2ff",
+                        "background": "#fbf8ff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1b22",
+                        "surface-bright": "#fbf8ff",
+                        "secondary-container": "#006ef4",
+                        "surface": "#fbf8ff",
+                        "outline-variant": "#c5c5d5",
+                        "outline": "#757684",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#102590",
+                        "on-background": "#1b1b22",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-surface": "#2f3037",
+                        "primary-fixed-dim": "#bbc3ff",
+                        "tertiary": "#420a00",
+                        "on-primary-fixed": "#000e5e",
+                        "on-tertiary-container": "#f27a5b",
+                        "surface-tint": "#4454bc",
+                        "surface-container-low": "#f5f2fc",
+                        "tertiary-fixed-dim": "#ffb4a1",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#afc6ff",
+                        "surface-variant": "#e3e1eb",
+                        "primary": "#001167",
+                        "surface-dim": "#dbd9e2",
+                        "tertiary-container": "#681500",
+                        "on-secondary-fixed-variant": "#004299",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#bbc3ff",
+                        "on-primary-fixed-variant": "#293ba3",
+                        "secondary": "#0056c3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "2rem",
+                        "section-gap": "5rem",
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1rem",
+                        "container-padding": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "h1-mobile": ["Inter"],
+                        "h1": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h2-mobile": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["40px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "h1-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "h1": ["56px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2-mobile": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #fbf8ff; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #0056c3; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest shadow-sm">
+<div class="flex justify-between items-center w-full px-container-padding max-w-[1280px] mx-auto h-[80px]">
+<div class="flex items-center gap-4">
+<span class="text-h3 font-h3 font-bold text-primary">APLUS TECHNOLOGIES</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Trang chủ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Giới thiệu</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1" href="#">Sản phẩm</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Dịch vụ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Dự án</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Liên hệ</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="hidden lg:block text-primary font-bold text-label-sm">0935 45 55 58</span>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold text-label-sm hover:bg-secondary-container transition-all active:scale-95">
+                    ĐĂNG KÝ KHẢO SÁT
+                </button>
+</div>
+</div>
+</header>
+<!-- Breadcrumb & Page Header -->
+<section class="bg-surface-container-low py-10">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<nav class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-4">
+<a class="hover:text-primary" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Sản phẩm</span>
+</nav>
+<h1 class="font-h2 text-h2 text-primary">Danh mục sản phẩm</h1>
+</div>
+</section>
+<!-- Main Content Grid -->
+<main class="max-w-[1280px] mx-auto px-container-padding py-20">
+<div class="flex flex-col md:flex-row gap-stack-lg">
+<!-- Sidebar Filter -->
+<aside class="w-full md:w-[280px] space-y-8 shrink-0">
+<!-- Search within Category -->
+<div class="relative">
+<input class="w-full border border-outline-variant bg-surface-container-lowest px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary text-body-md" placeholder="Tìm kiếm sản phẩm..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-outline">search</span>
+</div>
+<!-- Categories Accordion -->
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4 pb-2 border-b border-outline-variant">Danh mục</h3>
+<ul class="space-y-3">
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-secondary transition-colors">Máy lọc nước RO</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[12px] font-bold">24</span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="text-secondary font-bold">Hệ thống lọc tổng</span>
+<span class="bg-secondary text-on-primary px-2 py-0.5 rounded text-[12px] font-bold">12</span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-secondary transition-colors">Linh kiện thay thế</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[12px] font-bold">85</span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="text-on-surface-variant group-hover:text-secondary transition-colors">Dịch vụ bảo trì</span>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[12px] font-bold">5</span>
+</li>
+</ul>
+</div>
+<!-- Brands -->
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4">Thương hiệu</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-secondary focus:ring-secondary w-5 h-5" type="checkbox"/>
+<span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Karofi</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-secondary focus:ring-secondary w-5 h-5" type="checkbox"/>
+<span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">AO Smith</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-secondary focus:ring-secondary w-5 h-5" type="checkbox"/>
+<span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Kangaroo</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-secondary focus:ring-secondary w-5 h-5" type="checkbox"/>
+<span class="text-body-md text-on-surface-variant group-hover:text-primary transition-colors">Mutosi</span>
+</label>
+</div>
+</div>
+<!-- Price Slider Placeholder -->
+<div>
+<h3 class="font-h3 text-h3 text-primary mb-4">Khoảng giá</h3>
+<div class="px-2">
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" max="50" min="0" type="range" value="25"/>
+<div class="flex justify-between mt-3 text-label-sm font-bold text-on-surface-variant">
+<span>0đ</span>
+<span>50tr+</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Products Area -->
+<section class="flex-1">
+<!-- Sorting & View Options -->
+<div class="flex flex-wrap justify-between items-center mb-8 gap-4 bg-surface-container-lowest p-4 rounded-lg">
+<p class="text-body-md text-on-surface-variant">Hiển thị <span class="font-bold text-primary">12</span> trong <span class="font-bold text-primary">125</span> sản phẩm</p>
+<div class="flex items-center gap-4">
+<label class="text-label-sm font-bold text-on-surface-variant uppercase">Sắp xếp:</label>
+<select class="border-none bg-transparent font-bold text-secondary focus:ring-0 cursor-pointer">
+<option>Mới nhất</option>
+<option>Giá: Thấp đến Cao</option>
+<option>Giá: Cao đến Thấp</option>
+<option>Phổ biến nhất</option>
+</select>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Product Card 1 -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 border border-transparent hover:border-secondary flex flex-col">
+<div class="relative aspect-square overflow-hidden bg-surface-container-low flex items-center justify-center p-8">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="Professional studio shot of a sleek, modern vertical reverse osmosis water purifier in a minimalist white and chrome finish. The lighting is crisp and cool, emphasizing the high-tech engineering aesthetic of APLUS Technologies. The product stands elegantly against a soft blue gradient background with subtle water ripple reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoreoQMUpWdsxKN1WMi8rWasOsq4_Y3d4yJ52Dj4V5xC0KJ_8zgA8QbAnpYe69pWDFe0RzfhRq3D00isu6xr876EObJuPJexDEsax39TqpKI6yA68uWNx8P2PU3A4ei7idelE7WOwxbfEAnRdlDw5_kwi4XTBOLAKtcWIJqwo9GrvFyzQzZg6lclMw3oT5Udkztsf6SVsdRweiIOU0LvIZWU-F49zlKZukthkMFyDANZtwrIoo6dIs"/>
+<span class="absolute top-4 left-4 bg-[#B5DBFF] text-primary px-3 py-1 rounded text-label-sm font-bold">MÁY LỌC RO</span>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-h3 text-h3 text-on-surface mb-2 leading-tight group-hover:text-secondary transition-colors">Máy Lọc Nước Karofi KAQ-U05 Pro</h3>
+<p class="text-on-surface-variant text-body-md mb-4 line-clamp-2">Công nghệ Smax Pro thế hệ mới, màng RO thay nhanh 100GPD nhập khẩu Mỹ.</p>
+<div class="mt-auto flex items-end justify-between">
+<div>
+<span class="block text-label-sm text-outline line-through">8.500.000đ</span>
+<span class="text-h3 font-bold text-primary">6.850.000đ</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary text-on-primary hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Hover Overlay -->
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
+<span class="bg-primary text-on-primary px-6 py-2 rounded font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">XEM CHI TIẾT</span>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 border border-transparent hover:border-secondary flex flex-col">
+<div class="relative aspect-square overflow-hidden bg-surface-container-low flex items-center justify-center p-8">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="High-end industrial water filtration system with stainless steel pressurized tanks and blue control valves. The scene is a clean, bright technical utility room with soft morning light streaming through windows. Professional industrial design photography for a tech-focused water purification company, clean and authoritative style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2bcr82G1J_mSty9jcqtGA73gzMm5DX4THOPyj1kXnQ_Y93vMHtldxVwYa6TbNP2kQU-9F-L0G2FZJ_8s_QgKr_VTNRPQb5hxYoPe4ujrzqLgPvkkUBHy51RPNHNeOv_VqzGP5KF9VVUBSw6TrG7nGapYjW8h6zWiu6u46uacO9TV5CKbZXpSUs3TAj_AvR3gt5QKwhxu6EGC__qku8g48yqe5NJXV-KM6CmmU-xbhMyxHV6wxNnQ0"/>
+<span class="absolute top-4 left-4 bg-[#B5DBFF] text-primary px-3 py-1 rounded text-label-sm font-bold">LỌC TỔNG</span>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-h3 text-h3 text-on-surface mb-2 leading-tight group-hover:text-secondary transition-colors">Hệ Thống Lọc Tổng Biệt Thự APLUS Plus 03</h3>
+<p class="text-on-surface-variant text-body-md mb-4 line-clamp-2">Công nghệ UF kết hợp làm mềm, loại bỏ hoàn toàn kim loại nặng và cặn vôi.</p>
+<div class="mt-auto flex items-end justify-between">
+<div>
+<span class="text-h3 font-bold text-primary">45.000.000đ</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary text-on-primary hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
+<span class="bg-primary text-on-primary px-6 py-2 rounded font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">XEM CHI TIẾT</span>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 border border-transparent hover:border-secondary flex flex-col">
+<div class="relative aspect-square overflow-hidden bg-surface-container-low flex items-center justify-center p-8">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="Modern countertop water dispenser with a digital touch interface and elegant chrome faucet. The dispenser is placed on a pristine white marble kitchen counter in a luxury home setting. The background is softly blurred, showing a high-end kitchen with cool blue under-cabinet lighting. Commercial product photography with a focus on premium lifestyle and technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEaWiwmMSMFuzf92UyluclOmhtIuwrb9iYuMqtYgaQbhPTlFVspn3lgWwl6bpBtg4sAsxs_-XaCy0PSqmbFU2_5abYox6PoerY_PnA9Cz4O153JTQU7E6vY-RZP9nOetb4oD2gqDDFbg90ih4XivLvRC1m2A3J_iXz8IvKyTEVOqMEXJkXV3uv1ztTurGl8zfZMo4XaYNlIPjb3PPdFvfEaEUUEMfMBz2TanDzOdBs4nVyE5B6Nv9q"/>
+<span class="absolute top-4 left-4 bg-[#B5DBFF] text-primary px-3 py-1 rounded text-label-sm font-bold">MÁY LỌC RO</span>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-h3 text-h3 text-on-surface mb-2 leading-tight group-hover:text-secondary transition-colors">Máy Lọc Nước AO Smith C2</h3>
+<p class="text-on-surface-variant text-body-md mb-4 line-clamp-2">Hệ thống giám sát điện tử i-EMS hiện đại, màng RO Side Stream độc quyền.</p>
+<div class="mt-auto flex items-end justify-between">
+<div>
+<span class="text-h3 font-bold text-primary">9.450.000đ</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary text-on-primary hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
+<span class="bg-primary text-on-primary px-6 py-2 rounded font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">XEM CHI TIẾT</span>
+</div>
+</div>
+<!-- Additional Product Card 4 -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 border border-transparent hover:border-secondary flex flex-col">
+<div class="relative aspect-square overflow-hidden bg-surface-container-low flex items-center justify-center p-8">
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="Industrial-grade reverse osmosis membrane filters in a series of white cylindrical housings. Technical environment with blue pipes and gauges. The image conveys precision and high-volume performance. Lighting is bright, even, and professional, maintaining a clean industrial tech aesthetic for APLUS Technologies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4jrdpOyKcR3LhHGWstPer4KrBbxjcX3duz9wXDBMc8vF1dSlvgxy5vL41FyI4_reL3nCXSQowBPeRAxffsfcF9PBxUPhBqfoaNPp8UMq5R9jpiZrAvDEfY4iEUaP4P49sUWQZX3w0ZA8J8Zt9QntBwAJmossjCOK6ZukYozYBGdZKsB5CFsGdzGLO3NL2BqQ0Rp5kOBansSByQ-TzASuKrKftu09ALjwdhhx4No2oZx6pr_IeLBIl"/>
+<span class="absolute top-4 left-4 bg-[#B5DBFF] text-primary px-3 py-1 rounded text-label-sm font-bold">CÔNG NGHIỆP</span>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<h3 class="font-h3 text-h3 text-on-surface mb-2 leading-tight group-hover:text-secondary transition-colors">Hệ Thống RO Công Nghiệp APLUS 500L/H</h3>
+<p class="text-on-surface-variant text-body-md mb-4 line-clamp-2">Phù hợp cho trường học, bệnh viện và các xưởng sản xuất thực phẩm quy mô lớn.</p>
+<div class="mt-auto flex items-end justify-between">
+<div>
+<span class="text-h3 font-bold text-primary">68.000.000đ</span>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-secondary text-on-primary hover:bg-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
+<span class="bg-primary text-on-primary px-6 py-2 rounded font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">XEM CHI TIẾT</span>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-16 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-outline hover:border-secondary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-secondary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary transition-colors">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary transition-colors">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-outline hover:border-secondary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-primary py-20">
+<div class="max-w-[1280px] mx-auto px-container-padding grid grid-cols-1 md:grid-cols-4 gap-stack-lg">
+<div class="col-span-1 md:col-span-1">
+<span class="text-h3 font-h3 font-bold text-on-primary mb-6 block">APLUS TECHNOLOGIES</span>
+<p class="text-on-primary/80 font-body-md leading-relaxed mb-6">
+                    Chuyên gia lọc nước hàng đầu Việt Nam. Cung cấp các giải pháp công nghệ nước tiên tiến nhất cho gia đình và doanh nghiệp.
+                </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-on-primary/10 flex items-center justify-center text-on-primary hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-on-primary/10 flex items-center justify-center text-on-primary hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-on-primary/10 flex items-center justify-center text-on-primary hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">phone</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-on-primary font-bold text-h3 mb-6">Liên kết nhanh</h4>
+<ul class="space-y-4">
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Về chúng tôi</a></li>
+<li><a class="text-secondary-fixed font-bold" href="#">Danh mục sản phẩm</a></li>
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Công trình tiêu biểu</a></li>
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Liên hệ tư vấn</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-primary font-bold text-h3 mb-6">Chính sách</h4>
+<ul class="space-y-4">
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Bảo hành &amp; Bảo trì</a></li>
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Chính sách giao hàng</a></li>
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Hình thức thanh toán</a></li>
+<li><a class="text-on-primary/80 hover:text-secondary-fixed transition-colors font-body-md" href="#">Bảo mật thông tin</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-on-primary font-bold text-h3 mb-6">Nhận bản tin</h4>
+<p class="text-on-primary/80 font-body-md mb-4">Cập nhật những giải pháp xử lý nước mới nhất từ chúng tôi.</p>
+<form class="flex flex-col gap-2">
+<input class="bg-on-primary/10 border-none px-4 py-3 rounded-lg text-on-primary placeholder:text-on-primary/40 focus:ring-1 focus:ring-secondary-fixed" placeholder="Email của bạn" type="email"/>
+<button class="bg-secondary text-on-primary font-bold py-3 rounded-lg hover:bg-secondary-container transition-colors active:opacity-80">GỬI NGAY</button>
+</form>
+</div>
+</div>
+<div class="max-w-[1280px] mx-auto px-container-padding mt-16 pt-8 border-t border-on-primary/10 text-center">
+<p class="text-on-primary/60 text-label-sm uppercase tracking-widest">© 2024 APLUS TECHNOLOGIES. CHUYÊN GIA LỌC NƯỚC HÀNG ĐẦU VIỆT NAM.</p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for Filter Accordion
+        document.querySelectorAll('aside h3').forEach(header => {
+            header.addEventListener('click', () => {
+                const list = header.nextElementSibling;
+                if(list.style.maxHeight) {
+                    list.style.maxHeight = null;
+                    header.querySelector('span')?.classList.remove('rotate-180');
+                } else {
+                    list.style.maxHeight = list.scrollHeight + "px";
+                    header.querySelector('span')?.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
+</body></html>

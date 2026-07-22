@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APLUS TECHNOLOGIES - Chuyên Gia Lọc Nước</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-fixed": "#dee0ff",
+                "on-secondary-fixed": "#001944",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#ffdbd2",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#454653",
+                "inverse-on-surface": "#f2eff9",
+                "surface-container-highest": "#e3e1eb",
+                "on-tertiary-fixed": "#3c0800",
+                "on-primary-container": "#8495ff",
+                "surface-container-high": "#e9e7f0",
+                "on-tertiary-fixed-variant": "#82270f",
+                "secondary-fixed": "#d9e2ff",
+                "background": "#fbf8ff",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "on-surface": "#1b1b22",
+                "surface-bright": "#fbf8ff",
+                "secondary-container": "#006ef4",
+                "surface": "#fbf8ff",
+                "outline-variant": "#c5c5d5",
+                "surface-container": "#efedf6",
+                "outline": "#757684",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#102590",
+                "on-background": "#1b1b22",
+                "on-secondary-container": "#fefcff",
+                "inverse-surface": "#2f3037",
+                "primary-fixed-dim": "#bbc3ff",
+                "tertiary": "#420a00",
+                "on-primary-fixed": "#000e5e",
+                "on-tertiary-container": "#f27a5b",
+                "surface-tint": "#4454bc",
+                "surface-container-low": "#f5f2fc",
+                "tertiary-fixed-dim": "#ffb4a1",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed-dim": "#afc6ff",
+                "surface-variant": "#e3e1eb",
+                "primary": "#001167",
+                "surface-dim": "#dbd9e2",
+                "tertiary-container": "#681500",
+                "on-secondary-fixed-variant": "#004299",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "inverse-primary": "#bbc3ff",
+                "on-primary-fixed-variant": "#293ba3",
+                "secondary": "#0056c3"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "stack-lg": "2rem",
+                "section-gap": "5rem",
+                "stack-sm": "0.5rem",
+                "stack-md": "1rem",
+                "gutter": "1rem",
+                "container-padding": "1.5rem"
+            },
+            "fontFamily": {
+                "h2": ["Inter"], "h1-mobile": ["Inter"], "h1": ["Inter"], "body-lg": ["Inter"], "h2-mobile": ["Inter"], "h3": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                "h2": ["40px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "h1-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "h1": ["56px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "h2-mobile": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "label-sm": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbf8ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- Header / TopAppBar (Mobile Optimized) -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest h-[80px] flex items-center px-4 border-none shadow-sm">
+<div class="flex items-center justify-between w-full">
+<button aria-label="Menu" class="w-11 h-11 flex items-center justify-center active:scale-95 transition-transform text-primary">
+<span class="material-symbols-outlined text-[32px]">menu</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-h3 text-[18px] font-bold text-primary leading-none">APLUS</span>
+<span class="text-[10px] font-medium tracking-[0.2em] text-on-surface-variant">TECHNOLOGIES</span>
+</div>
+<a class="w-11 h-11 flex items-center justify-center active:scale-95 transition-transform text-secondary" href="tel:0935455558">
+<span class="material-symbols-outlined text-[32px]">call</span>
+</a>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative bg-primary overflow-hidden py-12 px-container-padding flex flex-col items-center text-center">
+<div class="absolute inset-0 opacity-10">
+<!-- Water wave pattern abstraction -->
+<svg height="100%" preserveaspectratio="none" viewbox="0 0 100 100" width="100%">
+<path d="M0 50 Q 25 30 50 50 T 100 50 V 100 H 0 Z" fill="white"></path>
+</svg>
+</div>
+<div class="relative z-10">
+<h1 class="font-h1-mobile text-h1-mobile text-on-primary mb-4">Giải Pháp Nước Tinh Khiết</h1>
+<p class="font-body-md text-body-md text-on-primary/80 mb-8 max-w-[280px] mx-auto">
+                    Công nghệ lọc nước tiên tiến cho gia đình và công nghiệp. Bảo vệ sức khỏe mọi nhà.
+                </p>
+<button class="bg-secondary-container text-on-primary px-8 py-3 rounded-lg font-label-sm text-label-sm transition-colors hover:bg-secondary active:scale-95">
+                    ĐĂNG KÝ KHẢO SÁT
+                </button>
+</div>
+<div class="mt-10 w-full rounded-xl overflow-hidden shadow-none border-0 bg-surface-container-low">
+<img class="w-full h-48 object-cover" data-alt="A professional close-up of a modern, sleek industrial water filtration system in a clean, brightly lit environment. The lighting is crisp and cool, emphasizing the stainless steel surfaces and blue technological details. The shot is high-angle, showcasing the precision and high-tech nature of APLUS TECHNOLOGIES water solutions, using a refreshing blue and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0L8ifvkGLGUbfo0ysrDzy1haXmUxsZRQxMCm-2MwIIC3Z1m1ahklJGtJXtPbk2Av1a7V56X1xi-PI67BTBbba6CvjgBbq6dq6X3HAJlVSOylgsQ1Dk7yVyka_4qmDporsgZMangeeQ6e1vixiP66pJQ3uSORSJDcetZtRatTM3I49zHqOKB8ZAAwryuMKerDnEI-hzjfdurjDpb0rYAmrzmPFEzy68j0QVFVGZxxP8cC1o7gtVwrV"/>
+</div>
+</section>
+<!-- Categories Section (2-Column Grid) -->
+<section class="py-12 px-container-padding">
+<h2 class="font-h3 text-h3 text-primary mb-6">Danh mục sản phẩm</h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Category 1 -->
+<div class="bg-[#B5DBFF] rounded-lg p-4 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary">home_max</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Lọc nước gia đình</span>
+</div>
+<!-- Category 2 -->
+<div class="bg-[#B5DBFF] rounded-lg p-4 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary">factory</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Lọc nước công nghiệp</span>
+</div>
+<!-- Category 3 -->
+<div class="bg-[#B5DBFF] rounded-lg p-4 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary">heat_pump</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Máy nước nóng</span>
+</div>
+<!-- Category 4 -->
+<div class="bg-[#B5DBFF] rounded-lg p-4 flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary">settings_suggest</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">Linh kiện &amp; Lõi lọc</span>
+</div>
+</div>
+</section>
+<!-- Featured Products (Horizontal Scroll) -->
+<section class="py-12 bg-surface-container-low">
+<div class="px-container-padding flex justify-between items-end mb-6">
+<h2 class="font-h3 text-h3 text-primary">Sản phẩm nổi bật</h2>
+<a class="text-secondary font-label-sm text-label-sm flex items-center" href="#">
+                    Tất cả <span class="material-symbols-outlined ml-1">chevron_right</span>
+</a>
+</div>
+<div class="flex overflow-x-auto gap-4 px-container-padding no-scrollbar pb-4">
+<!-- Product Card 1 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-none border-none">
+<img class="w-full h-40 object-cover" data-alt="A premium residential water purifier with a minimalist white and blue casing, standing on a white kitchen countertop. The lighting is natural and bright, highlighting the clean design. The background is a blurred modern kitchen, focusing on the high-trust industrial aesthetic of the device. Professional photography style, clean and sharp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnGGV4Xic42kZEdMyBMILPzrpEIbi16wHDQishZ4RR-uCJj_xgwor92no8Xu8lydoapSyEXzFb0X6TFs7H6TtLBQDCB8Z-gCM17NwgkTMMiiNkYFYovMWO8aVEsQgECPMrefBArKuXAtLbPmF_xI1RdCq9VQ_75fB18aBCgTQVjLx-TEb2C8pskEUZofCBnlZGl43_agCCe_iX5HVmyhDP0oaqBsf1OUGRvu0LTyEA1AtJEp78cOI2"/>
+<div class="p-4">
+<h3 class="font-label-sm text-label-sm text-primary mb-2">Máy lọc nước RO APLUS - 10 cấp</h3>
+<p class="text-secondary font-bold">5.490.000đ</p>
+<button class="mt-3 w-full border border-secondary text-secondary py-2 rounded font-label-sm text-label-sm active:bg-secondary active:text-white transition-colors">
+                            CHI TIẾT
+                        </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-none border-none">
+<img class="w-full h-40 object-cover" data-alt="An industrial water treatment unit with multiple filtration columns and pressure gauges. The scene is a clean utility room with bright artificial lighting that reflects off the metallic surfaces. The color palette features whites, industrial blues, and silver. A sense of technological advancement and precision engineering for commercial water solutions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0xHuqWwjhJhRplCjmkhcDrqadtQ1oetz26oer84bgRQpaAl1nAyyFId85vE0SqNF9nd6UkJDXyXbVTgaqw405YGcK4-UHupzBJd3pFSNtfbH5AwJ8ET2AR62ojf4ULHqQe5cUia_f8JeuLJVPFcy3h0W-l_OhFDNsrpHI5exj0JY-53kM0JlFEfNzCMlm2zEF7D8WamP76xe1D6B7zgI0k_PyZhHNfVkdiWxdC4ekgFLr3lXwRxuP"/>
+<div class="p-4">
+<h3 class="font-label-sm text-label-sm text-primary mb-2">Hệ thống lọc tổng biệt thự A+</h3>
+<p class="text-secondary font-bold">12.500.000đ</p>
+<button class="mt-3 w-full border border-secondary text-secondary py-2 rounded font-label-sm text-label-sm active:bg-secondary active:text-white transition-colors">
+                            CHI TIẾT
+                        </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-none border-none">
+<img class="w-full h-40 object-cover" data-alt="A sleek countertop alkaline water ionizer in a luxury apartment setting. The device is glowing subtly with soft blue internal lights. Morning sunlight streams through a window, creating a refreshing and healthy lifestyle atmosphere. High-end product design with precise edges and a premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4QTCPMh-04CqYrC-aVw-1WXn92gAncSGHoXmK0JhQpN66dq21lpvl54r_xNovQnKKOrhqGrprZdwrmergsSHBKkoOzYGGMdlH8Y4GInSH02zkfzigK_c3YqmV6Bl95-r2yBCv8LKxYrPmGB5bFyv1ulI4Y0F0vVJwFyJ3fNij1CgKqsInj88bWfF5_DDvKfX3esVHZO1zd-Hv8k9hsUfSoeM8qrHv3UoXbZNuc1lnr6cOYZECXeST"/>
+<div class="p-4">
+<h3 class="font-label-sm text-label-sm text-primary mb-2">Máy ion kiềm nhập khẩu Nhật</h3>
+<p class="text-secondary font-bold">24.000.000đ</p>
+<button class="mt-3 w-full border border-secondary text-secondary py-2 rounded font-label-sm text-label-sm active:bg-secondary active:text-white transition-colors">
+                            CHI TIẾT
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats / Why Choose Us -->
+<section class="py-12 px-container-padding text-center">
+<h2 class="font-h3 text-h3 text-primary mb-8">Tại sao chọn APLUS?</h2>
+<div class="space-y-6">
+<div class="flex items-center text-left">
+<div class="w-12 h-12 flex-shrink-0 bg-secondary-fixed rounded-lg flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-secondary-fixed">verified_user</span>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary">Chất lượng chuẩn quốc tế</h4>
+<p class="text-[12px] text-on-surface-variant">Sản phẩm đạt chứng chỉ NSF, ISO 9001.</p>
+</div>
+</div>
+<div class="flex items-center text-left">
+<div class="w-12 h-12 flex-shrink-0 bg-secondary-fixed rounded-lg flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-on-secondary-fixed">support_agent</span>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary">Bảo hành tận nơi 24/7</h4>
+<p class="text-[12px] text-on-surface-variant">Đội ngũ kỹ thuật hỗ trợ nhanh chóng.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Space for Bottom Bar -->
+<div class="h-24 bg-primary px-container-padding py-10 text-center">
+<p class="text-on-primary/60 text-[12px]">© 2024 APLUS TECHNOLOGIES</p>
+</div>
+<!-- Bottom Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-[60] bg-white p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex gap-4">
+<a class="flex-1 h-12 bg-secondary text-white rounded-lg flex items-center justify-center font-bold text-sm active:scale-95 transition-transform" href="tel:0935455558">
+<span class="material-symbols-outlined mr-2 text-[20px]">call</span>
+            GỌI NGAY
+        </a>
+<a class="flex-1 h-12 bg-[#006EF5] text-white rounded-lg flex items-center justify-center font-bold text-sm active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined mr-2 text-[20px]" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+            CHAT ZALO
+        </a>
+</div>
+<!-- Scroll to top / Floating element micro-interaction -->
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.classList.add('scale-95');
+            });
+            el.addEventListener('mouseup', () => {
+                el.classList.remove('scale-95');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Khảo Sát Nguồn Nước - APLUS TECHNOLOGIES</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#dee0ff",
+                    "on-secondary-fixed": "#001944",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffdbd2",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#454653",
+                    "inverse-on-surface": "#f2eff9",
+                    "surface-container-highest": "#e3e1eb",
+                    "on-tertiary-fixed": "#3c0800",
+                    "on-primary-container": "#8495ff",
+                    "surface-container-high": "#e9e7f0",
+                    "on-tertiary-fixed-variant": "#82270f",
+                    "secondary-fixed": "#d9e2ff",
+                    "background": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1b1b22",
+                    "surface-bright": "#fbf8ff",
+                    "secondary-container": "#006ef4",
+                    "surface": "#fbf8ff",
+                    "outline-variant": "#c5c5d5",
+                    "surface-container": "#efedf6",
+                    "outline": "#757684",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#102590",
+                    "on-background": "#1b1b22",
+                    "on-secondary-container": "#fefcff",
+                    "inverse-surface": "#2f3037",
+                    "primary-fixed-dim": "#bbc3ff",
+                    "tertiary": "#420a00",
+                    "on-primary-fixed": "#000e5e",
+                    "on-tertiary-container": "#f27a5b",
+                    "surface-tint": "#4454bc",
+                    "surface-container-low": "#f5f2fc",
+                    "tertiary-fixed-dim": "#ffb4a1",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#afc6ff",
+                    "surface-variant": "#e3e1eb",
+                    "primary": "#001167",
+                    "surface-dim": "#dbd9e2",
+                    "tertiary-container": "#681500",
+                    "on-secondary-fixed-variant": "#004299",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bbc3ff",
+                    "on-primary-fixed-variant": "#293ba3",
+                    "secondary": "#0056c3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-lg": "2rem",
+                    "section-gap": "5rem",
+                    "stack-sm": "0.5rem",
+                    "stack-md": "1rem",
+                    "gutter": "1rem",
+                    "container-padding": "1.5rem"
+            },
+            "fontFamily": {
+                    "h2": ["Inter"],
+                    "h1-mobile": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2-mobile": ["Inter"],
+                    "h3": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "h2": ["40px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "h1-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "h1": ["56px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2-mobile": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-sm": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-transition {
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+        .hide-step {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        .show-step {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface-container-lowest w-full h-[80px] shadow-sm">
+<div class="flex justify-between items-center w-full px-container-padding max-w-[1280px] mx-auto h-full">
+<div class="text-h3 font-h3 font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+                APLUS TECHNOLOGIES
+            </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Trang chủ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Giới thiệu</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Sản phẩm</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Dịch vụ</a>
+<a class="text-on-surface-variant font-medium hover:text-secondary transition-colors duration-200" href="#">Dự án</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1" href="#">Liên hệ</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="hidden lg:block text-primary font-bold">0935 45 55 58</span>
+<button class="bg-primary-container text-on-primary px-6 py-2 rounded-lg font-label-sm hover:bg-secondary transition-all active:scale-95">
+                    ĐĂNG KÝ KHẢO SÁT
+                </button>
+</div>
+</div>
+</header>
+<main>
+<!-- Dark Hero Section -->
+<section class="bg-primary py-16 text-center">
+<div class="max-w-[1280px] mx-auto px-container-padding">
+<h1 class="font-h1 text-h1-mobile md:text-h1 text-white mb-4">Khảo Sát Nguồn Nước Miễn Phí</h1>
+<p class="text-secondary-fixed font-body-lg max-w-2xl mx-auto">Chúng tôi giúp bạn tìm ra giải pháp lọc nước tối ưu cho gia đình thông qua 5 bước khảo sát nhanh chóng.</p>
+</div>
+</section>
+<!-- Survey Section -->
+<section class="py-20 px-container-padding">
+<div class="max-w-3xl mx-auto">
+<!-- Survey Card Container -->
+<div class="bg-surface-container-lowest rounded-xl p-8 md:p-12 shadow-sm border border-outline-variant relative overflow-hidden">
+<!-- Progress Bar Area -->
+<div class="mb-10">
+<div class="flex justify-between items-end mb-2">
+<span class="text-primary font-bold font-label-sm" id="step-label">Bước 1 trên 5</span>
+<span class="text-on-surface-variant font-label-sm" id="step-percentage">20%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full transition-all duration-500" id="progress-bar" style="width: 20%;"></div>
+</div>
+</div>
+<form id="survey-form">
+<!-- Step 1: Contact Info -->
+<div class="show-step step-transition" id="step-1">
+<h3 class="font-h3 text-h3 text-primary mb-6">Thông tin liên hệ của bạn</h3>
+<div class="space-y-6">
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-2">Họ và tên *</label>
+<input class="w-full bg-white border border-[#B5DBFF] rounded-lg py-3 px-4 focus:ring-1 focus:ring-secondary focus:border-secondary transition-all outline-none" placeholder="Nhập họ và tên" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-2">Số điện thoại *</label>
+<input class="w-full bg-white border border-[#B5DBFF] rounded-lg py-3 px-4 focus:ring-1 focus:ring-secondary focus:border-secondary transition-all outline-none" placeholder="09xx xxx xxx" type="tel"/>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-2">Địa chỉ lắp đặt</label>
+<input class="w-full bg-white border border-[#B5DBFF] rounded-lg py-3 px-4 focus:ring-1 focus:ring-secondary focus:border-secondary transition-all outline-none" placeholder="Thành phố, Quận/Huyện" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Water Source -->
+<div class="hide-step step-transition" id="step-2">
+<h3 class="font-h3 text-h3 text-primary mb-6">Nguồn nước hiện tại của gia đình?</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<label class="cursor-pointer group">
+<input class="hidden peer" name="water-source" type="radio"/>
+<div class="bg-[#B5DBFF] p-6 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary group-hover:bg-[#d0e9ff]">
+<span class="material-symbols-outlined text-[48px] text-secondary mb-3">faucet</span>
+<p class="font-bold text-primary">Nước máy</p>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="water-source" type="radio"/>
+<div class="bg-[#B5DBFF] p-6 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary group-hover:bg-[#d0e9ff]">
+<span class="material-symbols-outlined text-[48px] text-secondary mb-3">sell</span>
+<p class="font-bold text-primary">Nước giếng</p>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="water-source" type="radio"/>
+<div class="bg-[#B5DBFF] p-6 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary group-hover:bg-[#d0e9ff]">
+<span class="material-symbols-outlined text-[48px] text-secondary mb-3">question_mark</span>
+<p class="font-bold text-primary">Khác</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Step 3: Home Type -->
+<div class="hide-step step-transition" id="step-3">
+<h3 class="font-h3 text-h3 text-primary mb-6">Loại hình nhà ở của bạn?</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<label class="cursor-pointer group">
+<input class="hidden peer" name="home-type" type="radio"/>
+<div class="bg-[#B5DBFF] p-4 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary h-full flex flex-col items-center justify-center">
+<div class="w-full aspect-square bg-white/50 rounded-md mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-16 h-16 object-contain opacity-80" data-alt="A clean, minimalist flat illustration of a luxury villa with multiple floors and large glass windows. The style is modern technical with blue and white tones representing industrial clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBBEjCxGdQFo6VN98CfwX2GKqfHx4o49yo4P7I3Brbd2yjzJTE4xvxJnj6oRhG2poKUMZHpsQMnSznfXQQ_DhfDv6dMfRU1Qj95R9ZKP-pdeI0VMapvU1mGRzAU0cQ4yny8mGq2aXh33yDcXYQETbx-RjTr6G72_0kYuVYyJ2NbhqqjGtyvv4OdfykQR4ogxMzUVcG07FU3XUpysNAos8v9CJDQn04SnhC6t0JPeabLBXWsl1iaUGk"/>
+</div>
+<p class="font-bold text-primary text-sm">Biệt thự</p>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="home-type" type="radio"/>
+<div class="bg-[#B5DBFF] p-4 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary h-full flex flex-col items-center justify-center">
+<div class="w-full aspect-square bg-white/50 rounded-md mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-16 h-16 object-contain opacity-80" data-alt="A minimalist technical illustration of a traditional ground house with a slanted roof. Simple line art with blue accents reflecting the professional industrial theme of water engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd3-M6A0t4Y-mm6aSbkdoK8bQKOER0z8Z6P1ounbc2rSyAzKe8eXNRZ7bfBMA2B7GyfuSsXKRt1-jmtkccsfbVeQwrcR9F5to7YieTFoiUDkm5cikJ6x5GjOJsiMvNdmbcLxnpU5vgR5-bp26uSXzBNApcQzfVayZD8-1fJygHBKUTYdAwoPsbe2cKoRXZQwk9GyG2h-ThbvrGuUHWpiu8xBVD5Bg5c_uw1OD3t9eEEkmmlJOvdIqt"/>
+</div>
+<p class="font-bold text-primary text-sm">Nhà phố</p>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="home-type" type="radio"/>
+<div class="bg-[#B5DBFF] p-4 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary h-full flex flex-col items-center justify-center">
+<div class="w-full aspect-square bg-white/50 rounded-md mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-16 h-16 object-contain opacity-80" data-alt="A modern architectural illustration of a high-rise apartment building. Clean vector style using primary blues and off-whites to match the water technology brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpTZrcyw_CLAVxw02o-eNoSi_yfbX7apaCK_b6naRN3mgbHeFzJ8CZvsDV6jmwPxd_AafXX_5YgJkHZ7swfORBKxam7G7JEhpENZp5QxycAU00Jl2Zc6Iu6qsIdYsibQLQyctnxkKHjbTYltXTltLoAW3BBYihzOhoZX1XqVP_tkIhXDpAHg4dQo0yI925TnngKFSMa79MVHFul7ueMZiBnuztCKQjmrGfB96r4OZXRoy8BPRJrzZL"/>
+</div>
+<p class="font-bold text-primary text-sm">Chung cư</p>
+</div>
+</label>
+<label class="cursor-pointer group">
+<input class="hidden peer" name="home-type" type="radio"/>
+<div class="bg-[#B5DBFF] p-4 rounded-lg text-center transition-all peer-checked:ring-2 peer-checked:ring-secondary h-full flex flex-col items-center justify-center">
+<div class="w-full aspect-square bg-white/50 rounded-md mb-3 flex items-center justify-center overflow-hidden">
+<img class="w-16 h-16 object-contain opacity-80" data-alt="A simple abstract icon representing diverse architectural structures for a general category. Modern flat design style in cooling blues and white, professional and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3H4dwJ-6nSlJgcTznN5BDKnF5mqK4Psmv0UYsyPWAWpQXPWe6TpM7yNvz06L8IPPDTGDAnVMoO4nEVwKzqohHatoyT3SiB7jzITh42GgNfbNDcf19HKyuIj5xqACZWGD0w81AOLdPEYRa7EJZ0Dm4391GXMg9hr3QLVk8mOYTqhv7gO2txX-srzauwHhSX0dlnvLPcC8Qz8ogR6Dhuqc6gq3AzIahfasgPKJ0d-hMYXv-mFUbrXtf"/>
+</div>
+<p class="font-bold text-primary text-sm">Khác</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Step 4: Investment Tier -->
+<div class="hide-step step-transition" id="step-4">
+<h3 class="font-h3 text-h3 text-primary mb-6">Mức đầu tư dự kiến (VNĐ)?</h3>
+<div class="grid grid-cols-1 gap-3">
+<label class="flex items-center gap-4 bg-[#B5DBFF] p-4 rounded-lg cursor-pointer hover:bg-[#d0e9ff] transition-all group border-2 border-transparent peer-checked:border-secondary">
+<input class="hidden peer" name="budget" type="radio"/>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-bold text-primary">Dưới 10 triệu</span>
+</label>
+<label class="flex items-center gap-4 bg-[#B5DBFF] p-4 rounded-lg cursor-pointer hover:bg-[#d0e9ff] transition-all group border-2 border-transparent peer-checked:border-secondary">
+<input class="hidden peer" name="budget" type="radio"/>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">currency_exchange</span>
+<span class="font-bold text-primary">10 - 30 triệu</span>
+</label>
+<label class="flex items-center gap-4 bg-[#B5DBFF] p-4 rounded-lg cursor-pointer hover:bg-[#d0e9ff] transition-all group border-2 border-transparent peer-checked:border-secondary">
+<input class="hidden peer" name="budget" type="radio"/>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-bold text-primary">30 - 60 triệu</span>
+</label>
+<label class="flex items-center gap-4 bg-[#B5DBFF] p-4 rounded-lg cursor-pointer hover:bg-[#d0e9ff] transition-all group border-2 border-transparent peer-checked:border-secondary">
+<input class="hidden peer" name="budget" type="radio"/>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">savings</span>
+<span class="font-bold text-primary">60 - 100 triệu</span>
+</label>
+<label class="flex items-center gap-4 bg-[#B5DBFF] p-4 rounded-lg cursor-pointer hover:bg-[#d0e9ff] transition-all group border-2 border-transparent peer-checked:border-secondary">
+<input class="hidden peer" name="budget" type="radio"/>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="font-bold text-primary">Trên 100 triệu (Cao cấp)</span>
+</label>
+</div>
+</div>
+<!-- Step 5: Issues -->
+<div class="hide-step step-transition" id="step-5">
+<h3 class="font-h3 text-h3 text-primary mb-2">Vấn đề nước đang gặp phải?</h3>
+<p class="text-on-surface-variant mb-6 font-label-sm">(Chọn nhiều lựa chọn)</p>
+<div class="flex flex-wrap gap-2">
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Nước có màu vàng</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Nước có mùi lạ</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Cặn trắng đá vôi</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Bám bẩn thiết bị</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Mùi Clo nồng</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Nước có vị lạ</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Có rêu, tạp chất</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Gây khô da, tóc</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Ăn mòn ống dẫn</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Nước nhiễm phèn</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Nước nhiễm mặn</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Dị ứng mẩn ngứa</div>
+</label>
+<label class="inline-block">
+<input class="hidden peer" type="checkbox"/>
+<div class="px-4 py-2 bg-white border border-[#B5DBFF] rounded-full text-sm font-medium peer-checked:bg-secondary peer-checked:text-white peer-checked:border-secondary cursor-pointer transition-all">Khác</div>
+</label>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-12 pt-8 border-t border-outline-variant flex justify-between items-center">
+<button class="text-on-surface-variant font-bold px-6 py-2 rounded-lg hover:bg-surface-container-high transition-colors invisible" id="prev-btn" type="button">
+                                Quay lại
+                            </button>
+<button class="bg-secondary text-white font-bold px-10 py-3 rounded-lg hover:brightness-110 active:scale-95 transition-all" id="next-btn" type="button">
+                                Tiếp theo
+                            </button>
+</div>
+</form>
+</div>
+<!-- Reassurance Panel -->
+<div class="mt-10 flex flex-col md:flex-row items-center justify-center gap-6 text-on-surface-variant opacity-70">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<span class="text-sm">Cam kết bảo mật thông tin</span>
+</div>
+<div class="hidden md:block w-px h-4 bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">engineering</span>
+<span class="text-sm">Tư vấn bởi chuyên gia hàng đầu</span>
+</div>
+<div class="hidden md:block w-px h-4 bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">timer</span>
+<span class="text-sm">Kết quả chỉ sau 24h</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary py-20 px-container-padding text-on-primary">
+<div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-stack-lg">
+<div class="space-y-6">
+<div class="text-h3 font-h3 font-bold text-on-primary">APLUS TECHNOLOGIES</div>
+<p class="font-body-md text-on-primary/80">© 2024 APLUS TECHNOLOGIES. Chuyên gia lọc nước hàng đầu Việt Nam.</p>
+</div>
+<div>
+<h4 class="font-h3 text-h3 mb-6">Sản phẩm</h4>
+<ul class="space-y-3 font-body-md text-on-primary/80">
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Hệ thống lọc tổng</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Máy lọc nước RO</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Thiết bị xử lý nước giếng</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Lọc nước công nghiệp</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-h3 text-h3 mb-6">Liên kết</h4>
+<ul class="space-y-3 font-body-md text-on-primary/80">
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Chính sách bảo mật</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Điều khoản dịch vụ</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Hỗ trợ kỹ thuật</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Về chúng tôi</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-h3 text-h3 mb-6">Liên hệ</h4>
+<div class="space-y-4 font-body-md text-on-primary/80">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined">location_on</span>
+<span>123 Đường Đại Lộ, Quận 1, TP. Hồ Chí Minh</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">call</span>
+<span>0935 45 55 58</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">mail</span>
+<span>contact@aplustech.vn</span>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentStep = 1;
+            const totalSteps = 5;
+
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const stepLabel = document.getElementById('step-label');
+            const stepPercentage = document.getElementById('step-percentage');
+
+            function updateStepUI() {
+                // Update Progress
+                const percent = (currentStep / totalSteps) * 100;
+                progressBar.style.width = `${percent}%`;
+                stepLabel.innerText = `Bước ${currentStep} trên ${totalSteps}`;
+                stepPercentage.innerText = `${percent}%`;
+
+                // Show/Hide Steps
+                for (let i = 1; i <= totalSteps; i++) {
+                    const stepEl = document.getElementById(`step-${i}`);
+                    if (i === currentStep) {
+                        stepEl.classList.remove('hide-step');
+                        stepEl.classList.add('show-step');
+                    } else {
+                        stepEl.classList.remove('show-step');
+                        stepEl.classList.add('hide-step');
+                    }
+                }
+
+                // Update Button Visibility/Text
+                if (currentStep === 1) {
+                    prevBtn.classList.add('invisible');
+                } else {
+                    prevBtn.classList.remove('invisible');
+                }
+
+                if (currentStep === totalSteps) {
+                    nextBtn.innerText = 'Hoàn tất khảo sát';
+                    nextBtn.classList.remove('bg-secondary');
+                    nextBtn.classList.add('bg-primary-container');
+                } else {
+                    nextBtn.innerText = 'Tiếp theo';
+                    nextBtn.classList.add('bg-secondary');
+                    nextBtn.classList.remove('bg-primary-container');
+                }
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepUI();
+                } else {
+                    alert('Cảm ơn bạn đã tham gia khảo sát! Chúng tôi sẽ liên hệ lại sớm nhất.');
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateStepUI();
+                }
+            });
+        });
+    </script>
+</body></html>
