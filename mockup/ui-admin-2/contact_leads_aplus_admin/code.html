@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APLUS Admin - Form liên hệ & Khảo sát</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-indicator {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #006EF5;
+        }
+        /* Custom scrollbar for data density */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .slide-panel {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .row-hover:hover {
+            background-color: #F1F5F9;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#420a00",
+                      "surface-container-highest": "#d3e4fe",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed": "#3c0800",
+                      "surface": "#f8f9ff",
+                      "secondary-fixed": "#d9e2ff",
+                      "border-gray": "#E2E8F0",
+                      "inverse-primary": "#bbc3ff",
+                      "primary": "#001167",
+                      "surface-gray": "#F8FAFC",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#4454bc",
+                      "outline-variant": "#c5c5d5",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed-dim": "#ffb4a1",
+                      "on-primary-fixed-variant": "#293ba3",
+                      "outline": "#757684",
+                      "on-surface": "#0b1c30",
+                      "error": "#ba1a1a",
+                      "error-red": "#EF4444",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#000e5e",
+                      "warning-amber": "#F59E0B",
+                      "on-tertiary-container": "#f27a5b",
+                      "on-background": "#0b1c30",
+                      "tertiary-container": "#681500",
+                      "primary-fixed": "#dee0ff",
+                      "on-primary": "#ffffff",
+                      "secondary": "#0056c3",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#102590",
+                      "tertiary-fixed": "#ffdbd2",
+                      "inverse-surface": "#213145",
+                      "primary-fixed-dim": "#bbc3ff",
+                      "on-surface-variant": "#454653",
+                      "surface-variant": "#d3e4fe",
+                      "deep-blue": "#102590",
+                      "secondary-fixed-dim": "#afc6ff",
+                      "on-tertiary-fixed-variant": "#82270f",
+                      "surface-dim": "#cbdbf5",
+                      "success-green": "#10B981",
+                      "on-secondary-container": "#fefcff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-secondary-fixed": "#001944",
+                      "on-secondary-fixed-variant": "#004299",
+                      "background": "#f8f9ff",
+                      "ocean-blue": "#006EF5",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "secondary-container": "#006ef4",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#8495ff",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "0.5rem",
+                      "stack-lg": "1.5rem",
+                      "stack-md": "1rem",
+                      "gutter": "1.5rem",
+                      "container-padding": "2rem",
+                      "sidebar-width": "260px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "mono-sm": ["Courier Prime"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "mono-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface-gray font-body-md text-on-surface overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="flex flex-col h-full w-[260px] fixed left-0 top-0 z-50 bg-primary dark:bg-primary border-r border-outline-variant/10">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary font-bold">water_drop</span>
+</div>
+<div>
+<h1 class="text-headline-sm font-bold text-on-primary leading-tight">APLUS Tech</h1>
+<p class="text-label-sm text-on-primary/60">Admin Portal</p>
+</div>
+</div>
+<nav class="mt-6 flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="font-label-md text-label-md">Posts</span>
+</a>
+<a class="relative flex items-center gap-3 px-4 py-3 bg-white/10 text-on-primary border-l-4 border-ocean-blue" href="#">
+<span class="material-symbols-outlined">contact_page</span>
+<span class="font-label-md text-label-md">Contacts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/10">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[sidebar-width] min-h-screen transition-all duration-300">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center h-16 w-full px-gutter bg-white sticky top-0 z-40 border-b border-border-gray shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-gray border-none rounded-lg text-body-sm focus:ring-2 focus:ring-ocean-blue/20" placeholder="Tìm kiếm nội dung..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error-red rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-border-gray">
+<div class="text-right">
+<p class="text-label-md font-bold text-primary leading-none">Admin User</p>
+<p class="text-[11px] text-on-surface-variant uppercase tracking-wider">Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-ocean-blue/20 object-cover" data-alt="A professional headshot of a corporate technology administrator, clean modern lighting, focused and trustworthy expression, high-end professional photography style, light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAypykgHdlJXAU17PT-XrIzEvPeLWDF0JctAkOBvL6_NdjlL0AKsjWFr1EQ7t97RfZea2IUltKZUguopO97L3n-GL_lw5cfy8T29kdmVja-Zvk2Fkz_rQra-jUPOVbom7hzIQOSfH9sck66C23-wLj-gJ_USHlPVvJx644A0562dn4ug48PVVm16e5ZfZwSZLXnCsI89TGnLXAksKXFkYd0pPGCQ8bA2gaD4EQefZVH6qgA32f23Cy8"/>
+</div>
+</div>
+</header>
+<div class="p-container-padding max-w-[1600px] mx-auto">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Form liên hệ & Khảo sát</h2>
+<p class="text-body-md text-on-surface-variant mt-1">Quản lý các yêu cầu tư vấn và phản hồi từ khách hàng APLUS.</p>
+</div>
+<button class="flex items-center gap-2 bg-ocean-blue hover:bg-primary text-white px-5 py-2.5 rounded-lg font-label-md transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                    Xuất CSV
+                </button>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm flex justify-between items-start">
+<div>
+<p class="text-label-md text-on-surface-variant mb-1">Tổng cộng</p>
+<h3 class="text-headline-lg font-bold text-primary">156</h3>
+</div>
+<div class="p-3 bg-ocean-blue/10 rounded-lg text-ocean-blue">
+<span class="material-symbols-outlined">all_inbox</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm flex justify-between items-start">
+<div>
+<p class="text-label-md text-on-surface-variant mb-1">Yêu cầu mới</p>
+<h3 class="text-headline-lg font-bold text-error-red">12</h3>
+</div>
+<div class="p-3 bg-error-red/10 rounded-lg text-error-red">
+<span class="material-symbols-outlined">mark_email_unread</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm flex justify-between items-start">
+<div>
+<p class="text-label-md text-on-surface-variant mb-1">Đã phản hồi</p>
+<h3 class="text-headline-lg font-bold text-success-green">98</h3>
+</div>
+<div class="p-3 bg-success-green/10 rounded-lg text-success-green">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="bg-white p-4 rounded-xl border border-border-gray shadow-sm mb-6 flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[200px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-gray border-border-gray rounded-lg text-body-sm focus:ring-2 focus:ring-ocean-blue/20" placeholder="Tìm theo tên, SĐT..." type="text"/>
+</div>
+<select class="min-w-[140px] bg-white border-border-gray rounded-lg text-body-sm py-2.5 px-4 focus:ring-2 focus:ring-ocean-blue/20">
+<option value="">Trạng thái</option>
+<option value="new">Mới</option>
+<option value="responded">Đã phản hồi</option>
+</select>
+<select class="min-w-[140px] bg-white border-border-gray rounded-lg text-body-sm py-2.5 px-4 focus:ring-2 focus:ring-ocean-blue/20">
+<option value="">Loại yêu cầu</option>
+<option value="contact">Liên hệ</option>
+<option value="survey">Khảo sát</option>
+</select>
+<div class="relative min-w-[200px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">calendar_today</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-white border-border-gray rounded-lg text-body-sm focus:ring-2 focus:ring-ocean-blue/20" placeholder="Khoảng thời gian" type="text" value="01/10/2023 - 31/10/2023"/>
+</div>
+<button class="p-2.5 text-on-surface-variant hover:bg-surface-gray rounded-lg transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<!-- Data Table -->
+<div class="bg-white rounded-xl border border-border-gray shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50 border-b border-border-gray">
+<tr>
+<th class="px-6 py-4 w-10">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Họ tên</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">SĐT</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Loại nhu cầu</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Ngày gửi</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Trạng thái</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-right">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-gray">
+<!-- Row 1: Active/Selected -->
+<tr class="row-hover cursor-pointer bg-blue-50/30 transition-colors" onclick="toggleDetailPanel()">
+<td class="px-6 py-4">
+<input checked="" class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="font-bold text-primary">Nguyễn Văn Hùng</div>
+<div class="text-xs text-on-surface-variant">hung.nv@gmail.com</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-mono-sm">0901 234 567</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-surface-container rounded-full text-[11px] font-bold text-secondary uppercase tracking-tight">Lọc nước gia đình</span>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">10:45, 24/10/2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-error-red rounded-full"></span>
+<span class="text-body-sm text-error">Mới</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="row-hover cursor-pointer transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</td>
+<td class="px-6 py-4 font-bold text-primary">Lê Thị Mai</td>
+<td class="px-6 py-4 text-body-sm font-mono-sm">0912 888 999</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-surface-container rounded-full text-[11px] font-bold text-secondary uppercase tracking-tight">Khảo sát nước</span>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">08:20, 24/10/2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-success-green rounded-full"></span>
+<span class="text-body-sm text-success-green">Đã phản hồi</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="row-hover cursor-pointer transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</td>
+<td class="px-6 py-4 font-bold text-primary">Trần Minh Quân</td>
+<td class="px-6 py-4 text-body-sm font-mono-sm">0987 654 321</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-surface-container rounded-full text-[11px] font-bold text-secondary uppercase tracking-tight">Hệ thống công nghiệp</span>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">17:15, 23/10/2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-success-green rounded-full"></span>
+<span class="text-body-sm text-success-green">Đã phản hồi</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="row-hover cursor-pointer transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</td>
+<td class="px-6 py-4 font-bold text-primary">Phạm Hải Yến</td>
+<td class="px-6 py-4 text-body-sm font-mono-sm">0933 111 222</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-surface-container rounded-full text-[11px] font-bold text-secondary uppercase tracking-tight">Lọc nước gia đình</span>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">14:05, 23/10/2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-error-red rounded-full"></span>
+<span class="text-body-sm text-error">Mới</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="row-hover cursor-pointer transition-colors">
+<td class="px-6 py-4">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</td>
+<td class="px-6 py-4 font-bold text-primary">Hoàng Anh Đức</td>
+<td class="px-6 py-4 text-body-sm font-mono-sm">0944 555 666</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-surface-container rounded-full text-[11px] font-bold text-secondary uppercase tracking-tight">Bảo trì hệ thống</span>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">09:30, 23/10/2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-success-green rounded-full"></span>
+<span class="text-body-sm text-success-green">Đã phản hồi</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-border-gray flex items-center justify-between bg-slate-50">
+<p class="text-body-sm text-on-surface-variant">Hiển thị 5 trên 156 kết quả</p>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-gray hover:bg-white text-on-surface-variant disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-ocean-blue bg-ocean-blue text-white font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-gray hover:bg-white text-on-surface-variant font-bold text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-gray hover:bg-white text-on-surface-variant font-bold text-xs">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-gray hover:bg-white text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Side Detail Panel (Active) -->
+<div class="fixed right-0 top-0 h-full w-[400px] bg-white shadow-2xl z-[60] slide-panel transform translate-x-0 border-l border-border-gray" id="detailPanel">
+<div class="flex flex-col h-full">
+<!-- Panel Header -->
+<div class="p-6 border-b border-border-gray flex items-center justify-between bg-primary text-on-primary">
+<div>
+<h3 class="text-headline-sm font-bold">Chi tiết yêu cầu</h3>
+<p class="text-[11px] opacity-70 uppercase tracking-widest">ID: #APL-102456</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors" onclick="toggleDetailPanel()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Panel Content -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- User Profile Intro -->
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 bg-ocean-blue/10 rounded-2xl flex items-center justify-center text-ocean-blue">
+<span class="material-symbols-outlined text-[32px]">person</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-bold text-primary">Nguyễn Văn Hùng</h4>
+<span class="px-2 py-0.5 bg-error-red/10 text-error-red text-[11px] font-bold rounded uppercase">Yêu cầu mới</span>
+</div>
+</div>
+<!-- Info Grid -->
+<div class="space-y-4">
+<div class="flex items-center gap-4 py-2 border-b border-slate-50">
+<span class="material-symbols-outlined text-outline text-[20px]">call</span>
+<div>
+<p class="text-[11px] text-on-surface-variant uppercase font-bold">Số điện thoại</p>
+<p class="text-body-md font-mono-sm">0901 234 567</p>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-b border-slate-50">
+<span class="material-symbols-outlined text-outline text-[20px]">mail</span>
+<div>
+<p class="text-[11px] text-on-surface-variant uppercase font-bold">Email</p>
+<p class="text-body-md">hung.nv@gmail.com</p>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-b border-slate-50">
+<span class="material-symbols-outlined text-outline text-[20px]">category</span>
+<div>
+<p class="text-[11px] text-on-surface-variant uppercase font-bold">Loại nhu cầu</p>
+<p class="text-body-md text-secondary font-bold">Lọc nước gia đình (Villa/Chung cư)</p>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 border-b border-slate-50">
+<span class="material-symbols-outlined text-outline text-[20px]">event</span>
+<div>
+<p class="text-[11px] text-on-surface-variant uppercase font-bold">Thời gian gửi</p>
+<p class="text-body-md">10:45, Thứ Ba - 24/10/2023</p>
+</div>
+</div>
+</div>
+<!-- Note Content -->
+<div class="bg-slate-50 p-4 rounded-xl border border-border-gray">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold mb-2">Ghi chú từ khách hàng</p>
+<p class="text-body-md italic text-primary leading-relaxed">
+                        "Muốn lắp hệ thống lọc tổng cho căn biệt thự mới hoàn thiện tại Vinhomes Grand Park. Cần đo chất lượng nước đầu vào và tư vấn giải pháp loại bỏ canxi (đóng cặn trắng) hiệu quả. Ưu tiên các dòng máy nhập khẩu cao cấp."
+                    </p>
+</div>
+<!-- Internal AI Summary (Special Branding) -->
+<div class="p-4 rounded-xl bg-gradient-to-br from-primary to-deep-blue text-white relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+<p class="text-[11px] font-bold uppercase tracking-wider">APLUS AI Phân tích</p>
+</div>
+<p class="text-body-sm opacity-90">Khách hàng có tiềm năng cao (High Value). Nhu cầu cụ thể là lọc tổng biệt thự, phân khúc cao cấp. Gợi ý dòng: <strong>APLUS Luxury S3</strong>.</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[80px]">water_drop</span>
+</div>
+</div>
+</div>
+<!-- Panel Footer -->
+<div class="p-6 border-t border-border-gray bg-white grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 bg-white border border-border-gray text-primary px-4 py-3 rounded-lg font-bold hover:bg-slate-50 transition-all">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+                    Lưu trữ
+                </button>
+<button class="flex items-center justify-center gap-2 bg-ocean-blue text-white px-4 py-3 rounded-lg font-bold hover:bg-primary transition-all shadow-md">
+<span class="material-symbols-outlined text-[20px]">reply</span>
+                    Phản hồi
+                </button>
+</div>
+</div>
+</div>
+<script>
+        function toggleDetailPanel() {
+            const panel = document.getElementById('detailPanel');
+            if (panel.classList.contains('translate-x-0')) {
+                panel.classList.remove('translate-x-0');
+                panel.classList.add('translate-x-full');
+            } else {
+                panel.classList.remove('translate-x-full');
+                panel.classList.add('translate-x-0');
+            }
+        }
+
+        // Initialize panel state on mobile if needed, though this is desktop-first
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 1024) {
+                // Potential responsive adjustments
+            }
+        });
+    </script>
+</body></html>

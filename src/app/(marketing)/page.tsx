@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma"
 import { Hero } from "@/components/sections/hero"
 import { Usps } from "@/components/sections/usps"
 import { Categories } from "@/components/sections/categories"
@@ -8,17 +9,41 @@ import { Services } from "@/components/sections/services"
 import { BlogTestimonials } from "@/components/sections/blog-testimonials"
 import { Cta } from "@/components/sections/cta"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const products = await prisma.product.findMany({
+    where: { published: true },
+    orderBy: { order: "asc" },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      description: true,
+      price: true,
+      priceOriginal: true,
+      category: true,
+      image: true,
+      badge: true,
+      featured: true,
+    },
+  })
+
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+    include: { category: true },
+  })
+
   return (
     <>
       <Hero />
       <Usps />
       <Categories />
-      <FeaturedProducts />
+      <FeaturedProducts products={products} />
       <Stats />
       <Projects />
       <Services />
-      <BlogTestimonials />
+      <BlogTestimonials posts={posts} />
       <Cta />
     </>
   )

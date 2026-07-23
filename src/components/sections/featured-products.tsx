@@ -7,9 +7,21 @@ import { Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { SocialButtons } from "@/components/ui/social-buttons"
-import { MOCK_PRODUCTS } from "@/lib/mock-data"
 import { SITE_CONFIG } from "@/lib/constants"
 import { cn } from "@/lib/utils"
+
+interface ProductItem {
+  id: string
+  slug: string
+  name: string
+  description: string | null
+  price: string | null
+  priceOriginal: string | null
+  category: string | null
+  image: string | null
+  badge: string | null
+  featured: boolean
+}
 
 const TABS = [
   { key: "all", label: "Tất cả" },
@@ -18,10 +30,10 @@ const TABS = [
   { key: "loi-loc-nuoc", label: "Lõi lọc" },
 ]
 
-export function FeaturedProducts() {
+export function FeaturedProducts({ products }: { products: ProductItem[] }) {
   const [tab, setTab] = useState<string>("all")
 
-  const products = MOCK_PRODUCTS.filter(
+  const filtered = products.filter(
     (p) => tab === "all" || p.category === tab
   ).slice(0, 8)
 
@@ -54,7 +66,7 @@ export function FeaturedProducts() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {products.map((p) => (
+          {filtered.map((p) => (
             <div
               key={p.id}
               className="group flex flex-col bg-white rounded-lg overflow-hidden border border-transparent hover:border-[#006EF5] transition-all"
@@ -67,13 +79,15 @@ export function FeaturedProducts() {
                       {p.badge}
                     </span>
                   )}
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-contain p-4 group-hover:scale-105 transition-transform"
-                  />
+                  {p.image && (
+                    <Image
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-contain p-4 group-hover:scale-105 transition-transform"
+                    />
+                  )}
                 </div>
 
                 {/* Info */}
@@ -81,7 +95,7 @@ export function FeaturedProducts() {
                   <h3 className="text-sm font-bold text-[#111827] line-clamp-2 min-h-[2.5rem] group-hover:text-[#006EF5] transition-colors">
                     {p.name}
                   </h3>
-                  <p className="text-xs text-gray-500 line-clamp-2 min-h-[2rem]">{p.excerpt}</p>
+                  <p className="text-xs text-gray-500 line-clamp-2 min-h-[2rem]">{p.description}</p>
                   <div className="flex items-center gap-2 pt-1">
                     <span className="text-base font-bold text-[#102590]">{p.price}đ</span>
                     {p.priceOriginal && (
@@ -91,7 +105,7 @@ export function FeaturedProducts() {
                 </div>
               </Link>
 
-              {/* Contact + social — conversion channels */}
+              {/* Contact + social */}
               <div className="mt-auto px-4 pb-4 pt-3">
                 <a
                   href={SITE_CONFIG.zaloUrl}

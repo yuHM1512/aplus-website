@@ -4,7 +4,8 @@ import type { Metadata } from "next"
 import { ChevronRight, Search, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SocialButtons } from "@/components/ui/social-buttons"
-import { MOCK_CATEGORIES, MOCK_PRODUCTS } from "@/lib/mock-data"
+import { prisma } from "@/lib/prisma"
+import { PRODUCT_CATEGORIES } from "@/lib/static-data"
 import { SITE_CONFIG } from "@/lib/constants"
 
 export const metadata: Metadata = {
@@ -19,9 +20,16 @@ export default async function ProductsPage({
 }) {
   const params = await searchParams
   const activeCat = params.cat
-  const products = activeCat
-    ? MOCK_PRODUCTS.filter((p) => p.category === activeCat)
-    : MOCK_PRODUCTS
+
+  const products = await prisma.product.findMany({
+    where: {
+      published: true,
+      ...(activeCat ? { category: activeCat } : {}),
+    },
+    orderBy: { order: "asc" },
+  })
+
+  const totalCount = await prisma.product.count({ where: { published: true } })
 
   return (
     <>
@@ -65,10 +73,10 @@ export default async function ProductsPage({
                       }`}
                     >
                       <span>Tất cả</span>
-                      <span className="text-xs">{MOCK_PRODUCTS.length}</span>
+                      <span className="text-xs">{totalCount}</span>
                     </Link>
                   </li>
-                  {MOCK_CATEGORIES.map((cat) => (
+                  {PRODUCT_CATEGORIES.map((cat) => (
                     <li key={cat.slug}>
                       <Link
                         href={`/products?cat=${cat.slug}`}
@@ -126,17 +134,19 @@ export default async function ProductsPage({
                             {p.badge}
                           </span>
                         )}
-                        <Image
-                          src={p.image}
-                          alt={p.name}
-                          fill
-                          sizes="(max-width: 768px) 50vw, 33vw"
-                          className="object-contain p-4 group-hover:scale-105 transition-transform"
-                        />
+                        {p.image && (
+                          <Image
+                            src={p.image}
+                            alt={p.name}
+                            fill
+                            sizes="(max-width: 768px) 50vw, 33vw"
+                            className="object-contain p-4 group-hover:scale-105 transition-transform"
+                          />
+                        )}
                       </div>
                       <div className="px-4 pt-4">
                         <span className="text-[10px] font-bold uppercase text-[#006EF5] bg-[#B5DBFF] px-2 py-0.5 rounded">
-                          {p.categoryName}
+                          {p.categoryName || p.category}
                         </span>
                         <h3 className="mt-2 text-sm font-bold text-[#111827] line-clamp-2 min-h-[2.5rem] group-hover:text-[#006EF5] transition-colors">
                           {p.name}
@@ -150,7 +160,7 @@ export default async function ProductsPage({
                       </div>
                     </Link>
 
-                    {/* Contact + social buttons — conversion channels */}
+                    {/* Contact + social buttons */}
                     <div className="mt-auto px-4 pb-4 pt-3">
                       <a
                         href={SITE_CONFIG.zaloUrl}

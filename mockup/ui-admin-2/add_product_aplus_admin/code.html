@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thêm sản phẩm mới | APLUS Technologies Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Courier+Prime&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            border-left: 4px solid #006EF5;
+        }
+        /* Custom scrollbar for better data density look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .tiptap-toolbar-sticky {
+            position: sticky;
+            top: 64px; /* Height of TopNavBar */
+            z-index: 30;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#420a00",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#3c0800",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#d9e2ff",
+                        "border-gray": "#E2E8F0",
+                        "inverse-primary": "#bbc3ff",
+                        "primary": "#001167",
+                        "surface-gray": "#F8FAFC",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4454bc",
+                        "outline-variant": "#c5c5d5",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ffb4a1",
+                        "on-primary-fixed-variant": "#293ba3",
+                        "outline": "#757684",
+                        "on-surface": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#000e5e",
+                        "warning-amber": "#F59E0B",
+                        "on-tertiary-container": "#f27a5b",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#681500",
+                        "primary-fixed": "#dee0ff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#0056c3",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#102590",
+                        "tertiary-fixed": "#ffdbd2",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#bbc3ff",
+                        "on-surface-variant": "#454653",
+                        "surface-variant": "#d3e4fe",
+                        "deep-blue": "#102590",
+                        "secondary-fixed-dim": "#afc6ff",
+                        "on-tertiary-fixed-variant": "#82270f",
+                        "surface-dim": "#cbdbf5",
+                        "success-green": "#10B981",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001944",
+                        "on-secondary-fixed-variant": "#004299",
+                        "background": "#f8f9ff",
+                        "ocean-blue": "#006EF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#006ef4",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#8495ff",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.6rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-lg": "1.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "container-padding": "2rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "mono-sm": ["Courier Prime"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "mono-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-gray text-on-surface font-body-md overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-full w-[260px] fixed left-0 top-0 z-50 bg-primary dark:bg-primary border-r border-outline-variant/10">
+<div class="px-6 py-8">
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-primary">APLUS Tech</h1>
+<p class="text-label-sm font-label-sm text-on-primary/60 tracking-wider">ADMIN PORTAL</p>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-on-primary border-l-4 border-ocean-blue transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="text-label-md font-label-md">Posts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">contact_page</span>
+<span class="text-label-md font-label-md">Contacts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-white/10 p-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-[sidebar-width] w-[calc(100%-260px)] min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center h-16 w-full px-gutter bg-surface-container-lowest sticky top-0 z-40 border-b border-border-gray shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-body-sm focus:ring-2 focus:ring-ocean-blue/20" placeholder="Tìm kiếm sản phẩm, đơn hàng..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-[1px] bg-border-gray mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-label-md text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Quản trị viên</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-border-gray object-cover" data-alt="A professional studio portrait of a corporate technology administrator, middle-aged with a friendly expression, wearing a crisp white shirt and a navy blue blazer. The background is a blurred, high-end office environment with cool blue lighting and minimalist architecture, reflecting a modern and systematic corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH3tMge44X3iQ79KPSBcMc67EloPHKE7OO2bFyKHbPP5BttZ6udZAPxOnHKUi75vJR8UmneHtdqTyFcnM4hRRbVAkZ9KCbzsNAoOATmRaVlmwgdtZ4Py1xMt8nGfkze7S4Qa-Gye7agpvUOZWxrLiILsgxlB5LPo87GScNqwtiTeleTpx5Aimn7i-h95gv7eTu2gY60jpHPDu8-G4G3TK7PnDIh_Ys_H7JBUh8nq0aeprEbl6Aco8B"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 p-container-padding max-w-[1600px]">
+<!-- Breadcrumb -->
+<nav class="mb-6 flex items-center gap-2 text-body-sm text-on-surface-variant">
+<a class="hover:text-ocean-blue transition-colors" href="#">Sản phẩm</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-ocean-blue transition-colors" href="#">Danh sách</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface font-semibold">Thêm sản phẩm mới</span>
+</nav>
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Thêm sản phẩm mới</h2>
+<p class="text-on-surface-variant mt-1">Điền đầy đủ thông tin bên dưới để đăng tải sản phẩm lên hệ thống.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 border border-border-gray bg-white rounded-lg text-label-md font-label-md hover:bg-surface-gray transition-all">Hủy bỏ</button>
+<button class="px-6 py-2.5 bg-gradient-to-r from-ocean-blue to-deep-blue text-white rounded-lg text-label-md font-label-md shadow-sm hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                        Kiểm tra bằng AI
+                    </button>
+</div>
+</div>
+<!-- Form Layout (60/40) -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-gutter items-start">
+<!-- Left Column (60%) -->
+<div class="lg:col-span-6 space-y-6">
+<!-- Basic Info Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">info</span>
+                            Thông tin cơ bản
+                        </h3>
+<div class="space-y-stack-lg">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Tên sản phẩm</label>
+<input class="w-full border-border-gray rounded-lg text-body-md focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5" id="productName" type="text" value="Máy lọc nước RO APLUS Premium 10 cấp"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Đường dẫn (Slug)</label>
+<div class="flex">
+<span class="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-border-gray bg-surface-gray text-on-surface-variant text-body-sm">
+                                            aplus.vn/p/
+                                        </span>
+<input class="w-full border-border-gray rounded-r-lg text-body-md focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5" id="productSlug" type="text" value="may-loc-nuoc-ro-aplus-premium-10-cap"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Danh mục</label>
+<select class="w-full border-border-gray rounded-lg text-body-md focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5">
+<option>Máy lọc nước RO</option>
+<option>Máy lọc nước Nano</option>
+<option>Hệ thống lọc tổng</option>
+<option>Linh kiện &amp; Lõi lọc</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Mô tả ngắn</label>
+<textarea class="w-full border-border-gray rounded-lg text-body-md focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5" placeholder="Tóm tắt ngắn gọn các ưu điểm chính của sản phẩm..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Rich Text Editor Card -->
+<section class="bg-white border border-border-gray rounded-lg overflow-hidden shadow-sm">
+<div class="p-6 border-b border-border-gray">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">description</span>
+                                Mô tả chi tiết
+                            </h3>
+</div>
+<div class="tiptap-toolbar-sticky bg-surface-container-low border-b border-border-gray px-4 py-2 flex flex-wrap gap-1">
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="Bold"><span class="material-symbols-outlined text-[20px]">format_bold</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="Italic"><span class="material-symbols-outlined text-[20px]">format_italic</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="Underline"><span class="material-symbols-outlined text-[20px]">format_underlined</span></button>
+<div class="w-[1px] bg-border-gray mx-1"></div>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="H1"><span class="material-symbols-outlined text-[20px]">format_h1</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="H2"><span class="material-symbols-outlined text-[20px]">format_h2</span></button>
+<div class="w-[1px] bg-border-gray mx-1"></div>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="List"><span class="material-symbols-outlined text-[20px]">format_list_bulleted</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="Link"><span class="material-symbols-outlined text-[20px]">link</span></button>
+<button class="p-1.5 hover:bg-white rounded transition-colors" title="Image"><span class="material-symbols-outlined text-[20px]">image</span></button>
+<button class="ml-auto p-1.5 text-ocean-blue hover:bg-ocean-blue/10 rounded transition-colors font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                                AI Writer
+                            </button>
+</div>
+<div class="p-6 min-h-[400px] text-body-md prose prose-slate max-w-none">
+<h4 class="font-bold text-headline-sm mb-4">Đặc điểm nổi bật</h4>
+<p class="mb-4">Máy lọc nước RO APLUS Premium 10 cấp tích hợp công nghệ lọc tiên tiến hàng đầu, mang lại nguồn nước tinh khiết đạt chuẩn Bộ Y Tế cho gia đình bạn.</p>
+<ul class="list-disc pl-5 space-y-2 mb-4">
+<li><strong>Hệ thống 10 lõi lọc:</strong> Loại bỏ hoàn toàn tạp chất, vi khuẩn và bổ sung khoáng chất cần thiết.</li>
+<li><strong>Công suất mạnh mẽ:</strong> 10L/h đáp ứng nhu cầu sử dụng của gia đình từ 4-6 người.</li>
+<li><strong>Thiết kế sang trọng:</strong> Vỏ tủ kính cường lực cao cấp, phù hợp mọi không gian nội thất.</li>
+<li><strong>Tiết kiệm điện năng:</strong> Tự động ngắt khi nước đầy, kéo dài tuổi thọ máy.</li>
+</ul>
+<div class="bg-surface-gray p-4 rounded-lg border-l-4 border-ocean-blue">
+<p class="italic text-on-surface-variant">Ghi chú: Sản phẩm đã bao gồm bộ lắp đặt và bảo hành 24 tháng chính hãng tại nhà.</p>
+</div>
+</div>
+</section>
+<!-- Technical Specs Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">settings_input_component</span>
+                                Thông số kỹ thuật
+                            </h3>
+<button class="text-ocean-blue text-label-md font-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                                Thêm thông số
+                            </button>
+</div>
+<div class="space-y-3">
+<div class="flex gap-4 items-center p-3 bg-surface-gray rounded-lg border border-border-gray/50 group">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-label-md font-bold" type="text" value="Công suất"/>
+<div class="w-[1px] h-6 bg-border-gray"></div>
+<input class="flex-[2] bg-transparent border-none focus:ring-0 text-body-md" type="text" value="10L/H"/>
+<button class="text-on-surface-variant/40 group-hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex gap-4 items-center p-3 bg-surface-gray rounded-lg border border-border-gray/50 group">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-label-md font-bold" type="text" value="Số cấp lọc"/>
+<div class="w-[1px] h-6 bg-border-gray"></div>
+<input class="flex-[2] bg-transparent border-none focus:ring-0 text-body-md" type="text" value="10 cấp"/>
+<button class="text-on-surface-variant/40 group-hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<div class="flex gap-4 items-center p-3 bg-surface-gray rounded-lg border border-border-gray/50 group">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-label-md font-bold" type="text" value="Kích thước"/>
+<div class="w-[1px] h-6 bg-border-gray"></div>
+<input class="flex-[2] bg-transparent border-none focus:ring-0 text-body-md" type="text" value="430 x 340 x 950 (mm)"/>
+<button class="text-on-surface-variant/40 group-hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (40%) -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Status & Publishing Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">publish</span>
+                            Trạng thái &amp; Hiển thị
+                        </h3>
+<div class="space-y-stack-lg">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Trạng thái xuất bản</label>
+<select class="w-full border-border-gray rounded-lg text-body-md focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5">
+<option value="published">Đã xuất bản (Công khai)</option>
+<option selected="" value="draft">Bản nháp</option>
+<option value="hidden">Lưu trữ (Ẩn)</option>
+</select>
+</div>
+<div class="flex items-center justify-between py-2 border-y border-border-gray/30">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md">Sản phẩm nổi bật</span>
+<span class="text-body-sm text-on-surface-variant">Hiển thị tại trang chủ</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-border-gray peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-ocean-blue/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ocean-blue"></div>
+</label>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-4">
+<button class="w-full py-2.5 border border-border-gray bg-white rounded-lg text-label-md font-label-md hover:bg-surface-gray transition-all">Lưu nháp</button>
+<button class="w-full py-2.5 bg-ocean-blue text-white rounded-lg text-label-md font-label-md shadow-md hover:bg-deep-blue transition-all">Xuất bản</button>
+</div>
+</div>
+</section>
+<!-- Pricing Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">sell</span>
+                            Giá sản phẩm
+                        </h3>
+<div class="space-y-stack-md">
+<div class="space-y-2">
+<label class="text-label-md font-label-md text-on-surface">Giá gốc (đ)</label>
+<input class="w-full border-border-gray rounded-lg text-headline-sm font-headline-sm text-on-surface-variant focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5" type="text" value="8.500.000"/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between">
+<label class="text-label-md font-label-md text-on-surface">Giá khuyến mãi (đ)</label>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container rounded text-label-sm font-bold">-15%</span>
+</div>
+<input class="w-full border-ocean-blue/30 bg-ocean-blue/[0.02] rounded-lg text-headline-sm font-headline-sm text-ocean-blue focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2.5" type="text" value="7.200.000"/>
+</div>
+<p class="text-body-sm text-on-surface-variant italic mt-2">Lợi nhuận ước tính: +1.500.000đ per unit</p>
+</div>
+</section>
+<!-- Product Images Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">image</span>
+                                Ảnh sản phẩm
+                            </h3>
+<span class="text-body-sm text-on-surface-variant">3 / 10 ảnh</span>
+</div>
+<div class="grid grid-cols-3 gap-3 mb-4">
+<div class="relative aspect-square group">
+<img class="w-full h-full object-cover rounded-lg border border-border-gray" data-alt="A clean, high-resolution product studio photograph of a modern upright water filtration system cabinet. The unit is tall and slim with a premium black tempered glass front, minimalist silver handles, and a sleek faucet. It is set against a pure white background with soft professional shadows, showcasing its corporate and high-tech design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIG1vXmkZjcQGPmgEIauVet1Op_IkEydHIpZmGyXBrP9pk0zki0UWgYtNQPgixnSjIV5EfSXtPcCTiVW28mvXhhcEPuO7t7j4nCatg2oxOcsLfuDARr8vNUqa1UriKlrcKx61NEg1tcHb_UTDZ2kT8_zU0COeGKDNilXgRehoh6tETXZTrgCdU2rnwgjRmv5jnyks-C5D5KzZKs2CPqC1ymADsS6NfWVXRSyv5rjO0aRuzx09T5fQI"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+<button class="p-1 bg-white rounded-full text-error-red"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+<button class="p-1 bg-white rounded-full text-on-surface"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+</div>
+<div class="absolute top-1 left-1 px-1.5 py-0.5 bg-ocean-blue text-white text-[10px] rounded font-bold">Chính</div>
+</div>
+<div class="relative aspect-square group">
+<img class="w-full h-full object-cover rounded-lg border border-border-gray" data-alt="A detailed close-up shot of the internal filtration components of a premium RO water system. Focus is on the meticulously arranged 10 stages of colorful filter cartridges connected by clean white piping. The lighting is bright and technical, highlighting the high-quality industrial materials and systematic engineering of APLUS Technologies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdP9NZemM7R7YEB0f81M0oPdkbSDFLhJLjNwJnsowxZwT60-KlfF8R86wQC74gDcbe5uDAjHsSckbBC6wCaSRLjJAqthakC0d9i46mbhvS3UkMRhTTZtqhcefDwPUHqGbT3BwuOpMlVGhzU8nfLRr7Sy3uO5jrg5NxK90fj__LCZlLOXGXxV1bldtvrS_RvSToDyItMo70nwRltD4x8pUraNSnxFy81TYr2fcXbHE_pBPwuxNx8_9r"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+<button class="p-1 bg-white rounded-full text-error-red"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="relative aspect-square group">
+<img class="w-full h-full object-cover rounded-lg border border-border-gray" data-alt="An aesthetic lifestyle photograph of a sleek APLUS water filtration unit standing gracefully in a modern, bright kitchen corner with marble countertops and minimalist wooden cabinets. Soft natural daylight streams from a nearby window, creating an inviting and premium household atmosphere. The style is professional, airy, and high-end." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEB-qJec3KQwGtXaYmQn0CmlN66eSitmcu2HBkWO59uk-4aV6kQWhrXd8ztzunCMQSI974rSaBwkZEQBvIlpjIVB_eTGWhVLHNDyzrE75l0-MQQfk8p6CvJdL9HZdproAY2dB0HoWUtYip079EZ6FNhBHwqo5NYzR46Iqq9uTLG5rXmBtzV9rCWu_RusK9uW-QfaS1hprUULG7soxdMx-GpwnmJfRAumNvSAy_1fZIFsu7VrB0YjD7"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+<button class="p-1 bg-white rounded-full text-error-red"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<div class="border-2 border-dashed border-border-gray rounded-lg p-6 flex flex-col items-center justify-center hover:border-ocean-blue hover:bg-ocean-blue/[0.02] cursor-pointer transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px] mb-2">cloud_upload</span>
+<span class="text-label-md font-label-md text-on-surface">Kéo thả hoặc Click để tải lên</span>
+<span class="text-[11px] text-on-surface-variant mt-1">PNG, JPG tối đa 5MB.</span>
+</div>
+</section>
+<!-- Tags & Badges Card -->
+<section class="bg-white border border-border-gray rounded-lg p-6 shadow-sm">
+<h3 class="text-headline-sm font-headline-sm mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-ocean-blue">label</span>
+                            Tags / Badges
+                        </h3>
+<div class="space-y-4">
+<div class="relative">
+<input class="w-full border-border-gray rounded-lg text-body-sm focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/10 px-4 py-2" placeholder="Tìm hoặc thêm tag mới..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full text-label-sm text-secondary font-bold">
+                                    Mới nhất
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full text-label-sm text-secondary font-bold">
+                                    Bán chạy
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full text-label-sm text-secondary font-bold">
+                                    Đạt chuẩn BYT
+                                    <button class="material-symbols-outlined text-[14px]">close</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-gray border border-border-gray rounded-full text-label-sm text-on-surface-variant hover:border-ocean-blue hover:text-ocean-blue transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                                    Năng lượng xanh
+                                </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-gray border border-border-gray rounded-full text-label-sm text-on-surface-variant hover:border-ocean-blue hover:text-ocean-blue transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                                    Tiết kiệm điện
+                                </span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Floating Save Bar (Mobile/Bottom) -->
+<div class="fixed bottom-6 right-6 flex flex-col gap-2 pointer-events-none sm:pointer-events-auto">
+<!-- The Floating Action Button contextually hidden but available if needed for specific triggers -->
+</div>
+</main>
+<footer class="p-6 text-center text-body-sm text-on-surface-variant border-t border-border-gray/30 bg-white/50 backdrop-blur-sm">
+            © 2024 APLUS Technologies. Hệ thống quản trị nội dung thông minh.
+        </footer>
+</div>
+<script>
+        // Micro-interactions and Slug auto-generation
+        document.getElementById('productName').addEventListener('input', function(e) {
+            const name = e.target.value;
+            const slugInput = document.getElementById('productSlug');
+            
+            // Simple slugify for demonstration
+            const slug = name.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[đĐ]/g, 'd')
+                .replace(/([^a-z0-9\s-]|[\t\n\r])/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            
+            slugInput.value = slug;
+        });
+
+        // Toggle focus highlighting for cards
+        document.querySelectorAll('section').forEach(card => {
+            card.addEventListener('focusin', () => {
+                card.classList.add('ring-2', 'ring-ocean-blue/5', 'border-ocean-blue/20');
+            });
+            card.addEventListener('focusout', () => {
+                card.classList.remove('ring-2', 'ring-ocean-blue/5', 'border-ocean-blue/20');
+            });
+        });
+    </script>
+</body></html>

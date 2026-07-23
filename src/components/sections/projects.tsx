@@ -3,10 +3,10 @@ import Image from "next/image"
 import { MapPin, ArrowRight } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { MOCK_PROJECTS } from "@/lib/mock-data"
+import { PROJECTS } from "@/lib/static-data"
 
 export function Projects() {
-  const projects = MOCK_PROJECTS.slice(0, 6)
+  const projects = PROJECTS.slice(0, 6)
 
   return (
     <section className="bg-white py-20">

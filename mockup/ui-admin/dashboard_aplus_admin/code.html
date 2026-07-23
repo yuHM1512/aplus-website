@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APLUS Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Courier+Prime&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9ff",
+                    "on-tertiary-fixed-variant": "#82270f",
+                    "error-container": "#ffdad6",
+                    "surface-gray": "#F8FAFC",
+                    "inverse-surface": "#213145",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#8495ff",
+                    "surface-container": "#e5eeff",
+                    "error-red": "#EF4444",
+                    "secondary-container": "#006ef4",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-variant": "#d3e4fe",
+                    "border-gray": "#E2E8F0",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary-container": "#f27a5b",
+                    "on-surface-variant": "#454653",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline": "#757684",
+                    "deep-blue": "#102590",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#bbc3ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface": "#0b1c30",
+                    "tertiary-fixed": "#ffdbd2",
+                    "surface-container-low": "#eff4ff",
+                    "secondary": "#0056c3",
+                    "on-tertiary-fixed": "#3c0800",
+                    "tertiary-container": "#681500",
+                    "tertiary": "#420a00",
+                    "warning-amber": "#F59E0B",
+                    "primary-container": "#102590",
+                    "tertiary-fixed-dim": "#ffb4a1",
+                    "on-secondary-fixed": "#001944",
+                    "on-background": "#0b1c30",
+                    "on-secondary-container": "#fefcff",
+                    "secondary-fixed": "#d9e2ff",
+                    "on-primary-fixed-variant": "#293ba3",
+                    "ocean-blue": "#006EF5",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed": "#dee0ff",
+                    "success-green": "#10B981",
+                    "primary-fixed-dim": "#bbc3ff",
+                    "outline-variant": "#c5c5d5",
+                    "on-primary-fixed": "#000e5e",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed-dim": "#afc6ff",
+                    "on-secondary-fixed-variant": "#004299",
+                    "primary": "#001167",
+                    "surface-tint": "#4454bc",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "260px",
+                    "stack-lg": "1.5rem",
+                    "gutter": "1.5rem",
+                    "stack-md": "1rem",
+                    "stack-sm": "0.5rem",
+                    "container-padding": "2rem"
+            },
+            "fontFamily": {
+                    "mono-sm": ["Courier Prime"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "mono-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Scrollbar for modern look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-surface-gray text-on-surface">
+<!-- SideNavBar Integration -->
+<aside class="flex flex-col h-full w-[260px] fixed left-0 top-0 z-50 bg-primary dark:bg-primary border-r border-outline-variant/10">
+<div class="p-6 mb-4">
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-primary">APLUS Tech</h1>
+<p class="text-label-md font-label-md text-on-primary/60">Admin Portal</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-on-primary border-l-4 border-ocean-blue transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+<span class="text-label-md font-label-md">Posts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="contact_page">contact_page</span>
+<span class="text-label-md font-label-md">Contacts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar Integration -->
+<header class="flex justify-between items-center h-16 w-[calc(100%-260px)] ml-[260px] px-gutter bg-white sticky top-0 z-40 shadow-sm border-b border-border-gray">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-body-sm focus:ring-2 focus:ring-ocean-blue/20" placeholder="Tìm kiếm nội dung..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="relative hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error-red rounded-full"></span>
+</button>
+<button class="hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-border-gray"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-body-sm font-bold text-on-surface">Administrator</p>
+<p class="text-[11px] text-on-surface-variant">Quản trị viên</p>
+</div>
+<img class="h-10 w-10 rounded-full border-2 border-ocean-blue/10 object-cover" data-alt="A professional headshot of a middle-aged tech administrator with a friendly expression, wearing a navy blue polo shirt, set against a clean, softly blurred modern office interior with corporate lighting and professional light-mode colors. The aesthetic is clean, sharp, and systematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJP3gyT29RLk2tkn8qp324dTlC5Q436T2EH592Ylkml8HgxbV1g8EXRGDf3V4FfQ8vnQwTBkZ16MzgxErLTHTa-nnn_KFkqO8njTIPjm0-4pUnSv2QxwCPy7enWRxK9tbOwY50WiJjEZ0Y-PRk4EEXY2uPDw_gcoyEYTP_pAfB1He3phN-UyKBWU7gNXq6zh4SOJXfNLIFllPVMgl2KA-d6O_v1GOBwblu5chXIT347DDLN5H-tZ2Z"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] p-container-padding max-w-[1600px]">
+<!-- Welcome Header -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-deep-blue mb-1">Chào mừng, Admin</h2>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="text-body-md" id="current-date"></span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-border-gray rounded-lg text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                    Tải báo cáo
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-ocean-blue to-deep-blue text-white rounded-lg text-label-md shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                    AI Insights
+                </button>
+</div>
+</div>
+<!-- Row of 4 Stat Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<!-- Stat 1 -->
+<div class="bg-white p-6 border border-border-gray rounded-xl shadow-sm hover:border-ocean-blue/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-low rounded-lg group-hover:bg-ocean-blue/5 transition-colors">
+<span class="material-symbols-outlined text-ocean-blue">inventory_2</span>
+</div>
+<span class="text-success-green text-label-sm font-bold flex items-center">
+                        +8% <span class="material-symbols-outlined text-[14px]">trending_up</span>
+</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface">125</h3>
+<p class="text-body-sm text-on-surface-variant">Tổng sản phẩm</p>
+</div>
+<!-- Stat 2 -->
+<div class="bg-white p-6 border border-border-gray rounded-xl shadow-sm hover:border-ocean-blue/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-low rounded-lg group-hover:bg-ocean-blue/5 transition-colors">
+<span class="material-symbols-outlined text-ocean-blue">article</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-label-sm text-on-surface-variant"><span class="font-bold text-success-green">38</span> Pub</span>
+<span class="text-label-sm text-on-surface-variant"><span class="font-bold text-warning-amber">4</span> Draft</span>
+</div>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface">42</h3>
+<p class="text-body-sm text-on-surface-variant">Tổng bài viết</p>
+</div>
+<!-- Stat 3 -->
+<div class="bg-white p-6 border border-border-gray rounded-xl shadow-sm hover:border-ocean-blue/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-low rounded-lg group-hover:bg-ocean-blue/5 transition-colors">
+<span class="material-symbols-outlined text-ocean-blue">mail</span>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded uppercase">Mới</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface">12</h3>
+<p class="text-body-sm text-on-surface-variant">Form liên hệ mới</p>
+</div>
+<!-- Stat 4 -->
+<div class="bg-white p-6 border border-border-gray rounded-xl shadow-sm hover:border-ocean-blue/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-low rounded-lg group-hover:bg-ocean-blue/5 transition-colors">
+<span class="material-symbols-outlined text-ocean-blue">poll</span>
+</div>
+<span class="text-on-surface-variant text-label-sm">Tháng này</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg text-on-surface">85</h3>
+<p class="text-body-sm text-on-surface-variant">Lượt khảo sát</p>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left Col (70%): Table of 5 most recent posts -->
+<div class="lg:w-[70%] bg-white border border-border-gray rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-gutter border-b border-border-gray flex justify-between items-center bg-white">
+<h3 class="text-headline-sm font-headline-sm text-deep-blue">Bài viết gần đây</h3>
+<a class="text-label-md text-ocean-blue hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-gray border-b border-border-gray">
+<tr>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Tiêu đề bài viết</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Danh mục</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider">Ngày đăng</th>
+<th class="px-6 py-4 text-label-sm font-bold text-on-surface-variant uppercase tracking-wider text-center">Trạng thái</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-gray">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-body-md font-bold text-on-surface">Hệ thống lọc nước Nano APLUS Gen 5</p>
+<p class="text-[11px] text-on-surface-variant">ID: #POST-992</p>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Công nghệ</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">24/07/2026</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green/10 text-success-green">Published</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-body-md font-bold text-on-surface">Giải pháp nước sạch cho trường học</p>
+<p class="text-[11px] text-on-surface-variant">ID: #POST-991</p>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Giải pháp</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">22/07/2026</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green/10 text-success-green">Published</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-body-md font-bold text-on-surface">Cách thay lõi lọc nước định kỳ</p>
+<p class="text-[11px] text-on-surface-variant">ID: #POST-989</p>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Hướng dẫn</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">20/07/2026</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-amber/10 text-warning-amber">Draft</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-body-md font-bold text-on-surface">Tin tức APLUS: Mở rộng thị trường miền Bắc</p>
+<p class="text-[11px] text-on-surface-variant">ID: #POST-988</p>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Sự kiện</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">18/07/2026</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green/10 text-success-green">Published</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<p class="text-body-md font-bold text-on-surface">Review máy lọc nước kiềm APLUS Pro</p>
+<p class="text-[11px] text-on-surface-variant">ID: #POST-985</p>
+</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">Đánh giá</td>
+<td class="px-6 py-4 text-body-md text-on-surface-variant">15/07/2026</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green/10 text-success-green">Published</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Col (30%): Quick Actions vertical list -->
+<div class="lg:w-[30%] space-y-gutter">
+<div class="bg-white border border-border-gray rounded-xl shadow-sm p-6">
+<h3 class="text-headline-sm font-headline-sm text-deep-blue mb-4">Thao tác nhanh</h3>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-low hover:bg-ocean-blue hover:text-white rounded-lg transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ocean-blue group-hover:text-white">add_circle</span>
+<span class="text-label-md font-bold">Tạo bài viết mới</span>
+</div>
+<span class="material-symbols-outlined text-[18px] opacity-50">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-low hover:bg-ocean-blue hover:text-white rounded-lg transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ocean-blue group-hover:text-white">post_add</span>
+<span class="text-label-md font-bold">Thêm sản phẩm</span>
+</div>
+<span class="material-symbols-outlined text-[18px] opacity-50">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-low hover:bg-ocean-blue hover:text-white rounded-lg transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-ocean-blue group-hover:text-white">forum</span>
+<span class="text-label-md font-bold">Xem form liên hệ</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-error-red text-white text-[10px] font-bold rounded-full">12</span>
+<span class="material-symbols-outlined text-[18px] opacity-50">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<!-- AI Quick Analytics (Extra Polish) -->
+<div class="relative rounded-xl overflow-hidden p-6 bg-deep-blue text-white shadow-lg h-[240px] flex flex-col justify-end">
+<div class="absolute inset-0 z-0 opacity-20">
+<div class="w-full h-full bg-cover bg-center" data-alt="A sophisticated abstract technological background featuring complex blue neural networks and flowing light trails, representing artificial intelligence and data connectivity. The style is modern, dark corporate navy, with clean digital patterns and a sense of high-performance computation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBh-CefBOTltkzM9m231tsoawczC9sjkyKg9lmGvKe1gifeHFgKKk_up3FJ40tBsRxPB5XhomMUgqlMVe32k79E4o_0QjoJ4caFJY__ViKRLARsge27AAi6hGLsOW-c14MUJyg2Jdrfn44osd5Vx_Ksn-6VJDhkx5qbojuzOmJM12zN1L2U3qz1Jy_uOG36RYJzvVEFilUIejKxL8uy5aPFgZwQP0O3Tz_RskXz_Xd1M4VNwhIhuN6h')"></div>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-ocean-blue">auto_awesome</span>
+<p class="text-label-sm font-bold tracking-widest uppercase">Hỗ trợ bởi AI</p>
+</div>
+<p class="text-headline-sm font-headline-sm mb-2">Lượng truy cập dự kiến tăng 15%</p>
+<p class="text-body-sm text-white/70 mb-4">Dựa trên xu hướng tìm kiếm máy lọc nước Nano tuần này.</p>
+<button class="text-label-md font-bold flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            Khám phá thêm <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Set dynamic today date
+        const dateEl = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateEl.textContent = new Date().toLocaleDateString('vi-VN', options);
+
+        // Simple micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.98)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

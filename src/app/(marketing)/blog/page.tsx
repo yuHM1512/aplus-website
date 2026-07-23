@@ -3,7 +3,7 @@ import Image from "next/image"
 import type { Metadata } from "next"
 import { Calendar, Clock } from "lucide-react"
 import { Container } from "@/components/ui/container"
-import { MOCK_POSTS } from "@/lib/mock-data"
+import { prisma } from "@/lib/prisma"
 import { formatDate } from "@/lib/utils"
 
 export const metadata: Metadata = {
@@ -11,7 +11,13 @@ export const metadata: Metadata = {
   description: "Chia sẻ kiến thức, tin tức và giải pháp lọc nước từ APLUS Technologies",
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
+    include: { category: true },
+  })
+
   return (
     <>
       <section className="bg-[#F2F3F4] py-10 border-b border-gray-100">
@@ -24,35 +30,39 @@ export default function BlogPage() {
       <section className="bg-white py-12">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MOCK_POSTS.map((post) => (
+            {posts.map((post) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
                 className="group bg-white rounded-lg border border-gray-100 overflow-hidden hover:border-[#006EF5] transition-all"
               >
                 <div className="relative aspect-[16/10] bg-[#B5DBFF]/40 overflow-hidden">
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform"
-                  />
+                  {post.coverImage && (
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform"
+                    />
+                  )}
                 </div>
                 <div className="p-5">
                   <span className="text-[10px] font-bold uppercase text-[#006EF5] bg-[#B5DBFF] px-2 py-1 rounded">
-                    {post.category}
+                    {post.category?.name || "Bài viết"}
                   </span>
                   <h3 className="mt-3 text-base font-bold text-[#111827] line-clamp-2 min-h-[3rem] group-hover:text-[#006EF5] transition-colors">
                     {post.title}
                   </h3>
                   <p className="mt-2 text-sm text-gray-600 line-clamp-3 min-h-[4rem]">{post.excerpt}</p>
                   <div className="flex items-center gap-4 mt-4 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                    {post.publishedAt && (
+                      <span className="inline-flex items-center gap-1">
+                        <Calendar className="h-3 w-3" /> {formatDate(post.publishedAt.toISOString())}
+                      </span>
+                    )}
                     <span className="inline-flex items-center gap-1">
-                      <Calendar className="h-3 w-3" /> {formatDate(post.publishedAt)}
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3 w-3" /> {post.readingTime} phút đọc
+                      <Clock className="h-3 w-3" /> {Math.ceil((post.content?.length || 0) / 1000)} phút đọc
                     </span>
                   </div>
                 </div>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quản lý Bài viết | APLUS Tech</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .sidebar-active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-left: 4px solid #006EF5;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .ai-gradient-btn {
+            background: linear-gradient(135deg, #006EF5 0%, #102590 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#001167",
+                        "primary-container": "#102590",
+                        "ocean-blue": "#006EF5",
+                        "deep-blue": "#102590",
+                        "surface": "#f8f9ff",
+                        "surface-gray": "#F8FAFC",
+                        "border-gray": "#E2E8F0",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-surface-variant": "#454653",
+                        "success-green": "#10B981",
+                        "error-red": "#EF4444",
+                        "warning-amber": "#F59E0B"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "container-padding": "2rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface">
+<!-- Side Navigation Shell -->
+<aside class="flex flex-col h-full w-[260px] fixed left-0 top-0 z-50 bg-primary border-r border-outline-variant/10">
+<div class="p-6">
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-primary">APLUS Tech</h1>
+<p class="text-label-sm text-on-primary/60 mt-1 uppercase tracking-wider">Admin Portal</p>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<!-- Active State: Posts -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-on-primary border-l-4 border-ocean-blue transition-all duration-200" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="text-label-md font-label-md">Posts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">contact_page</span>
+<span class="text-label-md font-label-md">Contacts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/10">
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center h-16 w-full px-gutter bg-white sticky top-0 z-40 shadow-sm border-b border-border-gray">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-gray border border-border-gray rounded-lg focus:ring-2 focus:ring-ocean-blue/20 focus:border-ocean-blue outline-none transition-all text-body-sm" placeholder="Tìm kiếm hệ thống..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-[1px] bg-border-gray mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-bold text-on-surface">Admin User</p>
+<p class="text-label-sm text-on-surface-variant">Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-border-gray object-cover" data-alt="A professional headshot of a middle-aged male administrator with a confident expression, wearing a crisp white shirt and a dark navy blazer, set against a blurred corporate office background. The lighting is soft and professional, highlighting a clean-shaven face and neatly styled hair, conveying trust and technical expertise in a modern light-mode interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhPS_4yavYT1FvKDuAHt3hoDJnq2MFPvSETBKYEMqu8tPnRvkLKP01SixMb-_i96W2H_AnD8QF2editO5oYtn_WKis1Ks4JRWcelGMsw8IYWifcm3EMX7S3q0si4RB-LkgltRyTu_e2tYKuAQpzSLEg0jVTm7H96LSlvReCQMDDirIlFR3uL3NWx38upn9GLomXyzgLkwgZ5OGysiC7wPnvOjz2Y3_hbYrv6UsyO7sqUhjVJxuqyJe"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-container-padding max-w-[1600px] mx-auto">
+<!-- Header Action Row -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<nav class="flex gap-2 text-label-sm text-on-surface-variant mb-2">
+<span>Trang chủ</span>
+<span>/</span>
+<span class="text-ocean-blue">Bài viết</span>
+</nav>
+<h2 class="text-headline-lg font-headline-lg text-primary">Quản lý Bài viết</h2>
+</div>
+<button class="ai-gradient-btn text-on-primary px-6 py-2.5 rounded-lg font-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Tạo bài viết
+                </button>
+</div>
+<!-- Filter Bar Card -->
+<div class="bg-white border border-border-gray rounded-xl p-4 mb-6 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+<div class="md:col-span-1">
+<label class="text-label-sm text-on-surface-variant block mb-1.5">Trạng thái</label>
+<select class="w-full bg-surface-gray border border-border-gray rounded-lg px-3 py-2 text-body-sm focus:ring-ocean-blue focus:border-ocean-blue outline-none">
+<option>Tất cả trạng thái</option>
+<option>Đã xuất bản</option>
+<option>Bản nháp</option>
+<option>Đã lên lịch</option>
+</select>
+</div>
+<div class="md:col-span-1">
+<label class="text-label-sm text-on-surface-variant block mb-1.5">Danh mục</label>
+<select class="w-full bg-surface-gray border border-border-gray rounded-lg px-3 py-2 text-body-sm focus:ring-ocean-blue focus:border-ocean-blue outline-none">
+<option>Tất cả danh mục</option>
+<option>Kỹ thuật lọc nước</option>
+<option>Sức khỏe &amp; Đời sống</option>
+<option>Tin tức APLUS</option>
+</select>
+</div>
+<div class="md:col-span-1">
+<label class="text-label-sm text-on-surface-variant block mb-1.5">Nguồn cấp</label>
+<select class="w-full bg-surface-gray border border-border-gray rounded-lg px-3 py-2 text-body-sm focus:ring-ocean-blue focus:border-ocean-blue outline-none">
+<option>Tất cả nguồn</option>
+<option>Viết bởi AI</option>
+<option>Thủ công</option>
+</select>
+</div>
+<div class="md:col-span-1 relative mt-auto">
+<div class="flex items-center h-[42px] gap-2">
+<button class="flex-1 bg-surface-gray border border-border-gray rounded-lg px-3 h-full text-body-sm hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                 Bộ lọc nâng cao
+                             </button>
+</div>
+</div>
+<div class="md:col-span-1 flex justify-end mt-auto">
+<button class="text-ocean-blue font-label-md hover:underline">Đặt lại bộ lọc</button>
+</div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-white border border-border-gray rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-gray border-b border-border-gray">
+<th class="py-4 px-6 w-10">
+<input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/>
+</th>
+<th class="py-4 px-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Tiêu đề bài viết</th>
+<th class="py-4 px-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Danh mục</th>
+<th class="py-4 px-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider text-center">Nguồn</th>
+<th class="py-4 px-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Ngày đăng</th>
+<th class="py-4 px-4 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Trạng thái</th>
+<th class="py-4 px-6 text-label-sm text-on-surface-variant uppercase font-bold tracking-wider text-right">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-gray">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="A high-quality macro photograph of clear water droplets on a pristine blue surface, symbolizing pure water. The image uses sharp focus and a vibrant corporate blue and white color palette, fitting the modern and professional aesthetic of APLUS Technologies' admin panel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKWyj-D5yymkFHTuIio-a8yjsX2MbsTXHBPUSG3RIWYhcqW3Vz2danm4X4qtcrT2wSRMx-inrJO_ShJ1P_zsXTxcrEk7P4UYoJOoJ03pUIkEboNj8_HR7Hd7Haw3nmA8hj7ZWdtNvyTapdEUWluTCdObNS9G3SzsWXcR0ShznZz6Xh6WAK1hOA89K-S_zEi1YRR0l1qiq6e4aT9YVrIvemccSK8QS4I3ItG1i4L8JLcI8p5Yb11IzA"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">10 dấu hiệu nhận biết nước nhiễm phèn</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Kỹ thuật lọc</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-100">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                                        AI
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">24/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-success-green/10 text-success-green text-[12px] font-medium border border-success-green/20">Đã xuất bản</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="An artistic representation of a modern industrial water filtration system with stainless steel pipes and glowing digital sensors. The style is clean and technical, emphasizing precision and innovation with soft teal and deep blue lighting against a bright white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9tsAZ0x75ETGlzhXSniLSddnDUlq_fEpIEtVeEpkUgqmRZR_SaAoDz-SW_IkwrR-yGiJwBtv6IqV9QVbFtm36Gyqvmn_GMxeiPT77CoAGK2hQuBc26XEZcRjcyvyO4kW2d9BNEwiKCuv0X5IHZ4to7wKXmAXtmxIXVj47VenD-7bCKg1rLn_KibrhIUCB7iBbaoOohwhahBRfV-jykVHHc8e5tzuN8fyr66-vLgawDoydmQmGhxdY"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">Công nghệ lọc RO vs Nano: Lựa chọn nào tốt nhất?</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Kỹ thuật lọc</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[11px] font-bold border border-slate-200">
+                                        THỦ CÔNG
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">22/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-ocean-blue/10 text-ocean-blue text-[12px] font-medium border border-ocean-blue/20">Bản nháp</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="A serene image of a family in a sunlit kitchen, drinking clear water from glasses. The mood is warm and wholesome, with soft natural light streaming through a window, highlighting the health benefits of clean water. The overall look is clean, modern, and aligned with a minimalist corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA47RcxFU4xUGEUdmaK3MScf5jlkThz7ujuEGdbc8GZwlziNR-Q2pxPAN_WBknwkoK6b8Lzrf0QjFcs4X3YvFIguH6WylTauhkg-xtPpvre3j82MM40ln_-NSNvJEYjm0B3XV3vVRPzzJTES-V92azqubrzB9eC6SDcYw6T3FiCEEOYRMNehep7eJN8BjdTJUc4xfIxejwcGEeqdgLyy2K-OP1oMPdXFVTlsjmSALZc4BDySGg-0g5L"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">Tại sao uống đủ nước lại giúp đẹp da?</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Sức khỏe</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-100">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                                        AI
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">20/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-warning-amber/10 text-warning-amber text-[12px] font-medium border border-warning-amber/20">Đã lên lịch</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="A futuristic laboratory setting where water samples are being analyzed. Vibrant blue liquid in glass vials is illuminated by LED lighting. The style is highly professional and research-oriented, emphasizing corporate technical prowess and systematic reliability in water treatment technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrNIX5G4B4FpYLpybkip592DqEZl70pPUjhEIdnsrdTCrqSoC86UYomTJ1Q234aoIkrsdpwym_s2ZUDoN3oBvp-hYu4yQpVU95f2Ggcr6OKoVzqCD9H82xIqG68qIbmEWLYzxecgR-o7gvD01RrLv8VIfpvrqZnH1ZGRv7Oe_gOQKq16u7yPsUBVlQBy5qnpt-9A2E5iO6NLmOcLwJDdy1z0hObcUHLYk62niFLMjrRMw90NkCM8QS"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">Quy trình kiểm định chất lượng nước tại APLUS</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Tin tức</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[11px] font-bold border border-slate-200">
+                                        THỦ CÔNG
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">18/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-success-green/10 text-success-green text-[12px] font-medium border border-success-green/20">Đã xuất bản</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="A minimalist architectural shot of a sleek, white modern house with large windows reflecting a blue sky. A glass of crystal-clear water sits on a marble countertop in the foreground. The aesthetic is high-end corporate lifestyle, focusing on purity, luxury, and advanced water solutions for the home." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-BIsg_0V3FiI21KIlu8sJLr3vnkwcU6L-86XjJBsLktYAysNZVcZAA_IQH06LszIRuA_qLTZvHfEhF99feJSJ1TcPsybKYlraGNx3e5LvNsrERtcAJT0RosncTC0I2X95OPidMKJzHFin7OtB1snhksq0sNIsRKL8G0ge_H3836eSAvroF1B0oe9uGk66knnHaV2Gf2XO7krQwv1psl6xhQQTnnqGAQigAo0TgMvIXpbklzSSKkc5"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">Hướng dẫn bảo trì máy lọc nước tại nhà</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Kỹ thuật lọc</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold border border-blue-100">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                                        AI
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">15/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-success-green/10 text-success-green text-[12px] font-medium border border-success-green/20">Đã xuất bản</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-gray/50 transition-colors group">
+<td class="py-3 px-6"><input class="rounded border-gray-300 text-ocean-blue focus:ring-ocean-blue" type="checkbox"/></td>
+<td class="py-3 px-4 max-w-xs">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0 border border-border-gray">
+<img class="w-full h-full object-cover" data-alt="A vibrant landscape photograph featuring a clean mountain stream flowing through a lush green forest. The sunlight filters through the trees, creating a serene and natural atmosphere that connects environmental purity with APLUS Technologies' water purification mission. The colors are rich and natural." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv-EHdxGKhz8zMk_gRxdN08FAe9z42FSlS-GEdHHTNMcNufmJimttv9Uo-ztjUV1fTEwKxL4YKYD_DAxzzRJ75vvyfuuJ8NRJwQw92pep41hl20Chs_RXW41c1SbKjR2N9tgRIVTgpDvbr8iWrU0chAXJ9kJ4OM5FVWCjipPhHuR0qyNwV2HiV2YuNKcvfrPhjhv9uHec7pEv7_ll3XUjlVGCMKyHCjBnCllhq0RlhCGB4xQVPRqjK"/>
+</div>
+<span class="text-body-sm font-medium text-primary line-clamp-1 group-hover:text-ocean-blue">Tầm quan trọng của việc bảo vệ nguồn nước sạch</span>
+</div>
+</td>
+<td class="py-3 px-4"><span class="text-body-sm text-on-surface-variant">Tin tức</span></td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[11px] font-bold border border-slate-200">
+                                        THỦ CÔNG
+                                    </span>
+</td>
+<td class="py-3 px-4 text-body-sm text-on-surface-variant">12/05/2024</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-red/10 text-error-red text-[12px] font-medium border border-error-red/20">Bị từ chối</span>
+</td>
+<td class="py-3 px-6 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-ocean-blue rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="p-1.5 text-on-surface-variant hover:bg-white hover:text-error-red rounded-md transition-all shadow-sm"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 bg-white border-t border-border-gray flex items-center justify-between">
+<p class="text-body-sm text-on-surface-variant">Hiển thị <span class="font-bold">1-6</span> trên <span class="font-bold">42</span> bài viết</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-border-gray rounded-lg hover:bg-surface-gray disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-ocean-blue text-white text-body-sm font-bold">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-gray text-body-sm font-medium">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-gray text-body-sm font-medium">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-gray text-body-sm font-medium">7</button>
+<button class="p-2 border border-border-gray rounded-lg hover:bg-surface-gray">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Summary Card (Asymmetric Layout Extra) -->
+<div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-white border border-border-gray rounded-xl p-6 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-full ai-gradient-btn flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div>
+<h4 class="text-headline-sm text-primary mb-1">Gợi ý AI cho hôm nay</h4>
+<p class="text-body-sm text-on-surface-variant">Dựa trên xu hướng tìm kiếm, bạn nên viết bài về "Cách xử lý nước nhiễm mặn mùa hạn".</p>
+</div>
+</div>
+<button class="px-4 py-2 border-2 border-ocean-blue text-ocean-blue rounded-lg font-label-md hover:bg-ocean-blue/5 transition-colors">Tạo ngay</button>
+</div>
+<div class="bg-primary-container text-on-primary rounded-xl p-6 shadow-md relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-headline-sm mb-2 opacity-90">Hiệu suất nội dung</h4>
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold">12.4k</span>
+<span class="text-success-green font-bold text-body-sm flex items-center">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +8.2%
+                            </span>
+</div>
+<p class="text-label-sm opacity-60 mt-2">Tổng lượt xem 7 ngày qua</p>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">equalizer</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.querySelector('img').style.transform = 'scale(1.1)';
+                row.querySelector('img').style.transition = 'transform 0.5s ease';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.01]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.01]');
+        });
+    </script>
+</body></html>

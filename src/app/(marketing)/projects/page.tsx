@@ -3,7 +3,7 @@ import Image from "next/image"
 import type { Metadata } from "next"
 import { ChevronRight, MapPin, Calendar, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
-import { MOCK_PROJECTS, PROJECT_CATEGORIES } from "@/lib/mock-data"
+import { PROJECTS, PROJECT_CATEGORIES } from "@/lib/static-data"
 import { SITE_CONFIG } from "@/lib/constants"
 
 export const metadata: Metadata = {
@@ -21,8 +21,8 @@ export default async function ProjectsPage({
   const activeCat = cat && PROJECT_CATEGORIES.some((c) => c.key === cat) ? cat : "all"
   const projects =
     activeCat === "all"
-      ? MOCK_PROJECTS
-      : MOCK_PROJECTS.filter((p) => p.category === activeCat)
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeCat)
 
   return (
     <>

@@ -1,0 +1,34 @@
+import { getToken } from "next-auth/jwt"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  // Add pathname header for layout routing
+  const response = NextResponse.next()
+  response.headers.set("x-pathname", pathname)
+
+  // Skip login page
+  if (pathname === "/admin/login") {
+    const token = await getToken({ req: request })
+    if (token) {
+      return NextResponse.redirect(new URL("/admin", request.url))
+    }
+    return response
+  }
+
+  // Protect all /admin routes
+  if (pathname.startsWith("/admin")) {
+    const token = await getToken({ req: request })
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", request.url))
+    }
+  }
+
+  return response
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+}

@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 import { ChevronRight, Check, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SocialButtons } from "@/components/ui/social-buttons"
-import { MOCK_PRODUCTS } from "@/lib/mock-data"
+import { prisma } from "@/lib/prisma"
 import { SITE_CONFIG } from "@/lib/constants"
 
 interface Props {
@@ -14,22 +14,28 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const p = MOCK_PRODUCTS.find((x) => x.slug === slug)
+  const p = await prisma.product.findUnique({ where: { slug } })
   if (!p) return { title: "Không tìm thấy sản phẩm" }
   return {
     title: p.name,
-    description: p.excerpt,
+    description: p.description,
   }
 }
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params
-  const product = MOCK_PRODUCTS.find((p) => p.slug === slug)
+  const product = await prisma.product.findUnique({ where: { slug } })
   if (!product) return notFound()
 
-  const related = MOCK_PRODUCTS.filter(
-    (p) => p.category === product.category && p.id !== product.id
-  ).slice(0, 4)
+  const related = await prisma.product.findMany({
+    where: {
+      category: product.category,
+      id: { not: product.id },
+      published: true,
+    },
+    take: 4,
+    orderBy: { order: "asc" },
+  })
 
   return (
     <>
@@ -41,7 +47,7 @@ export default async function ProductDetailPage({ params }: Props) {
             <ChevronRight className="h-3 w-3" />
             <Link href="/products" className="hover:text-[#006EF5]">Sản phẩm</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-[#102590] font-semibold">{product.categoryName}</span>
+            <span className="text-[#102590] font-semibold">{product.categoryName || product.category}</span>
           </div>
         </Container>
       </section>
@@ -58,25 +64,29 @@ export default async function ProductDetailPage({ params }: Props) {
                     {product.badge}
                   </span>
                 )}
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-contain p-8"
-                  priority
-                />
+                {product.image && (
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-contain p-8"
+                    priority
+                  />
+                )}
               </div>
               <div className="grid grid-cols-4 gap-3 mt-4">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="relative aspect-square bg-white rounded-md flex items-center justify-center cursor-pointer border border-gray-100 hover:border-[#006EF5] overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={`${product.name} ${i}`}
-                      fill
-                      sizes="120px"
-                      className="object-contain p-2 opacity-60 hover:opacity-100 transition-opacity"
-                    />
+                    {product.image && (
+                      <Image
+                        src={product.image}
+                        alt={`${product.name} ${i}`}
+                        fill
+                        sizes="120px"
+                        className="object-contain p-2 opacity-60 hover:opacity-100 transition-opacity"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -86,7 +96,7 @@ export default async function ProductDetailPage({ params }: Props) {
             <div className="space-y-5">
               <div>
                 <span className="text-xs font-bold uppercase text-[#006EF5] bg-[#B5DBFF] px-2 py-1 rounded">
-                  {product.categoryName}
+                  {product.categoryName || product.category}
                 </span>
                 <h1 className="mt-3 text-2xl md:text-3xl font-bold text-[#102590]">
                   {product.name}
@@ -104,11 +114,11 @@ export default async function ProductDetailPage({ params }: Props) {
               <dl className="grid grid-cols-2 gap-3 text-sm">
                 <div>
                   <dt className="text-gray-500">Thương hiệu</dt>
-                  <dd className="font-semibold text-[#111827]">{product.brand}</dd>
+                  <dd className="font-semibold text-[#111827]">{product.brand || "—"}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-500">Danh mục</dt>
-                  <dd className="font-semibold text-[#111827]">{product.categoryName}</dd>
+                  <dd className="font-semibold text-[#111827]">{product.categoryName || product.category}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-500">Bảo hành</dt>
@@ -160,7 +170,7 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
 
               <p className="text-sm text-gray-600 leading-relaxed">
-                {product.excerpt}
+                {product.description}
               </p>
             </div>
           </div>
@@ -180,13 +190,15 @@ export default async function ProductDetailPage({ params }: Props) {
                   className="group bg-white rounded-lg border border-gray-100 hover:border-[#006EF5] overflow-hidden"
                 >
                   <div className="relative aspect-square bg-white flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={p.image}
-                      alt={p.name}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-contain p-4"
-                    />
+                    {p.image && (
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-contain p-4"
+                      />
+                    )}
                   </div>
                   <div className="p-3">
                     <h3 className="text-sm font-bold text-[#111827] line-clamp-2 min-h-[2.5rem] group-hover:text-[#006EF5] transition-colors">

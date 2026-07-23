@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Auto-Schedule Management - APLUS Technologies</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .ai-gradient-bg {
+            background: linear-gradient(135deg, #006EF5 0%, #102590 100%);
+        }
+        .ai-glow:hover {
+            box-shadow: 0 0 15px rgba(0, 110, 245, 0.4);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#420a00",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#3c0800",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#d9e2ff",
+                        "border-gray": "#E2E8F0",
+                        "inverse-primary": "#bbc3ff",
+                        "primary": "#001167",
+                        "surface-gray": "#F8FAFC",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4454bc",
+                        "outline-variant": "#c5c5d5",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ffb4a1",
+                        "on-primary-fixed-variant": "#293ba3",
+                        "outline": "#757684",
+                        "on-surface": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#000e5e",
+                        "warning-amber": "#F59E0B",
+                        "on-tertiary-container": "#f27a5b",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#681500",
+                        "primary-fixed": "#dee0ff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#0056c3",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#102590",
+                        "tertiary-fixed": "#ffdbd2",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#bbc3ff",
+                        "on-surface-variant": "#454653",
+                        "surface-variant": "#d3e4fe",
+                        "deep-blue": "#102590",
+                        "secondary-fixed-dim": "#afc6ff",
+                        "on-tertiary-fixed-variant": "#82270f",
+                        "surface-dim": "#cbdbf5",
+                        "success-green": "#10B981",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed": "#001944",
+                        "on-secondary-fixed-variant": "#004299",
+                        "background": "#f8f9ff",
+                        "ocean-blue": "#006EF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#006ef4",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#8495ff",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-lg": "1.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "container-padding": "2rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "mono-sm": ["Courier Prime"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "mono-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-gray text-on-surface font-body-md overflow-x-hidden">
+<!-- Sidebar Navigation Shell -->
+<aside class="flex flex-col h-full w-[260px] fixed left-0 top-0 z-50 bg-primary dark:bg-primary border-r border-outline-variant/10">
+<!-- Brand Header -->
+<div class="px-6 py-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<div>
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-primary">APLUS Tech</h1>
+<p class="text-label-sm text-on-primary/60 tracking-wider">ADMIN PORTAL</p>
+</div>
+</div>
+</div>
+<!-- Navigation Items -->
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/10 text-on-primary border-l-4 border-ocean-blue" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="font-label-md text-label-md">Posts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">contact_page</span>
+<span class="font-label-md text-label-md">Contacts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- Footer Actions -->
+<div class="p-4 border-t border-white/10">
+<button class="flex items-center gap-3 px-4 py-3 w-full text-on-primary/70 hover:text-on-primary hover:bg-white/5 transition-colors duration-200 rounded-lg">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] min-h-screen flex flex-col">
+<!-- Top Navbar -->
+<header class="flex justify-between items-center h-16 w-full px-gutter bg-white sticky top-0 z-40 shadow-sm border-b border-border-gray">
+<div class="flex items-center gap-4">
+<h2 class="text-headline-sm font-headline-sm text-primary">Quản lý Bài viết</h2>
+<div class="h-6 w-px bg-border-gray"></div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-gray border-none rounded-full text-body-sm focus:ring-2 focus:ring-ocean-blue/20 w-64" placeholder="Tìm kiếm nội dung..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error-red rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-ocean-blue transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-border-gray">
+<div class="text-right">
+<p class="text-label-md font-bold leading-none">Admin APLUS</p>
+<p class="text-[11px] text-outline font-medium">Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-highest" data-alt="A professional headshot of a middle-aged tech administrator in a clean, modern office environment. He is wearing a blue corporate shirt, looking confident and approachable. The lighting is bright and natural, reflecting the minimalist corporate aesthetic of APLUS Technologies. High definition professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL0wwl6W9Mnq4nqCLuxGGA6W8ayCYqDj8K-ZhdW_lZtsZa5OXaAhim2KXPV4P41EWk7sv2yyECRXIJjeSo9Du-0n7QhHhkIhAqqKP6D0yTtAEOqnlabe6FkxM338uhYutttCmjZ-q86itaJKLNa9nlOx9dceMA5U0GezzBIcmbdps_I2iHLibUjqa3TuIewcd9Hu-MipqKO5BxHOdYA5TJuYFpsQhxOgjvIc94NdtSTUM8WmdClCjO"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="flex-1 p-container-padding max-w-[1600px] w-full mx-auto">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-6 text-outline text-label-sm">
+<span>Posts</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-ocean-blue font-bold">AI Auto-Schedule</span>
+</div>
+<!-- Tab Navigation -->
+<div class="flex items-center gap-8 border-b border-border-gray mb-8">
+<button class="pb-4 text-label-md text-on-surface-variant hover:text-primary transition-all">Manual Post</button>
+<button class="pb-4 text-label-md text-on-surface-variant hover:text-primary transition-all">AI Content Gen</button>
+<button class="pb-4 text-label-md text-ocean-blue border-b-2 border-ocean-blue font-bold">AI Tự động</button>
+<button class="pb-4 text-label-md text-on-surface-variant hover:text-primary transition-all">Lịch sử xuất bản</button>
+</div>
+<!-- Control Bar Card -->
+<div class="bg-white rounded-xl border border-border-gray p-6 mb-gutter shadow-sm flex flex-wrap items-center justify-between gap-6">
+<div class="flex items-center gap-12">
+<!-- Toggle Switch -->
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-on-surface">Tự động xuất bản</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ocean-blue"></div>
+</label>
+</div>
+<!-- Status Info -->
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-ocean-blue">event_repeat</span>
+<div>
+<p class="text-[11px] text-outline uppercase font-bold tracking-wider">Lần chạy tiếp theo</p>
+<p class="text-body-md font-bold text-primary">25/07/2026 08:00</p>
+</div>
+</div>
+</div>
+<!-- AI Suggestion Action -->
+<button class="ai-gradient-bg ai-glow text-white px-6 py-3 rounded-lg font-headline-sm flex items-center gap-2 transition-all hover:scale-[1.02] active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    AI Gợi ý 10 chủ đề
+                </button>
+</div>
+<!-- Schedule Table Section -->
+<div class="bg-white rounded-xl border border-border-gray shadow-sm overflow-hidden flex flex-col">
+<div class="px-6 py-4 border-b border-border-gray bg-surface-gray flex justify-between items-center">
+<h3 class="font-headline-sm text-primary">Lịch trình nội dung dự kiến</h3>
+<div class="flex items-center gap-2">
+<span class="text-label-sm text-outline">Hiển thị:</span>
+<select class="text-label-sm border-none bg-transparent focus:ring-0 cursor-pointer">
+<option>Tháng này</option>
+<option>Tháng sau</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-gray text-outline text-[12px] uppercase font-bold tracking-widest border-b border-border-gray">
+<th class="px-6 py-4 w-16">#</th>
+<th class="px-6 py-4 min-w-[300px]">Chủ đề</th>
+<th class="px-6 py-4">Từ khóa SEO</th>
+<th class="px-6 py-4">Ngày dự kiến</th>
+<th class="px-6 py-4">Trạng thái</th>
+<th class="px-6 py-4 text-right">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-gray">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-outline font-mono-sm">01</td>
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">Giải pháp xử lý nước nhiễm phèn công nghiệp</div>
+<p class="text-[12px] text-outline mt-1 line-clamp-1 italic">Phân tích hệ thống lọc đa tầng hiệu suất cao...</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">nước nhiễm phèn</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">lọc nước công nghiệp</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-on-surface-variant">25/07/2026</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-primary text-label-sm rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-ocean-blue hover:bg-ocean-blue/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-2 text-outline hover:text-error-red hover:bg-error-red/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-outline font-mono-sm">02</td>
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">Top 5 máy lọc nước RO tốt nhất cho gia đình 2026</div>
+<p class="text-[12px] text-outline mt-1 line-clamp-1 italic">Đánh giá dựa trên công nghệ màng lọc và tiêu thụ điện...</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">máy lọc nước RO</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">gia đình</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-on-surface-variant">27/07/2026</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest text-secondary text-label-sm rounded-full">
+<span class="material-symbols-outlined text-[16px]">draw</span>
+                                        Generated
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-ocean-blue hover:bg-ocean-blue/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-2 text-outline hover:text-error-red hover:bg-error-red/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-outline font-mono-sm">03</td>
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">Hướng dẫn bảo trì hệ thống lọc nước RO định kỳ</div>
+<p class="text-[12px] text-outline mt-1 line-clamp-1 italic">Cách vệ sinh và thay thế linh kiện tại nhà...</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">bảo trì</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">lọc nước</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-on-surface-variant">30/07/2026</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-success-green/10 text-success-green text-label-sm rounded-full">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                        Published
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-ocean-blue hover:bg-ocean-blue/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">launch</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-outline font-mono-sm">04</td>
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">Công nghệ lọc Nano vs RO: Lựa chọn nào cho chung cư?</div>
+<p class="text-[12px] text-outline mt-1 line-clamp-1 italic">So sánh chi tiết ưu nhược điểm từng loại...</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">Nano vs RO</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">chung cư</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-on-surface-variant">02/08/2026</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-primary text-label-sm rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-ocean-blue hover:bg-ocean-blue/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-2 text-outline hover:text-error-red hover:bg-error-red/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-outline font-mono-sm">05</td>
+<td class="px-6 py-4">
+<div class="font-bold text-on-surface">Tác hại của kim loại nặng trong nước sinh hoạt</div>
+<p class="text-[12px] text-outline mt-1 line-clamp-1 italic">Những nguy cơ tiềm ẩn đối với sức khỏe dài hạn...</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-wrap gap-1">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">kim loại nặng</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[11px] rounded font-medium">sức khỏe</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-on-surface-variant">05/08/2026</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-primary text-label-sm rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-outline hover:text-ocean-blue hover:bg-ocean-blue/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+<button class="p-2 text-outline hover:text-error-red hover:bg-error-red/5 rounded-lg"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Action -->
+<div class="p-4 bg-white border-t border-border-gray flex justify-center">
+<button class="flex items-center gap-2 text-ocean-blue hover:text-deep-blue font-bold px-6 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+                        Thêm chủ đề
+                    </button>
+</div>
+</div>
+<!-- AI Analytics Card (Bonus Context) -->
+<div class="mt-gutter grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-ocean-blue/10 text-ocean-blue rounded-lg"><span class="material-symbols-outlined">auto_graph</span></span>
+<span class="text-success-green text-label-sm font-bold flex items-center">+12% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
+</div>
+<p class="text-label-sm text-outline font-medium">Hiệu suất dự kiến</p>
+<h4 class="text-headline-lg font-bold text-primary">8.5k views</h4>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary-container/10 text-secondary-container rounded-lg"><span class="material-symbols-outlined">psychology</span></span>
+</div>
+<p class="text-label-sm text-outline font-medium">Điểm SEO trung bình</p>
+<h4 class="text-headline-lg font-bold text-primary">92/100</h4>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-gray shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-warning-amber/10 text-warning-amber rounded-lg"><span class="material-symbols-outlined">hourglass_empty</span></span>
+</div>
+<p class="text-label-sm text-outline font-medium">Thời gian tiết kiệm</p>
+<h4 class="text-headline-lg font-bold text-primary">120 hrs/tháng</h4>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto py-6 px-container-padding text-center text-outline text-label-sm border-t border-border-gray bg-white">
+            © 2024 APLUS Technologies Admin Portal. Hệ thống quản trị nội dung AI thông minh.
+        </footer>
+</main>
+<!-- Floating Action Button (FAB) - Suppression Logic Applied (Not on Details/Settings) -->
+<!-- But since this is a primary dashboard for scheduling, a "Force Run" FAB might be useful. Skipping as per prompt instructions to prioritize content. -->
+<script>
+        // Micro-interaction for Table Rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Potential selection logic
+            });
+        });
+
+        // Simple Toggle Feedback
+        const publishToggle = document.querySelector('input[type="checkbox"]');
+        publishToggle.addEventListener('change', (e) => {
+            const statusLabel = e.target.checked ? 'Đã bật' : 'Đã tắt';
+            console.log(`Auto-publish status: ${statusLabel}`);
+        });
+
+        // AI Suggestion Simulation
+        const aiButton = document.querySelector('.ai-gradient-bg');
+        aiButton.addEventListener('click', () => {
+            aiButton.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> Đang phân tích...`;
+            setTimeout(() => {
+                aiButton.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span> Đã cập nhật 10 chủ đề`;
+                setTimeout(() => {
+                    aiButton.innerHTML = `<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span> AI Gợi ý 10 chủ đề`;
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+</body></html>

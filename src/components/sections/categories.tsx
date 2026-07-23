@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { MOCK_CATEGORIES } from "@/lib/mock-data"
+import { PRODUCT_CATEGORIES } from "@/lib/static-data"
 
 const iconMap = { Droplets, Waves, Cog, Filter, Package, Wrench }
 
@@ -68,8 +68,8 @@ const categoryVisuals: Record<
 }
 
 export function Categories() {
-  const featuredCategories = MOCK_CATEGORIES.slice(0, 2)
-  const compactCategories = MOCK_CATEGORIES.slice(2)
+  const featuredCategories = PRODUCT_CATEGORIES.slice(0, 2)
+  const compactCategories = PRODUCT_CATEGORIES.slice(2)
 
   return (
     <section className="bg-white py-20" id="product-categories">
@@ -86,7 +86,7 @@ export function Categories() {
             <div className="bg-[#006EF5] px-3 py-4 text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-white">
               Danh mục
             </div>
-            {MOCK_CATEGORIES.map((cat) => {
+            {PRODUCT_CATEGORIES.map((cat) => {
               const Icon = iconMap[cat.icon as keyof typeof iconMap] || Droplets
               const visual = categoryVisuals[cat.slug]
 
@@ -127,7 +127,7 @@ function CategoryVisualCard({
   category,
   featured = false,
 }: {
-  category: (typeof MOCK_CATEGORIES)[number]
+  category: (typeof PRODUCT_CATEGORIES)[number]
   featured?: boolean
 }) {
   const visual = categoryVisuals[category.slug]

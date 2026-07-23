@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/container"
 import { Headphones, Wrench, TrendingDown, ShieldCheck } from "lucide-react"
-import { MOCK_USPS } from "@/lib/mock-data"
+import { USPS } from "@/lib/static-data"
 
 const iconMap = { Headphones, Wrench, TrendingDown, ShieldCheck }
 
@@ -9,7 +9,7 @@ export function Usps() {
     <section className="bg-white py-10 -mt-10 relative z-10">
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {MOCK_USPS.map((usp) => {
+          {USPS.map((usp) => {
             const Icon = iconMap[usp.icon as keyof typeof iconMap] || ShieldCheck
             return (
               <div

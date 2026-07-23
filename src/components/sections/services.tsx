@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { Search, Wrench, Shield, CreditCard, Package, Home } from "lucide-react"
-import { MOCK_SERVICES } from "@/lib/mock-data"
+import { SERVICES } from "@/lib/static-data"
 
 const iconMap = { Search, Wrench, Shield, CreditCard, Package, Home }
 
@@ -17,7 +17,7 @@ export function Services() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MOCK_SERVICES.map((sv) => {
+          {SERVICES.map((sv) => {
             const Icon = iconMap[sv.icon as keyof typeof iconMap] || Wrench
             return (
               <div
