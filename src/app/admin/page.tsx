@@ -28,7 +28,14 @@ export default async function AdminDashboardPage() {
   const stats = await getDashboardStats()
   const recentPosts = await getRecentPosts()
 
-  const statCards = [
+  const statCards: Array<{
+    label: string
+    value: number
+    icon: typeof Package
+    trend?: string | null
+    badge?: string | null
+    extra?: React.ReactNode
+  }> = [
     {
       label: "Tổng sản phẩm",
       value: stats.productCount,
