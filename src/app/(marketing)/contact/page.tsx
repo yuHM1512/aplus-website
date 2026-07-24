@@ -65,11 +65,28 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Map placeholder */}
-          <div className="mt-8 aspect-[21/9] bg-[#F2F3F4] rounded-lg flex items-center justify-center border border-gray-100">
-            <div className="text-center text-gray-500">
-              <MapPin className="h-10 w-10 mx-auto mb-2 text-[#006EF5]" />
-              <p>Google Maps embed sẽ được tích hợp khi có link chính thức</p>
+          {/* Google Maps */}
+          <div className="mt-8 overflow-hidden rounded-lg border border-gray-100">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.204!2d109.2196!3d13.7756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f6c53b4448aef%3A0xb4f95b0f5f11dec6!2s95%20L%C3%AA%20H%E1%BB%93ng%20Phong%2C%20Tr%E1%BA%A7n%20H%C6%B0ng%20%C4%90%E1%BA%A1o%2C%20Th%C3%A0nh%20ph%E1%BB%91%20Quy%20Nh%C6%A1n%2C%20B%C3%ACnh%20%C4%90%E1%BB%8Bnh!5e0!3m2!1svi!2svn!4v1700000000000!5m2!1svi!2svn"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="APLUS Technologies — 95 Lê Hồng Phong, Quy Nhơn"
+            />
+            <div className="bg-white px-6 py-3 flex items-center justify-between">
+              <span className="text-sm text-gray-600">95 Lê Hồng Phong, TP Quy Nhơn, Bình Định</span>
+              <a
+                href="https://maps.app.goo.gl/jd5QysnC51g9GcKA6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-[#006EF5] hover:underline"
+              >
+                Mở trong Google Maps &rarr;
+              </a>
             </div>
           </div>
         </Container>
