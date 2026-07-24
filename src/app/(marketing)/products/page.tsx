@@ -7,6 +7,7 @@ import { SocialButtons } from "@/components/ui/social-buttons"
 import { prisma } from "@/lib/prisma"
 import { PRODUCT_CATEGORIES } from "@/lib/static-data"
 import { SITE_CONFIG } from "@/lib/constants"
+import { shouldSkipImageOptimization } from "@/lib/images"
 
 export const metadata: Metadata = {
   title: "Sản phẩm",
@@ -141,6 +142,7 @@ export default async function ProductsPage({
                             fill
                             sizes="(max-width: 768px) 50vw, 33vw"
                             className="object-contain p-4 group-hover:scale-105 transition-transform"
+                            unoptimized={shouldSkipImageOptimization(p.image)}
                           />
                         )}
                       </div>

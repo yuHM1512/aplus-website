@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/container"
 import { SocialButtons } from "@/components/ui/social-buttons"
 import { prisma } from "@/lib/prisma"
 import { SITE_CONFIG } from "@/lib/constants"
+import { shouldSkipImageOptimization } from "@/lib/images"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -72,6 +73,7 @@ export default async function ProductDetailPage({ params }: Props) {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-contain p-8"
                     priority
+                    unoptimized={shouldSkipImageOptimization(product.image)}
                   />
                 )}
               </div>
@@ -85,6 +87,7 @@ export default async function ProductDetailPage({ params }: Props) {
                         fill
                         sizes="120px"
                         className="object-contain p-2 opacity-60 hover:opacity-100 transition-opacity"
+                        unoptimized={shouldSkipImageOptimization(product.image)}
                       />
                     )}
                   </div>
@@ -197,6 +200,7 @@ export default async function ProductDetailPage({ params }: Props) {
                         fill
                         sizes="(max-width: 768px) 50vw, 25vw"
                         className="object-contain p-4"
+                        unoptimized={shouldSkipImageOptimization(p.image)}
                       />
                     )}
                   </div>

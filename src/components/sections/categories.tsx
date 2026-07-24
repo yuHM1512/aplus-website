@@ -25,29 +25,25 @@ const categoryVisuals: Record<
 > = {
   "he-thong-loc-nuoc": {
     label: "Hệ thống lọc nước",
-    image:
-      "https://aqualifeplus.vn/source/storage/app/public/product/bo-loc-dau-nguon-uf-vo-inox-cong-suat-5000lh-1769415880.png",
+    image: "/images/products/bo-loc-dau-nguon-uf-vo-inox-cong-suat-5000lh-1769415880.png",
     kicker: "Gia đình, nhà phố, xưởng nhỏ",
     cta: "Xem hệ thống",
   },
   "may-loc-nuoc": {
     label: "Máy lọc nước",
-    image:
-      "https://aqualifeplus.vn/source/storage/app/public/product/may-loc-nuoc-karofi-kad-m59-1764649392.png",
+    image: "/images/products/may-loc-nuoc-karofi-kad-m59-1764649392.png",
     kicker: "RO, nóng lạnh, để bàn",
     cta: "Xem máy",
   },
   "thiet-bi-loc-nuoc": {
     label: "Thiết bị lọc nước",
-    image:
-      "https://aqualifeplus.vn/source/storage/app/public/product/van-tu-dong-f65p1-5-nga-1763285913.png",
+    image: "/images/products/van-tu-dong-f65p1-5-nga-1763285913.png",
     kicker: "Van, bơm, thiết bị điều khiển",
     cta: "Xem thiết bị",
   },
   "loi-loc-nuoc": {
     label: "Lõi lọc & linh kiện",
-    image:
-      "https://aqualifeplus.vn/source/storage/app/public/product/163-1744700869.png",
+    image: "/images/products/163-1744700869.png",
     kicker: "Chính hãng, thay đúng lịch",
     cta: "Xem lõi",
   },

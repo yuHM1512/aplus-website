@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { SocialButtons } from "@/components/ui/social-buttons"
 import { SITE_CONFIG } from "@/lib/constants"
+import { shouldSkipImageOptimization } from "@/lib/images"
 import { cn } from "@/lib/utils"
 
 interface ProductItem {
@@ -86,6 +87,7 @@ export function FeaturedProducts({ products }: { products: ProductItem[] }) {
                       fill
                       sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-contain p-4 group-hover:scale-105 transition-transform"
+                      unoptimized={shouldSkipImageOptimization(p.image)}
                     />
                   )}
                 </div>

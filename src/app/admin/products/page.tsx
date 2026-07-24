@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Plus, Search, Edit, Trash2, Package } from "lucide-react"
 import { DeleteProductButton } from "@/components/admin/delete-product-button"
+import { shouldSkipImageOptimization } from "@/lib/images"
 
 export default async function ProductsPage() {
   const products = await prisma.product.findMany({
@@ -71,6 +72,7 @@ export default async function ProductsPage() {
                             width={48}
                             height={48}
                             className="w-12 h-12 rounded object-cover border border-[#E2E8F0]"
+                            unoptimized={shouldSkipImageOptimization(product.image)}
                           />
                         ) : (
                           <div className="w-12 h-12 rounded bg-[#eff4ff] flex items-center justify-center">

@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "aqualifeplus.vn",
-        pathname: "/source/storage/app/public/**",
-      },
-      {
-        protocol: "https",
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
