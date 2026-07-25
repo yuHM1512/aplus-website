@@ -19,10 +19,23 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json()
-  const { title, slug, excerpt, content, coverImage, published, categoryId, aiGenerated, aiPrompt } = body
+  const {
+    title,
+    slug,
+    excerpt,
+    content,
+    coverImage,
+    published,
+    categoryId,
+    aiGenerated,
+    aiPrompt,
+  } = body
 
   if (!title || !slug || !content) {
-    return NextResponse.json({ error: "Tiêu đề, slug và nội dung là bắt buộc" }, { status: 400 })
+    return NextResponse.json(
+      { error: "Tiêu đề, slug và nội dung là bắt buộc" },
+      { status: 400 }
+    )
   }
 
   const existing = await prisma.post.findUnique({ where: { slug } })

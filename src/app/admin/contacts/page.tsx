@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { Mail, Phone, Eye } from "lucide-react"
+import { Mail, Phone } from "lucide-react"
 import { ContactStatusButton } from "@/components/admin/contact-status-button"
 
 export default async function ContactsPage() {

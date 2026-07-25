@@ -2,14 +2,12 @@ import { getToken } from "next-auth/jwt"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Add pathname header for layout routing
   const response = NextResponse.next()
   response.headers.set("x-pathname", pathname)
 
-  // Skip login page
   if (pathname === "/admin/login") {
     const token = await getToken({ req: request })
     if (token) {
@@ -18,7 +16,6 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  // Protect all /admin routes
   if (pathname.startsWith("/admin")) {
     const token = await getToken({ req: request })
     if (!token) {

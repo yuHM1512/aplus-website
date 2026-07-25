@@ -39,6 +39,15 @@
     "react-hook-form": "^7.52.0",
     "sharp": "^0.33.0",
     "tailwind-merge": "^2.3.0",
+    "@tiptap/extension-image": "^2.11.0",
+    "@tiptap/extension-link": "^2.11.0",
+    "@tiptap/extension-placeholder": "^2.11.0",
+    "@tiptap/extension-underline": "^2.11.0",
+    "@tiptap/pm": "^2.11.0",
+    "@tiptap/react": "^2.11.0",
+    "@tiptap/starter-kit": "^2.11.0",
+    "@tiptap/suggestion": "^2.11.0",
+    "tippy.js": "^6.3.7",
     "zod": "^3.23.0"
   },
   "devDependencies": {

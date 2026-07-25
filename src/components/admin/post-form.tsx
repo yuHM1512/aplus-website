@@ -4,7 +4,13 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Save, ArrowLeft, Sparkles, FileText } from "lucide-react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { useToast } from "./toast"
+
+const RichTextEditor = dynamic(
+  () => import("./rich-text-editor").then((m) => m.RichTextEditor),
+  { ssr: false, loading: () => <div className="h-[400px] border border-[#E2E8F0] rounded-lg animate-pulse bg-gray-50" /> }
+)
 
 interface Category {
   id: string
@@ -52,12 +58,11 @@ export function PostForm({ post, categories }: PostFormProps) {
     return title
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .replace(/đ/g, "d")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\u0111/g, "d")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "")
   }
-
   const handleTitleChange = (title: string) => {
     setForm((prev) => ({
       ...prev,
@@ -100,8 +105,7 @@ export function PostForm({ post, categories }: PostFormProps) {
     setAiLoading(false)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const submitPost = async (published: boolean) => {
     setLoading(true)
     setError("")
 
@@ -111,7 +115,7 @@ export function PostForm({ post, categories }: PostFormProps) {
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, published }),
     })
 
     if (!res.ok) {
@@ -125,6 +129,11 @@ export function PostForm({ post, categories }: PostFormProps) {
     toast(isEdit ? "Đã cập nhật bài viết" : "Đã tạo bài viết mới")
     router.push("/admin/posts")
     router.refresh()
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await submitPost(form.published)
   }
 
   return (
@@ -142,18 +151,16 @@ export function PostForm({ post, categories }: PostFormProps) {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => {
-              setForm((prev) => ({ ...prev, published: false }))
-              handleSubmit(new Event("submit") as unknown as React.FormEvent)
-            }}
+            onClick={() => submitPost(false)}
+            disabled={loading}
             className="px-4 py-2.5 bg-white border border-[#E2E8F0] text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             Lưu nháp
           </button>
           <button
-            type="submit"
+            type="button"
             disabled={loading}
-            onClick={() => setForm((prev) => ({ ...prev, published: true }))}
+            onClick={() => submitPost(true)}
             className="flex items-center gap-2 px-6 py-2.5 bg-ocean-blue text-white rounded-lg text-sm font-medium hover:bg-deep-blue transition-colors shadow-sm disabled:opacity-70"
           >
             <Save className="w-4 h-4" />
@@ -267,13 +274,10 @@ export function PostForm({ post, categories }: PostFormProps) {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-900 mb-1.5 block">Nội dung *</label>
-              <textarea
-                value={form.content}
-                onChange={(e) => setForm((prev) => ({ ...prev, content: e.target.value }))}
-                rows={16}
-                required
-                className="w-full px-4 py-3 border border-[#E2E8F0] rounded-lg text-sm leading-relaxed focus:border-ocean-blue focus:ring-2 focus:ring-ocean-blue/20 outline-none resize-none"
-                placeholder="Nội dung bài viết (hỗ trợ Markdown)..."
+              <RichTextEditor
+                content={form.content}
+                onChange={(html) => setForm((prev) => ({ ...prev, content: html }))}
+                placeholder="Nhập nội dung bài viết... Gõ / để chèn nhanh"
               />
             </div>
           </div>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ── Aplus Technologies — Brand Colors ── */
 :root {
@@ -38,6 +39,19 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* ── TipTap editor styles ── */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+.tiptap:focus { outline: none; }
+
+.tiptap img { border-radius: 0.5rem; max-width: 100%; margin: 1rem auto; display: block; }
 
 /* ── Custom scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }

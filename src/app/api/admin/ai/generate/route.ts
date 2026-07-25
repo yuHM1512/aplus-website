@@ -2,6 +2,24 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
+const SYSTEM_PROMPT =
+  "Bạn là chuyên gia content marketing cho APLUS Technologies - công ty lọc nước tại Quy Nhơn, Bình Định. Trả về JSON với title, excerpt, content. Content phải là HTML TipTap-safe, chỉ dùng p, h2, h3, ul, ol, li, blockquote, strong, em, a."
+
+function buildGeminiPrompt(prompt: string) {
+  return `${SYSTEM_PROMPT}
+
+Viết một bài blog SEO-friendly dựa trên yêu cầu sau: ${prompt}
+
+Trả về JSON với format:
+{
+  "title": "Tiêu đề bài viết hấp dẫn",
+  "excerpt": "Tóm tắt ngắn 1-2 câu cho SEO",
+  "content": "Nội dung đầy đủ bằng HTML TipTap-safe"
+}
+
+Chỉ trả về JSON, không thêm text nào khác.`
+}
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -12,7 +30,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Prompt is required" }, { status: 400 })
   }
 
-  // Check for API key availability
   const googleKey = process.env.GOOGLE_AI_KEY
   const openaiKey = process.env.OPENAI_API_KEY
 
@@ -29,33 +46,13 @@ export async function POST(req: Request) {
     let excerpt = ""
 
     if (googleKey) {
-      // Use Gemini
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${googleKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: `Bạn là chuyên gia content marketing cho APLUS Technologies - công ty lọc nước tại Quy Nhơn, Bình Định.
-
-Viết một bài blog SEO-friendly dựa trên yêu cầu sau: ${prompt}
-
-Trả về JSON với format:
-{
-  "title": "Tiêu đề bài viết hấp dẫn",
-  "excerpt": "Tóm tắt ngắn 1-2 câu cho SEO",
-  "content": "Nội dung đầy đủ bài viết (Markdown format, 800-1200 từ)"
-}
-
-Chỉ trả về JSON, không thêm text nào khác.`,
-                  },
-                ],
-              },
-            ],
+            contents: [{ parts: [{ text: buildGeminiPrompt(prompt) }] }],
           }),
         }
       )
@@ -63,7 +60,6 @@ Chỉ trả về JSON, không thêm text nào khác.`,
       if (res.ok) {
         const data = await res.json()
         const text = data.candidates?.[0]?.content?.parts?.[0]?.text || ""
-        // Extract JSON from response
         const jsonMatch = text.match(/\{[\s\S]*\}/)
         if (jsonMatch) {
           const parsed = JSON.parse(jsonMatch[0])
@@ -73,7 +69,6 @@ Chỉ trả về JSON, không thêm text nào khác.`,
         }
       }
     } else if (openaiKey) {
-      // Use OpenAI
       const res = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -83,11 +78,7 @@ Chỉ trả về JSON, không thêm text nào khác.`,
         body: JSON.stringify({
           model: "gpt-4o-mini",
           messages: [
-            {
-              role: "system",
-              content:
-                "Bạn là chuyên gia content marketing cho APLUS Technologies - công ty lọc nước tại Quy Nhơn, Bình Định. Trả về JSON với title, excerpt, content (Markdown).",
-            },
+            { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: prompt },
           ],
           response_format: { type: "json_object" },

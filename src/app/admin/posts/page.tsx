@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
-import { Plus, Edit, Trash2, Sparkles } from "lucide-react"
+import { Plus, Edit, Sparkles } from "lucide-react"
 import { DeletePostButton } from "@/components/admin/delete-post-button"
 
 export default async function PostsPage() {

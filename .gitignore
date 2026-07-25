@@ -18,6 +18,9 @@ build/
 # prisma
 prisma/migrations/
 
+# uploads
+public/uploads/
+
 # misc
 .DS_Store
 *.pem

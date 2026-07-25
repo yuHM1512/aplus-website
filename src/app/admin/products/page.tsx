@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import Image from "next/image"
-import { Plus, Search, Edit, Trash2, Package } from "lucide-react"
+import { Plus, Edit, Package } from "lucide-react"
 import { DeleteProductButton } from "@/components/admin/delete-product-button"
 import { shouldSkipImageOptimization } from "@/lib/images"
 

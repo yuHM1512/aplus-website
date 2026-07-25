@@ -16,7 +16,22 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json()
-  const { name, slug, description, image, category, categoryName, brand, featured, order, price, priceOriginal, badge, specs, published } = body
+  const {
+    name,
+    slug,
+    description,
+    image,
+    category,
+    categoryName,
+    brand,
+    featured,
+    order,
+    price,
+    priceOriginal,
+    badge,
+    specs,
+    published,
+  } = body
 
   if (!name || !slug) {
     return NextResponse.json({ error: "Tên và slug là bắt buộc" }, { status: 400 })
@@ -28,7 +43,22 @@ export async function POST(req: Request) {
   }
 
   const product = await prisma.product.create({
-    data: { name, slug, description, image, category, categoryName, brand, featured, order, price, priceOriginal, badge, specs, published },
+    data: {
+      name,
+      slug,
+      description,
+      image,
+      category,
+      categoryName,
+      brand,
+      featured,
+      order,
+      price,
+      priceOriginal,
+      badge,
+      specs,
+      published,
+    },
   })
 
   return NextResponse.json(product, { status: 201 })

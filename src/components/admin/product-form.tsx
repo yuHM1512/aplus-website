@@ -66,12 +66,11 @@ export function ProductForm({ product }: ProductFormProps) {
     return name
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .replace(/đ/g, "d")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\u0111/g, "d")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "")
   }
-
   const handleNameChange = (name: string) => {
     setForm((prev) => ({
       ...prev,
@@ -278,6 +277,7 @@ export function ProductForm({ product }: ProductFormProps) {
             <label className="text-sm font-medium text-gray-900 mb-3 block">Hình ảnh</label>
             {form.image ? (
               <div className="relative mb-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={form.image} alt="" className="w-full h-40 object-cover rounded-lg border border-[#E2E8F0]" />
                 <button
                   type="button"
