@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
-import { Save, ArrowLeft, Sparkles, FileText } from "lucide-react"
+import Image from "next/image"
+import { Save, ArrowLeft, Sparkles, FileText, Upload, X, Loader2 } from "lucide-react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import { useToast } from "./toast"
@@ -52,7 +53,9 @@ export function PostForm({ post, categories }: PostFormProps) {
   })
   const [loading, setLoading] = useState(false)
   const [aiLoading, setAiLoading] = useState(false)
+  const [coverUploading, setCoverUploading] = useState(false)
   const [error, setError] = useState("")
+  const coverInputRef = useRef<HTMLInputElement>(null)
 
   const generateSlug = (title: string) => {
     return title
@@ -287,12 +290,78 @@ export function PostForm({ post, categories }: PostFormProps) {
         <div className="space-y-6">
           <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm p-6">
             <label className="text-sm font-medium text-gray-900 mb-3 block">Ảnh bìa</label>
+
+            {form.coverImage ? (
+              <div className="relative group rounded-lg overflow-hidden mb-3">
+                <div className="relative aspect-[16/9] bg-gray-100">
+                  <Image
+                    src={form.coverImage}
+                    alt="Ảnh bìa"
+                    fill
+                    className="object-cover"
+                    sizes="300px"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setForm((prev) => ({ ...prev, coverImage: "" }))}
+                  className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all"
+                  title="Xóa ảnh bìa"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => coverInputRef.current?.click()}
+                disabled={coverUploading}
+                className="w-full aspect-[16/9] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-ocean-blue hover:text-ocean-blue transition-colors mb-3 disabled:opacity-50"
+              >
+                {coverUploading ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                    <span className="text-xs">Đang tải lên...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-6 h-6" />
+                    <span className="text-xs font-medium">Tải ảnh bìa lên</span>
+                  </>
+                )}
+              </button>
+            )}
+
+            <input
+              ref={coverInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={async (e) => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                e.target.value = ""
+                setCoverUploading(true)
+                try {
+                  const fd = new FormData()
+                  fd.append("file", file)
+                  const res = await fetch("/api/admin/upload", { method: "POST", body: fd })
+                  if (!res.ok) throw new Error()
+                  const { url } = await res.json()
+                  setForm((prev) => ({ ...prev, coverImage: url }))
+                } catch {
+                  toast("Không thể tải ảnh lên", "error")
+                }
+                setCoverUploading(false)
+              }}
+            />
+
             <input
               type="text"
               value={form.coverImage}
               onChange={(e) => setForm((prev) => ({ ...prev, coverImage: e.target.value }))}
               className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg text-xs focus:border-ocean-blue outline-none"
-              placeholder="URL ảnh bìa"
+              placeholder="Hoặc dán URL ảnh..."
             />
           </div>
 

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { writeFile, mkdir } from "fs/promises"
-import { join } from "path"
+import { put } from "@vercel/blob"
 import { randomUUID } from "crypto"
 
-const UPLOAD_DIR = join(process.cwd(), "public", "uploads")
 const MAX_SIZE = 5 * 1024 * 1024 // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"]
 
@@ -37,20 +35,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Ensure upload directory exists
-    await mkdir(UPLOAD_DIR, { recursive: true })
-
-    // Generate unique filename
     const ext = file.name.split(".").pop() || "jpg"
-    const filename = `${randomUUID()}.${ext}`
-    const filepath = join(UPLOAD_DIR, filename)
+    const filename = `blog/${randomUUID()}.${ext}`
 
-    // Write file
-    const bytes = await file.arrayBuffer()
-    await writeFile(filepath, Buffer.from(bytes))
+    const blob = await put(filename, file, {
+      access: "public",
+      addRandomSuffix: false,
+    })
 
-    const url = `/uploads/${filename}`
-    return NextResponse.json({ url, filename })
+    return NextResponse.json({ url: blob.url, filename })
   } catch {
     return NextResponse.json(
       { error: "Upload failed" },

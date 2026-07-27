@@ -226,7 +226,7 @@ export function RichTextEditor({
   useEffect(() => {
     if (!editor) return
     if (content !== editor.getHTML()) {
-      editor.commands.setContent(content || "", false)
+      editor.commands.setContent(content || "", true)
     }
   }, [content, editor])
 
