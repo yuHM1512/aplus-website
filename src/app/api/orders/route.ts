@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/prisma"
+import {
+  sendOrderConfirmationToCustomer,
+  sendNewOrderToAdmin,
+  type OrderEmailData,
+} from "@/lib/mailer"
 
 // ─── Validation ─────────────────────────────────────────
 const orderItemSchema = z.object({
@@ -102,8 +107,35 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    // TODO: Gửi email xác nhận qua Nodemailer (Phase 1.1)
     console.log(`[order] Created: ${order.orderNumber} — ${data.fullName} — ${data.total}đ`)
+
+    // Fire-and-forget email (không block response)
+    const emailData: OrderEmailData = {
+      orderNumber: order.orderNumber,
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      province: data.province,
+      district: data.district,
+      ward: data.ward,
+      address: data.address,
+      note: data.note || null,
+      paymentMethod: data.paymentMethod,
+      subtotal: data.subtotal,
+      shippingFee: data.shippingFee,
+      total: data.total,
+      items: data.items.map((i) => ({
+        productName: i.productName,
+        price: i.price,
+        quantity: i.quantity,
+      })),
+    }
+
+    // Chạy song song, không await để tránh chậm response
+    Promise.all([
+      sendOrderConfirmationToCustomer(emailData),
+      sendNewOrderToAdmin(emailData),
+    ]).catch((err) => console.error("[order] email error:", err))
 
     return NextResponse.json(
       {

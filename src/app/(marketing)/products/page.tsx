@@ -1,6 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { ChevronRight, X } from "lucide-react"
+import { ChevronRight, ChevronLeft, X } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { ProductCard } from "@/components/products/product-card"
 import { ProductsToolbar } from "@/components/products/products-toolbar"
@@ -66,7 +66,7 @@ export default async function ProductsPage({
   const sort = (params.sort || "default") as SortKey
   const view = params.view === "list" ? "list" : "grid"
   const page = Math.max(1, parseInt(params.page || "1", 10) || 1)
-  const perPage = 12
+  const perPage = 24
 
   // ─── Build Prisma where clause ───
   const where: Record<string, unknown> = { published: true }
@@ -269,24 +269,7 @@ export default async function ProductsPage({
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="mt-10 flex justify-center items-center gap-2 flex-wrap">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => {
-                    const href = buildFilterHref({ ...params, page: n === 1 ? undefined : String(n) })
-                    return (
-                      <Link
-                        key={n}
-                        href={href}
-                        className={`min-w-10 h-10 px-3 rounded flex items-center justify-center text-sm font-semibold transition-colors ${
-                          n === page
-                            ? "bg-[#102590] text-white"
-                            : "bg-white border border-gray-200 text-gray-700 hover:bg-[#B5DBFF] hover:border-[#B5DBFF]"
-                        }`}
-                      >
-                        {n}
-                      </Link>
-                    )
-                  })}
-                </div>
+                <Pagination page={page} totalPages={totalPages} params={params} />
               )}
             </div>
           </div>
@@ -336,6 +319,96 @@ function FilterLink({
         {typeof count === "number" && <span className="text-xs text-gray-500">{count}</span>}
       </Link>
     </li>
+  )
+}
+
+/* ── Pagination (ellipsis style) ── */
+function Pagination({
+  page,
+  totalPages,
+  params,
+}: {
+  page: number
+  totalPages: number
+  params: SearchParams
+}) {
+  // Tạo danh sách trang hiển thị: 1 ... 4 5 6 ... 70
+  function getPageNumbers(): (number | "...")[] {
+    const delta = 2 // Số trang lân cận mỗi bên
+    const pages: (number | "...")[] = []
+    const rangeStart = Math.max(2, page - delta)
+    const rangeEnd = Math.min(totalPages - 1, page + delta)
+
+    // Luôn hiện trang 1
+    pages.push(1)
+
+    // Ellipsis đầu
+    if (rangeStart > 2) pages.push("...")
+
+    // Các trang lân cận
+    for (let i = rangeStart; i <= rangeEnd; i++) {
+      pages.push(i)
+    }
+
+    // Ellipsis cuối
+    if (rangeEnd < totalPages - 1) pages.push("...")
+
+    // Luôn hiện trang cuối
+    if (totalPages > 1) pages.push(totalPages)
+
+    return pages
+  }
+
+  const pageNumbers = getPageNumbers()
+  const prevHref = page > 1 ? buildFilterHref({ ...params, page: page === 2 ? undefined : String(page - 1) }) : null
+  const nextHref = page < totalPages ? buildFilterHref({ ...params, page: String(page + 1) }) : null
+
+  const baseClass = "min-w-10 h-10 px-3 rounded-lg flex items-center justify-center text-sm font-semibold transition-colors"
+  const activeClass = "bg-[#102590] text-white shadow-sm"
+  const normalClass = "bg-white border border-gray-200 text-gray-700 hover:bg-[#B5DBFF] hover:border-[#B5DBFF]"
+  const disabledClass = "bg-gray-50 text-gray-300 border border-gray-100 cursor-not-allowed"
+
+  return (
+    <div className="mt-10 flex justify-center items-center gap-1.5">
+      {/* Prev */}
+      {prevHref ? (
+        <Link href={prevHref} className={`${baseClass} ${normalClass}`} aria-label="Trang trước">
+          <ChevronLeft className="h-4 w-4" />
+        </Link>
+      ) : (
+        <span className={`${baseClass} ${disabledClass}`} aria-disabled>
+          <ChevronLeft className="h-4 w-4" />
+        </span>
+      )}
+
+      {/* Page numbers */}
+      {pageNumbers.map((n, i) =>
+        n === "..." ? (
+          <span key={`dots-${i}`} className="min-w-8 h-10 flex items-center justify-center text-sm text-gray-400">
+            ...
+          </span>
+        ) : (
+          <Link
+            key={n}
+            href={buildFilterHref({ ...params, page: n === 1 ? undefined : String(n) })}
+            className={`${baseClass} ${n === page ? activeClass : normalClass}`}
+          >
+            {n}
+          </Link>
+        )
+      )}
+
+      {/* Next */}
+      {nextHref ? (
+        <Link href={nextHref} className={`${baseClass} ${normalClass}`} aria-label="Trang sau">
+          <ChevronRight className="h-4 w-4" />
+        </Link>
+      ) : (
+        <span className={`${baseClass} ${disabledClass}`} aria-disabled>
+          <ChevronRight className="h-4 w-4" />
+        </span>
+      )}
+    </div>
   )
 }
 

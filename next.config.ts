@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
         hostname: "img.vietqr.io",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "bizweb.dktcdn.net",
+        pathname: "/**",
+      },
     ],
   },
 };

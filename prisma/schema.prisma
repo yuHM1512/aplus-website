@@ -130,6 +130,9 @@ model Order {
   shippingFee   Int         @default(30000)
   total         Int
 
+  // Khách bấm "Tôi đã chuyển khoản" — timestamp để admin đối soát
+  paymentNotifiedAt DateTime?
+
   items         OrderItem[]
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt

@@ -4,11 +4,11 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Suspense } from "react"
-import { CheckCircle, Copy, Phone, ChevronRight, Truck } from "lucide-react"
+import { CheckCircle, Copy, Phone, ChevronRight, Truck, Loader2, BadgeCheck } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { SITE_CONFIG } from "@/lib/constants"
 import { formatPrice } from "@/lib/cart-store"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 // ─── Bank config ──────────────────────────────────────
 const BANK = {
@@ -35,6 +35,45 @@ function OrderConfirmationContent() {
   const totalAmount = parseInt(searchParams.get("total") || "0", 10)
   const paymentMethod = searchParams.get("pm") || "bank_transfer"
   const [copied, setCopied] = useState(false)
+
+  // Payment notify state
+  const [notifying, setNotifying] = useState(false)
+  const [notified, setNotified] = useState(false)
+  const [notifyError, setNotifyError] = useState<string | null>(null)
+
+  // Load trạng thái notified khi mount (nếu khách refresh trang)
+  useEffect(() => {
+    if (!orderNumber || paymentMethod !== "bank_transfer") return
+    fetch(`/api/orders/${orderNumber}/payment-notify`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.notifiedAt) setNotified(true)
+      })
+      .catch(() => {
+        // ignore
+      })
+  }, [orderNumber, paymentMethod])
+
+  const handleNotifyPaid = async () => {
+    if (!orderNumber) return
+    setNotifying(true)
+    setNotifyError(null)
+    try {
+      const res = await fetch(`/api/orders/${orderNumber}/payment-notify`, {
+        method: "POST",
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setNotifyError(data.error || "Không gửi được thông báo")
+        return
+      }
+      setNotified(true)
+    } catch {
+      setNotifyError("Lỗi kết nối, vui lòng thử lại")
+    } finally {
+      setNotifying(false)
+    }
+  }
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
@@ -232,6 +271,49 @@ function OrderConfirmationContent() {
 
                 <div className="mt-3 text-center text-[12px] text-gray-400">
                   Đơn hàng sẽ được xử lý sau khi xác nhận thanh toán (thường trong 1-2 giờ làm việc)
+                </div>
+
+                {/* ── Nút "Tôi đã chuyển khoản" ── */}
+                <div className="mt-6">
+                  {notified ? (
+                    <div className="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-lg">
+                      <BadgeCheck className="h-5 w-5 text-emerald-600 mt-0.5 shrink-0" />
+                      <div className="flex-1">
+                        <div className="text-sm font-bold text-emerald-800 mb-0.5">
+                          Đã ghi nhận báo chuyển khoản
+                        </div>
+                        <p className="text-[13px] text-emerald-700 leading-relaxed">
+                          Cảm ơn bạn! Chúng tôi sẽ đối soát và xác nhận trong 1-2 giờ làm việc.
+                          Có thể liên hệ Hotline{" "}
+                          <a href={`tel:${SITE_CONFIG.phone.replace(/\s/g, "")}`} className="font-semibold underline">
+                            {SITE_CONFIG.phone}
+                          </a>{" "}
+                          nếu cần gấp.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        onClick={handleNotifyPaid}
+                        disabled={notifying}
+                        className="w-full h-12 flex items-center justify-center gap-2 bg-emerald-600 text-white rounded-md text-sm font-bold uppercase tracking-wide hover:bg-emerald-700 transition-colors disabled:opacity-60"
+                      >
+                        {notifying ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <BadgeCheck className="h-5 w-5" />
+                        )}
+                        {notifying ? "Đang gửi..." : "Tôi đã chuyển khoản"}
+                      </button>
+                      <p className="text-[12px] text-gray-500 text-center mt-2">
+                        Nhấn nút này sau khi hoàn tất chuyển khoản để admin đối soát nhanh hơn
+                      </p>
+                      {notifyError && (
+                        <p className="text-xs text-red-500 text-center mt-2">{notifyError}</p>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             )}

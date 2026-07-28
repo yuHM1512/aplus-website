@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Container } from "@/components/ui/container"
+import { VietnamAddressPicker } from "@/components/forms/vietnam-address-picker"
 import { useCartStore, formatPrice, SHIPPING_FEE } from "@/lib/cart-store"
 
 // ─── Validation schema ─────────────────────────────────
@@ -44,15 +45,22 @@ export default function CheckoutPage() {
     handleSubmit,
     watch,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       paymentMethod: "bank_transfer",
+      province: "",
+      district: "",
+      ward: "",
     },
   })
 
   const paymentMethod = watch("paymentMethod")
+  const province = watch("province")
+  const district = watch("district")
+  const ward = watch("ward")
 
   const onSubmit = async (data: CheckoutFormData) => {
     if (items.length === 0) return
@@ -164,30 +172,30 @@ export default function CheckoutPage() {
                   />
                 </Field>
 
-                {/* Tỉnh / Huyện / Xã — text inputs cho Phase 1 */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Field label="Tỉnh / Thành phố" required error={errors.province?.message}>
-                    <input
-                      {...register("province")}
-                      placeholder="Bình Định"
-                      className={inputClass(errors.province)}
-                    />
-                  </Field>
-                  <Field label="Quận / Huyện" required error={errors.district?.message}>
-                    <input
-                      {...register("district")}
-                      placeholder="TP. Quy Nhơn"
-                      className={inputClass(errors.district)}
-                    />
-                  </Field>
-                  <Field label="Phường / Xã" required error={errors.ward?.message}>
-                    <input
-                      {...register("ward")}
-                      placeholder="Trần Hưng Đạo"
-                      className={inputClass(errors.ward)}
-                    />
-                  </Field>
-                </div>
+                {/* Tỉnh / Huyện / Xã — cascade select from provinces.open-api.vn */}
+                <VietnamAddressPicker
+                  province={province}
+                  district={district}
+                  ward={ward}
+                  onChange={({ province: p, district: d, ward: w }) => {
+                    setValue("province", p, { shouldValidate: !!errors.province })
+                    setValue("district", d, { shouldValidate: !!errors.district })
+                    setValue("ward", w, { shouldValidate: !!errors.ward })
+                    // Re-validate to clear error state after selection
+                    if (p) trigger("province")
+                    if (d) trigger("district")
+                    if (w) trigger("ward")
+                  }}
+                  errors={{
+                    province: errors.province?.message,
+                    district: errors.district?.message,
+                    ward: errors.ward?.message,
+                  }}
+                />
+                {/* Register hidden fields to keep RHF state in sync */}
+                <input type="hidden" {...register("province")} />
+                <input type="hidden" {...register("district")} />
+                <input type="hidden" {...register("ward")} />
 
                 {/* Địa chỉ */}
                 <Field label="Địa chỉ chi tiết" required error={errors.address?.message}>

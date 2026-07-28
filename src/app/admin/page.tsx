@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { Package, FileText, Mail, BarChart3, TrendingUp, Plus, ChevronRight, Sparkles, ShoppingCart, DollarSign, Clock, Eye } from "lucide-react"
 import Link from "next/link"
 import { formatPrice } from "@/lib/cart-store"
+import { SapoSyncButton } from "@/components/admin/sapo-sync-button"
 
 async function getDashboardStats() {
   const startOfToday = new Date()
@@ -395,6 +396,7 @@ export default async function AdminDashboardPage() {
                   <ChevronRight className="w-4 h-4 opacity-50" />
                 </div>
               </Link>
+              <SapoSyncButton />
             </div>
           </div>
 
