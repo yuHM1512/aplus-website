@@ -6,7 +6,12 @@ import { ProductCard } from "@/components/products/product-card"
 import { ProductsToolbar } from "@/components/products/products-toolbar"
 import { ProductsSearch } from "@/components/products/products-search"
 import { prisma } from "@/lib/prisma"
-import { PRODUCT_CATEGORIES } from "@/lib/static-data"
+import {
+  SAPO_CATEGORY_MAP,
+  sapoKeyFromSlug,
+  sapoCategoryName,
+  getSortedCategories,
+} from "@/lib/static-data"
 
 export const metadata: Metadata = {
   title: "Sản phẩm | Aplus Technologies",
@@ -71,7 +76,9 @@ export default async function ProductsPage({
   // ─── Build Prisma where clause ───
   const where: Record<string, unknown> = { published: true }
 
-  if (activeCat) where.category = activeCat
+  // Resolve slug → Sapo product_type key cho DB query
+  const activeCatKey = activeCat ? sapoKeyFromSlug(activeCat) : undefined
+  if (activeCatKey) where.category = activeCatKey
   if (activeBrand) where.brand = activeBrand
   if (activePrice) {
     where.priceNumeric = { gte: activePrice.min, lte: activePrice.max }
@@ -83,7 +90,7 @@ export default async function ProductsPage({
     ]
   }
 
-  const [products, totalCount, allCount] = await Promise.all([
+  const [products, totalCount, allCount, categoryCounts] = await Promise.all([
     prisma.product.findMany({
       where,
       orderBy: getOrderBy(sort),
@@ -92,7 +99,21 @@ export default async function ProductsPage({
     }),
     prisma.product.count({ where }),
     prisma.product.count({ where: { published: true } }),
+    prisma.product.groupBy({
+      by: ["category"],
+      where: { published: true },
+      _count: { _all: true },
+    }),
   ])
+
+  // Map category key → count cho sidebar
+  const countMap = new Map(
+    categoryCounts.map((c) => [c.category, c._count._all])
+  )
+  const sortedCategories = getSortedCategories().map((cat) => ({
+    ...cat,
+    count: countMap.get(cat.key) ?? 0,
+  }))
 
   const totalPages = Math.max(1, Math.ceil(totalCount / perPage))
 
@@ -109,7 +130,7 @@ export default async function ProductsPage({
     return `/products${p.toString() ? "?" + p.toString() : ""}`
   }
   if (activeCat) {
-    const catName = PRODUCT_CATEGORIES.find((c) => c.slug === activeCat)?.name || activeCat
+    const catName = activeCatKey ? sapoCategoryName(activeCatKey) : activeCat
     activeFilters.push({ label: `Danh mục: ${catName}`, removeHref: buildHref("cat") })
   }
   if (activePrice) {
@@ -167,13 +188,13 @@ export default async function ProductsPage({
                     label="Tất cả sản phẩm"
                     count={allCount}
                   />
-                  {PRODUCT_CATEGORIES.map((cat) => (
+                  {sortedCategories.map((cat) => (
                     <FilterLink
                       key={cat.slug}
                       href={buildFilterHref({ ...params, cat: cat.slug, page: undefined })}
                       active={activeCat === cat.slug}
                       label={cat.name}
-                      count={cat.productCount}
+                      count={cat.count}
                     />
                   ))}
                 </ul>

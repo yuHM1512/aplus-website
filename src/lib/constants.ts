@@ -43,6 +43,48 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Liên hệ", href: "/contact" },
 ]
 
+// ─── MEGA MENU — nhóm danh mục hiển thị trong dropdown ─
+export interface MegaMenuGroup {
+  title: string
+  items: { label: string; slug: string; icon: string; badge?: string }[]
+}
+
+export const MEGA_MENU_GROUPS: MegaMenuGroup[] = [
+  {
+    title: "Sản phẩm lọc nước",
+    items: [
+      { label: "Máy lọc nước", slug: "may-loc-nuoc", icon: "Waves", badge: "HOT" },
+      { label: "Cột lọc nước", slug: "cot-loc-nuoc", icon: "Cylinder" },
+      { label: "Bộ lọc", slug: "bo-loc", icon: "Droplets" },
+      { label: "Combo cột lọc", slug: "combo-cot", icon: "Layers" },
+      { label: "Cây nóng lạnh", slug: "cay-nong-lanh", icon: "Thermometer" },
+    ],
+  },
+  {
+    title: "Linh kiện & Phụ kiện",
+    items: [
+      { label: "Linh kiện lọc nước", slug: "linh-kien-loc-nuoc", icon: "Filter" },
+      { label: "Phụ kiện", slug: "phu-kien", icon: "Wrench" },
+      { label: "Van các loại", slug: "van-cac-loai", icon: "Cog" },
+      { label: "Vật liệu lọc", slug: "vat-lieu-loc", icon: "Package" },
+    ],
+  },
+  {
+    title: "Thiết bị",
+    items: [
+      { label: "Thiết bị đo đạc", slug: "thiet-bi-do-dac", icon: "Gauge" },
+      { label: "Thiết bị khác", slug: "thiet-bi-khac", icon: "Box" },
+    ],
+  },
+]
+
+export const MEGA_MENU_SERVICES = [
+  { label: "Khảo sát nguồn nước", href: "/survey", icon: "Search" },
+  { label: "Lắp đặt tận nơi", href: "/contact", icon: "Wrench" },
+  { label: "Bảo trì định kỳ", href: "/contact", icon: "Shield" },
+  { label: "Thay lõi tận nhà", href: "/contact", icon: "Home" },
+]
+
 export const NEED_TYPES = [
   { value: "household", label: "Lọc nước gia đình" },
   { value: "industrial", label: "Lọc nước công nghiệp" },

@@ -1,57 +1,105 @@
 // Static content — không quản lý qua admin
 // Projects, Services, Testimonials, Stats, USPs là nội dung ít thay đổi
 
-// ─── PRODUCT CATEGORIES (for sidebar filter) ──────────
-export const PRODUCT_CATEGORIES = [
-  {
-    id: "he-thong-loc-nuoc",
-    name: "Hệ thống lọc nước",
-    slug: "he-thong-loc-nuoc",
-    description: "Hệ thống lọc nước công nghiệp và đầu nguồn",
-    icon: "Droplets",
-    productCount: 12,
-  },
-  {
-    id: "may-loc-nuoc",
+// ─── PRODUCT CATEGORIES — mapping từ Sapo product_type ─
+// Key = giá trị product_type gốc trên Sapo (lưu trong DB field `category`)
+// Sidebar filter truyền slug qua ?cat= → lookup ngược về key gốc
+export const SAPO_CATEGORY_MAP: Record<
+  string,
+  { name: string; slug: string; icon: string; order: number }
+> = {
+  "MÁY LỌC NƯỚC": {
     name: "Máy lọc nước",
     slug: "may-loc-nuoc",
-    description: "Máy lọc nước RO, UF, Nano cho gia đình và doanh nghiệp",
     icon: "Waves",
-    productCount: 26,
+    order: 1,
   },
-  {
-    id: "thiet-bi-loc-nuoc",
-    name: "Thiết bị lọc nước",
-    slug: "thiet-bi-loc-nuoc",
-    description: "Van, biến áp, thiết bị điều khiển thông minh",
-    icon: "Cog",
-    productCount: 45,
+  "BỘ LỌC": {
+    name: "Bộ lọc",
+    slug: "bo-loc",
+    icon: "Droplets",
+    order: 2,
   },
-  {
-    id: "loi-loc-nuoc",
-    name: "Lõi lọc & Linh kiện",
-    slug: "loi-loc-nuoc",
-    description: "Lõi lọc chính hãng cho các dòng máy",
+  "CỘT LỌC NƯỚC": {
+    name: "Cột lọc nước",
+    slug: "cot-loc-nuoc",
+    icon: "Cylinder",
+    order: 3,
+  },
+  "COMBO CỘT": {
+    name: "Combo cột lọc",
+    slug: "combo-cot",
+    icon: "Layers",
+    order: 4,
+  },
+  "LINH KIỆN LỌC NƯỚC": {
+    name: "Linh kiện lọc nước",
+    slug: "linh-kien-loc-nuoc",
     icon: "Filter",
-    productCount: 85,
+    order: 5,
   },
-  {
-    id: "vat-lieu-loc",
+  "PHỤ KIỆN": {
+    name: "Phụ kiện",
+    slug: "phu-kien",
+    icon: "Wrench",
+    order: 6,
+  },
+  "VAN CÁC LOẠI": {
+    name: "Van các loại",
+    slug: "van-cac-loai",
+    icon: "Cog",
+    order: 7,
+  },
+  "VẬT LIỆU LỌC NƯỚC": {
     name: "Vật liệu lọc",
     slug: "vat-lieu-loc",
-    description: "Cát, sỏi, than hoạt tính, hạt nhựa",
     icon: "Package",
-    productCount: 18,
+    order: 8,
   },
-  {
-    id: "dich-vu-bao-tri",
-    name: "Dịch vụ bảo trì",
-    slug: "dich-vu-bao-tri",
-    description: "Bảo trì, thay lõi tận nhà",
-    icon: "Wrench",
-    productCount: 11,
+  "CÂY/MÁY NÓNG LẠNH": {
+    name: "Cây nóng lạnh",
+    slug: "cay-nong-lanh",
+    icon: "Thermometer",
+    order: 9,
   },
-]
+  "THIẾT BỊ ĐO ĐẠC": {
+    name: "Thiết bị đo đạc",
+    slug: "thiet-bi-do-dac",
+    icon: "Gauge",
+    order: 10,
+  },
+  "THIẾT BỊ KHÁC": {
+    name: "Thiết bị khác",
+    slug: "thiet-bi-khac",
+    icon: "Box",
+    order: 11,
+  },
+  BCN: {
+    name: "BCN",
+    slug: "bcn",
+    icon: "Package",
+    order: 12,
+  },
+}
+
+/** Tra slug → Sapo product_type gốc (dùng cho filter ?cat=slug) */
+export function sapoKeyFromSlug(slug: string): string | undefined {
+  return Object.entries(SAPO_CATEGORY_MAP).find(
+    ([, v]) => v.slug === slug
+  )?.[0]
+}
+
+/** Tra Sapo product_type → display name (fallback = key gốc) */
+export function sapoCategoryName(key: string): string {
+  return SAPO_CATEGORY_MAP[key]?.name ?? key
+}
+
+/** Danh sách danh mục đã sort theo order — tiện render sidebar/homepage */
+export function getSortedCategories() {
+  return Object.entries(SAPO_CATEGORY_MAP)
+    .map(([key, v]) => ({ key, ...v }))
+    .sort((a, b) => a.order - b.order)
+}
 
 // ─── PROJECTS (Case Studies) ───────────────────────────
 export const PROJECT_CATEGORIES = [
