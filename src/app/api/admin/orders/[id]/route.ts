@@ -52,6 +52,27 @@ export async function PATCH(
   }
 }
 
+// DELETE /api/admin/orders/:id — xoá đơn hàng (items tự xoá theo cascade)
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  const { id } = await params
+
+  try {
+    await prisma.order.delete({ where: { id } })
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error("[admin/orders] Delete error:", error)
+    return NextResponse.json({ error: "Không xoá được đơn hàng" }, { status: 500 })
+  }
+}
+
 // GET /api/admin/orders/:id
 export async function GET(
   _req: NextRequest,

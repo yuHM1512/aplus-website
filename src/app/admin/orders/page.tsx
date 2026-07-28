@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState, useCallback } from "react"
-import { Package, Eye, Search, Download, ChevronLeft, ChevronRight, Filter } from "lucide-react"
+import { Package, Eye, Search, Download, ChevronLeft, ChevronRight, Filter, Trash2 } from "lucide-react"
 import { formatPrice } from "@/lib/cart-store"
 
 interface OrderItem {
@@ -114,6 +114,25 @@ export default function AdminOrdersPage() {
     }, 400)
     return () => clearTimeout(timer)
   }, [searchInput])
+
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+
+  const handleDelete = async (order: Order) => {
+    if (!confirm(`Xoá đơn hàng ${order.orderNumber} của ${order.fullName}?\nHành động này không thể hoàn tác.`)) {
+      return
+    }
+    setDeletingId(order.id)
+    try {
+      const res = await fetch(`/api/admin/orders/${order.id}`, { method: "DELETE" })
+      if (!res.ok) throw new Error()
+      // Tải lại danh sách
+      fetchOrders()
+    } catch {
+      alert("Xoá đơn hàng thất bại")
+    } finally {
+      setDeletingId(null)
+    }
+  }
 
   const handleExport = async () => {
     const params = new URLSearchParams()
@@ -233,7 +252,7 @@ export default function AdminOrdersPage() {
                 <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Thanh toán</th>
                 <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Trạng thái</th>
                 <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">Ngày đặt</th>
-                <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Chi tiết</th>
+                <th className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E2E8F0]">
@@ -304,13 +323,27 @@ export default function AdminOrdersPage() {
                       {formatDate(order.createdAt)}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <Link
-                        href={`/admin/orders/${order.id}`}
-                        className="inline-flex items-center gap-1 text-sm font-medium text-[#006EF5] hover:text-[#102590] transition-colors"
-                      >
-                        <Eye className="h-4 w-4" />
-                        Xem
-                      </Link>
+                      <div className="flex items-center justify-end gap-3">
+                        <Link
+                          href={`/admin/orders/${order.id}`}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-[#006EF5] hover:text-[#102590] transition-colors"
+                        >
+                          <Eye className="h-4 w-4" />
+                          Xem
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(order)}
+                          disabled={deletingId === order.id}
+                          title="Xoá đơn hàng"
+                          className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-40"
+                        >
+                          {deletingId === order.id ? (
+                            <div className="w-4 h-4 border-2 border-red-400 border-t-transparent rounded-full animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

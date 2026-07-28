@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
   keywords: ["lọc nước", "water filtration", "aplus technologies", "giải pháp lọc nước"],
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "vi_VN",

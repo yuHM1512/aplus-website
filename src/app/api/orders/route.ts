@@ -6,6 +6,7 @@ import {
   sendNewOrderToAdmin,
   type OrderEmailData,
 } from "@/lib/mailer"
+import { pushOrderToSapo } from "@/lib/sapo-push-order"
 
 // ─── Validation ─────────────────────────────────────────
 const orderItemSchema = z.object({
@@ -136,6 +137,20 @@ export async function POST(req: NextRequest) {
       sendOrderConfirmationToCustomer(emailData),
       sendNewOrderToAdmin(emailData),
     ]).catch((err) => console.error("[order] email error:", err))
+
+    // Đẩy đơn sang SAPO (chạy nền — KHÔNG block response, KHÔNG làm mất đơn nếu lỗi)
+    // Đơn local đã lưu ở trên nên dù SAPO fail, đơn khách vẫn an toàn.
+    pushOrderToSapo(order.id)
+      .then((r) => {
+        if (r.success) {
+          console.log(`[order] ${order.orderNumber} → SAPO #${r.sapoOrderNumber} (tồn kho đã trừ)`)
+        } else if (r.skipped) {
+          console.log(`[order] ${order.orderNumber} — bỏ qua SAPO: ${r.error}`)
+        } else {
+          console.error(`[order] ${order.orderNumber} — đẩy SAPO THẤT BẠI: ${r.error}`)
+        }
+      })
+      .catch((err) => console.error("[order] SAPO push error:", err))
 
     return NextResponse.json(
       {
