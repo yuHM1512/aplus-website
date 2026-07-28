@@ -1,19 +1,49 @@
 import { prisma } from "@/lib/prisma"
-import { Package, FileText, Mail, BarChart3, TrendingUp, Plus, ChevronRight, Sparkles } from "lucide-react"
+import { Package, FileText, Mail, BarChart3, TrendingUp, Plus, ChevronRight, Sparkles, ShoppingCart, DollarSign, Clock, Eye } from "lucide-react"
 import Link from "next/link"
+import { formatPrice } from "@/lib/cart-store"
 
 async function getDashboardStats() {
-  const [productCount, postCount, publishedPosts, draftPosts, contactCount, newContacts] =
-    await Promise.all([
-      prisma.product.count(),
-      prisma.post.count(),
-      prisma.post.count({ where: { published: true } }),
-      prisma.post.count({ where: { published: false } }),
-      prisma.contactSubmission.count(),
-      prisma.contactSubmission.count({ where: { status: "new" } }),
-    ])
+  const startOfToday = new Date()
+  startOfToday.setHours(0, 0, 0, 0)
 
-  return { productCount, postCount, publishedPosts, draftPosts, contactCount, newContacts }
+  const [
+    productCount, postCount, publishedPosts, draftPosts, contactCount, newContacts,
+    totalOrders, pendingOrders, todayOrders, todayRevenue, totalRevenue,
+  ] = await Promise.all([
+    prisma.product.count(),
+    prisma.post.count(),
+    prisma.post.count({ where: { published: true } }),
+    prisma.post.count({ where: { published: false } }),
+    prisma.contactSubmission.count(),
+    prisma.contactSubmission.count({ where: { status: "new" } }),
+    prisma.order.count(),
+    prisma.order.count({ where: { status: "pending" } }),
+    prisma.order.count({ where: { createdAt: { gte: startOfToday } } }),
+    prisma.order.aggregate({
+      _sum: { total: true },
+      where: { createdAt: { gte: startOfToday }, status: { not: "cancelled" } },
+    }),
+    prisma.order.aggregate({
+      _sum: { total: true },
+      where: { status: { not: "cancelled" } },
+    }),
+  ])
+
+  return {
+    productCount, postCount, publishedPosts, draftPosts, contactCount, newContacts,
+    totalOrders, pendingOrders, todayOrders,
+    todayRevenue: todayRevenue._sum.total || 0,
+    totalRevenue: totalRevenue._sum.total || 0,
+  }
+}
+
+async function getRecentOrders() {
+  return prisma.order.findMany({
+    take: 5,
+    orderBy: { createdAt: "desc" },
+    include: { items: true },
+  })
 }
 
 async function getRecentPosts() {
@@ -27,6 +57,39 @@ async function getRecentPosts() {
 export default async function AdminDashboardPage() {
   const stats = await getDashboardStats()
   const recentPosts = await getRecentPosts()
+  const recentOrders = await getRecentOrders()
+
+  // Order stat cards (highlighted row)
+  const orderCards = [
+    {
+      label: "Đơn hàng hôm nay",
+      value: stats.todayOrders.toString(),
+      icon: ShoppingCart,
+      badge: stats.todayOrders > 0 ? "Mới" : null,
+      color: "bg-blue-50 text-blue-700",
+    },
+    {
+      label: "Chờ xác nhận",
+      value: stats.pendingOrders.toString(),
+      icon: Clock,
+      badge: stats.pendingOrders > 0 ? `${stats.pendingOrders}` : null,
+      color: "bg-yellow-50 text-yellow-700",
+    },
+    {
+      label: "Doanh thu hôm nay",
+      value: formatPrice(stats.todayRevenue),
+      icon: DollarSign,
+      badge: null,
+      color: "bg-emerald-50 text-emerald-700",
+    },
+    {
+      label: "Tổng doanh thu",
+      value: formatPrice(stats.totalRevenue),
+      icon: TrendingUp,
+      badge: null,
+      color: "bg-[#eff4ff] text-[#102590]",
+    },
+  ]
 
   const statCards: Array<{
     label: string
@@ -60,9 +123,9 @@ export default async function AdminDashboardPage() {
       badge: stats.newContacts > 0 ? "Mới" : null,
     },
     {
-      label: "Tổng liên hệ",
-      value: stats.contactCount,
-      icon: BarChart3,
+      label: "Tổng đơn hàng",
+      value: stats.totalOrders,
+      icon: ShoppingCart,
       trend: null,
     },
   ]
@@ -90,6 +153,33 @@ export default async function AdminDashboardPage() {
             })}
           </p>
         </div>
+      </div>
+
+      {/* Order Stats Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {orderCards.map((card) => {
+          const Icon = card.icon
+          return (
+            <Link
+              key={card.label}
+              href="/admin/orders"
+              className="bg-white p-5 border border-[#E2E8F0] rounded-xl shadow-sm hover:border-ocean-blue/30 transition-all group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-lg ${card.color.split(" ")[0]}`}>
+                  <Icon className={`w-4 h-4 ${card.color.split(" ")[1]}`} />
+                </div>
+                {card.badge && (
+                  <span className="px-2 py-0.5 bg-red-50 text-red-700 text-[10px] font-bold rounded-full">
+                    {card.badge}
+                  </span>
+                )}
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900">{card.value}</h3>
+              <p className="text-[12px] text-gray-500 mt-0.5">{card.label}</p>
+            </Link>
+          )
+        })}
       </div>
 
       {/* Stat Cards */}
@@ -122,6 +212,83 @@ export default async function AdminDashboardPage() {
             </div>
           )
         })}
+      </div>
+
+      {/* Recent Orders */}
+      <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm overflow-hidden mb-6">
+        <div className="p-6 border-b border-[#E2E8F0] flex justify-between items-center">
+          <h3 className="text-base font-semibold text-deep-blue">Đơn hàng gần đây</h3>
+          <Link href="/admin/orders" className="text-sm text-ocean-blue hover:underline">
+            Xem tất cả
+          </Link>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead className="bg-[#F8FAFC] border-b border-[#E2E8F0]">
+              <tr>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Mã đơn</th>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Khách hàng</th>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Tổng</th>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Trạng thái</th>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Thời gian</th>
+                <th className="px-6 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#E2E8F0]">
+              {recentOrders.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-10 text-center text-sm text-gray-400">
+                    Chưa có đơn hàng nào
+                  </td>
+                </tr>
+              ) : (
+                recentOrders.map((order) => {
+                  const statusColor: Record<string, string> = {
+                    pending: "bg-yellow-50 text-yellow-700",
+                    confirmed: "bg-blue-50 text-blue-700",
+                    shipping: "bg-purple-50 text-purple-700",
+                    delivered: "bg-emerald-50 text-emerald-700",
+                    cancelled: "bg-red-50 text-red-700",
+                  }
+                  const statusLabel: Record<string, string> = {
+                    pending: "Chờ xử lý",
+                    confirmed: "Đã xác nhận",
+                    shipping: "Đang giao",
+                    delivered: "Đã giao",
+                    cancelled: "Đã hủy",
+                  }
+                  return (
+                    <tr key={order.id} className="hover:bg-[#F8FAFC] transition-colors">
+                      <td className="px-6 py-3">
+                        <span className="text-sm font-bold text-[#102590]">{order.orderNumber}</span>
+                      </td>
+                      <td className="px-6 py-3">
+                        <p className="text-sm font-semibold text-gray-900">{order.fullName}</p>
+                        <p className="text-xs text-gray-400">{order.phone}</p>
+                      </td>
+                      <td className="px-6 py-3 text-right text-sm font-bold text-gray-900">
+                        {formatPrice(order.total)}
+                      </td>
+                      <td className="px-6 py-3 text-center">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor[order.status] || "bg-gray-100 text-gray-500"}`}>
+                          {statusLabel[order.status] || order.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-3 text-sm text-gray-500">
+                        {formatDate(order.createdAt)}
+                      </td>
+                      <td className="px-6 py-3 text-right">
+                        <Link href={`/admin/orders/${order.id}`} className="text-sm text-[#006EF5] hover:text-[#102590]">
+                          <Eye className="h-4 w-4 inline" />
+                        </Link>
+                      </td>
+                    </tr>
+                  )
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Content row */}
