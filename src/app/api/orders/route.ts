@@ -106,7 +106,12 @@ export async function POST(req: NextRequest) {
     console.log(`[order] Created: ${order.orderNumber} — ${data.fullName} — ${data.total}đ`)
 
     return NextResponse.json(
-      { orderNumber: order.orderNumber, id: order.id },
+      {
+        orderNumber: order.orderNumber,
+        id: order.id,
+        total: order.total,
+        paymentMethod: order.paymentMethod,
+      },
       { status: 201 }
     )
   } catch (error) {

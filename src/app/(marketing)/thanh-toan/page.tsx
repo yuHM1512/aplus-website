@@ -83,9 +83,9 @@ export default function CheckoutPage() {
         throw new Error(err.error || "Đặt hàng thất bại")
       }
 
-      const { orderNumber } = await res.json()
+      const { orderNumber, total: orderTotal, paymentMethod: pm } = await res.json()
       clearCart()
-      router.push(`/don-hang/xac-nhan?order=${orderNumber}`)
+      router.push(`/don-hang/xac-nhan?order=${orderNumber}&total=${orderTotal}&pm=${pm}`)
     } catch (err) {
       alert(err instanceof Error ? err.message : "Đã có lỗi xảy ra, vui lòng thử lại")
     } finally {
