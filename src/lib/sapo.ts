@@ -129,6 +129,8 @@ export interface SapoOrder {
   source_name?: string        // Tên kênh bán (đặt "APLUS Website")
   tags?: string
   created_on?: string
+  cancelled_on?: string | null  // Timestamp khi đơn bị huỷ
+  closed_on?: string | null
 }
 
 export interface SapoLineItem {

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState, useCallback } from "react"
-import { Package, Eye, Search, Download, ChevronLeft, ChevronRight, Filter, Trash2 } from "lucide-react"
+import { Package, Eye, Search, Download, ChevronLeft, ChevronRight, Filter, Trash2, RefreshCw } from "lucide-react"
 import { formatPrice } from "@/lib/cart-store"
 
 interface OrderItem {
@@ -65,6 +65,41 @@ const paymentLabels: Record<string, string> = {
 const paymentStatusColors: Record<string, string> = {
   unpaid: "text-red-500",
   paid: "text-emerald-600",
+}
+
+function SapoSyncButton({ onSynced }: { onSynced: () => void }) {
+  const [syncing, setSyncing] = useState(false)
+  const [msg, setMsg] = useState("")
+
+  const handleSync = async () => {
+    setSyncing(true)
+    setMsg("")
+    try {
+      const res = await fetch("/api/admin/sapo/sync-orders", { method: "POST" })
+      const data = await res.json()
+      setMsg(data.message || "Hoàn tất")
+      onSynced()
+    } catch {
+      setMsg("Lỗi kết nối")
+    } finally {
+      setSyncing(false)
+      setTimeout(() => setMsg(""), 5000)
+    }
+  }
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        disabled={syncing}
+        onClick={handleSync}
+        className="inline-flex items-center gap-2 px-4 h-10 bg-white border border-[#E2E8F0] rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
+      >
+        <RefreshCw className={`h-4 w-4 ${syncing ? "animate-spin" : ""}`} />
+        Đồng bộ Sapo
+      </button>
+      {msg && <span className="text-xs text-gray-500 max-w-[200px] truncate">{msg}</span>}
+    </div>
+  )
 }
 
 export default function AdminOrdersPage() {
@@ -173,13 +208,16 @@ export default function AdminOrdersPage() {
             {pendingCount > 0 && <> &middot; {pendingCount} chờ xử lý</>}
           </p>
         </div>
-        <button
-          onClick={handleExport}
-          className="inline-flex items-center gap-2 px-4 h-10 bg-white border border-[#E2E8F0] rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-        >
-          <Download className="h-4 w-4" />
-          Xuất Excel
-        </button>
+        <div className="flex items-center gap-2">
+          <SapoSyncButton onSynced={fetchOrders} />
+          <button
+            onClick={handleExport}
+            className="inline-flex items-center gap-2 px-4 h-10 bg-white border border-[#E2E8F0] rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            Xuất Excel
+          </button>
+        </div>
       </div>
 
       {/* Filters */}

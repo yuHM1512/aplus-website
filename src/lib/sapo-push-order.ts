@@ -146,11 +146,15 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
       source_name: "APLUS Website",
     })
 
-    // Ghi SAPO order id ngược vào note đơn local để đối soát
+    // Lưu Sapo order ID vào DB để sync trạng thái ngược
     await prisma.order.update({
       where: { id: orderId },
       data: {
-        note: [order.note, `[Sapo #${sapoOrder.id}]`].filter(Boolean).join(" | "),
+        sapoOrderId: sapoOrder.id,
+        sapoOrderNumber: sapoOrder.order_number,
+        sapoFinancialStatus: sapoOrder.financial_status || null,
+        sapoFulfillmentStatus: sapoOrder.fulfillment_status || null,
+        lastSyncedAt: new Date(),
       },
     })
 

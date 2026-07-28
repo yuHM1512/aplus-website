@@ -114,6 +114,14 @@ model Order {
                 // pending → confirmed → shipping → delivered → cancelled
   paymentMethod String      // bank_transfer | cod
   paymentStatus String      @default("unpaid") // unpaid | paid
+  source        String      @default("website") // website | sapo | manual
+
+  // Sapo integration
+  sapoOrderId           Int?      @unique  // ID đơn trên Sapo
+  sapoOrderNumber       Int?               // Mã đơn hiển thị trên Sapo
+  sapoFinancialStatus   String?            // pending | paid | refunded | ...
+  sapoFulfillmentStatus String?            // null | partial | fulfilled
+  lastSyncedAt          DateTime?          // Lần sync gần nhất từ Sapo
 
   // Thông tin khách hàng
   fullName      String

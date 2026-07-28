@@ -84,6 +84,7 @@ export async function POST(req: NextRequest) {
         status: "pending",
         paymentMethod: data.paymentMethod,
         paymentStatus: "unpaid",
+        source: "website",
         fullName: data.fullName,
         phone: data.phone,
         email: data.email,

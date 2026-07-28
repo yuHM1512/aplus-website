@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import { formatPrice } from "@/lib/cart-store"
 import { ArrowLeft, MapPin, Phone, Mail, Package } from "lucide-react"
 import { OrderStatusButtons } from "@/components/admin/order-status-buttons"
+import { SapoOrderSync } from "@/components/admin/sapo-order-sync"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -163,6 +164,16 @@ export default async function AdminOrderDetailPage({ params }: Props) {
               currentPaymentStatus={order.paymentStatus}
             />
           </div>
+
+          {/* Sapo sync */}
+          <SapoOrderSync
+            orderId={order.id}
+            sapoOrderId={order.sapoOrderId}
+            sapoOrderNumber={order.sapoOrderNumber}
+            lastSyncedAt={order.lastSyncedAt?.toISOString() || null}
+            sapoFinancialStatus={order.sapoFinancialStatus}
+            sapoFulfillmentStatus={order.sapoFulfillmentStatus}
+          />
         </div>
       </div>
     </>
