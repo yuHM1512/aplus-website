@@ -92,15 +92,63 @@ model Product {
   brand         String?
   featured      Boolean  @default(false)
   order         Int      @default(0)
-  price         String?
+  price         String?          // Display string: "990.000"
   priceOriginal String?
+  priceNumeric  Int?             // Giá tính toán (VNĐ), dùng cho cart
   badge         String?
-  specs         String?  // JSON string for technical specs
+  specs         String?          // JSON string for technical specs
+  stock         Int      @default(-1) // -1 = không quản lý tồn kho, 0 = hết hàng
+  sku           String?          // Mã sản phẩm
   published     Boolean  @default(true)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   @@map("products")
+}
+
+// ─── Orders ─────────────────────────────────────────────
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique  // APL-YYYYMMDD-XXX
+  status        String      @default("pending")
+                // pending → confirmed → shipping → delivered → cancelled
+  paymentMethod String      // bank_transfer | cod
+  paymentStatus String      @default("unpaid") // unpaid | paid
+
+  // Thông tin khách hàng
+  fullName      String
+  phone         String
+  email         String
+  province      String
+  district      String
+  ward          String
+  address       String
+  note          String?
+
+  // Tổng tiền (VNĐ)
+  subtotal      Int
+  shippingFee   Int         @default(30000)
+  total         Int
+
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id           String  @id @default(cuid())
+  orderId      String
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String
+  productName  String  // Snapshot tên SP tại thời điểm đặt
+  productImage String?
+  productSlug  String?
+  price        Int     // Giá tại thời điểm đặt (VNĐ)
+  quantity     Int
+
+  @@map("order_items")
 }
 
 // ─── Site Settings ──────────────────────────────────────

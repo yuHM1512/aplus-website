@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { ChevronRight, Check, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
-import { SocialButtons } from "@/components/ui/social-buttons"
+import { AddToCartButton } from "@/components/ui/add-to-cart-button"
 import { prisma } from "@/lib/prisma"
 import { SITE_CONFIG } from "@/lib/constants"
 import { shouldSkipImageOptimization } from "@/lib/images"
@@ -151,6 +151,18 @@ export default async function ProductDetailPage({ params }: Props) {
 
               {/* CTA */}
               <div className="flex flex-wrap gap-3">
+                {product.priceNumeric && product.priceNumeric > 0 && (
+                  <AddToCartButton
+                    product={{
+                      productId: product.id,
+                      name: product.name,
+                      slug: product.slug,
+                      image: product.image,
+                      category: product.categoryName || product.category,
+                      price: product.priceNumeric,
+                    }}
+                  />
+                )}
                 <Link
                   href="/survey"
                   className="inline-flex h-12 items-center justify-center rounded-md bg-[#102590] text-white px-6 text-sm font-bold uppercase hover:bg-[#36D1FF] hover:text-[#102590] transition-colors"
@@ -166,15 +178,11 @@ export default async function ProductDetailPage({ params }: Props) {
                 </a>
               </div>
 
-              {/* Order channels */}
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <span className="text-sm font-semibold text-gray-600">Đặt mua qua:</span>
-                <SocialButtons size="md" />
+              <div className="pt-4 border-t border-gray-100">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {product.description}
+                </p>
               </div>
-
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {product.description}
-              </p>
             </div>
           </div>
         </Container>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', sans-serif; color: #111827; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button, input, select, textarea { font-family: inherit; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #006EF5 !important; box-shadow: 0 0 0 1px #006EF5 !important; }
+@media (max-width: 767px) {
+  [data-topbar] { display: none !important; }
+  [data-nav-desktop] { display: none !important; }
+  [data-checkout-layout] { grid-template-columns: 1fr !important; }
+  [data-order-col] { order: -1; }
+  [data-footer-grid] { grid-template-columns: 1fr 1fr !important; }
+}
+</style>
+</helmet>
+
+<div style="display:flex; flex-direction:column; min-height:100vh;">
+
+  <!-- TopBar -->
+  <div data-topbar style="background:#020035; color:rgba(255,255,255,0.85); font-size:12px; padding:10px 0;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Quy Nhơn, Bình Định</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <a href="tel:0935455558" style="display:flex; align-items:center; gap:6px; color:rgba(255,255,255,0.85);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Hotline: 0935 455 558
+        </a>
+        <a href="https://zalo.me/0935455558" target="_blank" style="display:flex; align-items:center; gap:6px; color:rgba(255,255,255,0.85);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Zalo: 0935 455 558
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header style="position:sticky; top:0; z-index:50; background:white; border-bottom:1px solid #f3f4f6; box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:80px;">
+      <a href="/" style="display:flex; align-items:center; flex-shrink:0;">
+        <img src="public/images/logo/logo-horizontal.png" alt="APLUS Technologies" style="height:40px; width:auto;">
+      </a>
+      <nav data-nav-desktop style="display:flex; align-items:center; gap:32px;">
+        <a href="/" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Trang chủ</a>
+        <a href="/about" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Giới thiệu</a>
+        <a href="/products" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Sản phẩm</a>
+        <a href="/projects" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Dự án</a>
+        <a href="/blog" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Blog</a>
+        <a href="/contact" style="font-size:14px; font-weight:600; color:#374151;" style-hover="color:#006EF5">Liên hệ</a>
+      </nav>
+      <div data-nav-desktop style="display:flex; align-items:center; gap:16px;">
+        <a href="tel:0935455558" style="display:flex; align-items:center; gap:6px; font-size:14px; font-weight:700; color:#102590;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          0935 455 558
+        </a>
+        <a href="/survey" style="display:inline-flex; align-items:center; justify-content:center; height:44px; padding:0 24px; background:#102590; color:white; border-radius:6px; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em;" style-hover="background:#36D1FF; color:#102590">
+          Đăng Ký Khảo Sát
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div style="background:#F2F3F4; border-bottom:1px solid #f3f4f6;">
+    <div style="max-width:1280px; margin:0 auto; padding:16px 24px;">
+      <div style="display:flex; align-items:center; gap:8px; font-size:14px; color:#6b7280; flex-wrap:wrap;">
+        <a href="/" style="color:#6b7280;" style-hover="color:#006EF5">Trang chủ</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <a href="Giỏ hàng.dc.html" style="color:#6b7280;" style-hover="color:#006EF5">Giỏ hàng</a>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <span style="color:#102590; font-weight:600;">Thanh toán</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main style="flex:1; background:white; padding:48px 0;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px;">
+      <div data-checkout-layout style="display:grid; grid-template-columns:7fr 5fr; gap:40px; align-items:flex-start;">
+
+        <!-- LEFT: Billing form -->
+        <div>
+          <h1 style="font-size:22px; font-weight:700; color:#102590; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 28px;">Thông tin thanh toán</h1>
+
+          <form onSubmit="{{ handleSubmit }}" style="display:flex; flex-direction:column; gap:16px;">
+            <!-- Row: Họ + Tên -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:500; color:#111827;">Họ <span style="color:#ef4444;">*</span></label>
+                <input type="text" placeholder="Nguyễn" style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 14px; font-size:14px; color:#111827; background:white; transition:border-color 0.15s;">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:500; color:#111827;">Tên <span style="color:#ef4444;">*</span></label>
+                <input type="text" placeholder="Văn An" style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 14px; font-size:14px; color:#111827; background:white;">
+              </div>
+            </div>
+
+            <!-- Số điện thoại -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Số điện thoại <span style="color:#ef4444;">*</span></label>
+              <input type="tel" placeholder="0912 345 678" style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 14px; font-size:14px; color:#111827; background:white;">
+            </div>
+
+            <!-- Email -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Email <span style="color:#ef4444;">*</span></label>
+              <input type="email" placeholder="example@email.com" style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 14px; font-size:14px; color:#111827; background:white;">
+            </div>
+
+            <!-- Tỉnh/Thành phố -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Tỉnh / Thành phố <span style="color:#ef4444;">*</span></label>
+              <div style="position:relative;">
+                <select style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 36px 0 14px; font-size:14px; color:#111827; background:white; appearance:none; cursor:pointer;">
+                  <option value="">-- Chọn tỉnh / thành phố --</option>
+                  <option value="binh-dinh" selected>Bình Định</option>
+                  <option value="ho-chi-minh">TP. Hồ Chí Minh</option>
+                  <option value="ha-noi">Hà Nội</option>
+                  <option value="da-nang">Đà Nẵng</option>
+                </select>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none;"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+
+            <!-- Quận/Huyện -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Quận / Huyện <span style="color:#ef4444;">*</span></label>
+              <div style="position:relative;">
+                <select style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 36px 0 14px; font-size:14px; color:#111827; background:white; appearance:none; cursor:pointer;">
+                  <option value="">-- Chọn quận / huyện --</option>
+                  <option value="quy-nhon" selected>TP. Quy Nhơn</option>
+                  <option value="tuy-phuoc">Tuy Phước</option>
+                  <option value="an-nhon">TX. An Nhơn</option>
+                </select>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none;"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+
+            <!-- Phường/Xã -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Phường / Xã <span style="color:#ef4444;">*</span></label>
+              <div style="position:relative;">
+                <select style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 36px 0 14px; font-size:14px; color:#111827; background:white; appearance:none; cursor:pointer;">
+                  <option value="">-- Chọn phường / xã --</option>
+                  <option value="tran-hung-dao" selected>Trần Hưng Đạo</option>
+                  <option value="le-loi">Lê Lợi</option>
+                  <option value="nguyen-van-cu">Nguyễn Văn Cừ</option>
+                </select>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none;"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+
+            <!-- Địa chỉ chi tiết -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Địa chỉ chi tiết <span style="color:#ef4444;">*</span></label>
+              <input type="text" placeholder="Số nhà, tên đường, khu phố..." style="height:44px; width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:0 14px; font-size:14px; color:#111827; background:white;">
+            </div>
+
+            <!-- Ghi chú -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:500; color:#111827;">Ghi chú đơn hàng <span style="font-weight:400; color:#9ca3af;">(tùy chọn)</span></label>
+              <textarea placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay địa điểm giao hàng..." style="width:100%; min-height:100px; border:1px solid #e5e7eb; border-radius:6px; padding:12px 14px; font-size:14px; color:#111827; background:white; resize:vertical; line-height:1.5;"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- RIGHT: Order summary + payment -->
+        <div data-order-col style="position:sticky; top:96px;">
+          <div style="border:1px solid #e5e7eb; border-radius:8px; padding:24px;">
+
+            <!-- Order heading -->
+            <h2 style="font-size:15px; font-weight:700; color:#102590; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 20px;">Đơn hàng của bạn</h2>
+
+            <!-- Product list -->
+            <div style="display:flex; flex-direction:column; gap:0;">
+              <sc-for list="{{ orderItems }}" as="item" hint-placeholder-count="2">
+                <div style="display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid #f3f4f6;">
+                  <div style="width:56px; height:56px; border:1px solid #e5e7eb; border-radius:6px; overflow:hidden; flex-shrink:0; background:#fafafa; display:flex; align-items:center; justify-content:center;">
+                    <img src="{{ item.image }}" alt="{{ item.name }}" style="width:100%; height:100%; object-fit:contain; padding:6px;">
+                  </div>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:13px; font-weight:500; color:#111827; line-height:1.4;">{{ item.name }}</div>
+                    <div style="font-size:12px; color:#9ca3af; margin-top:2px;">× {{ item.qty }}</div>
+                  </div>
+                  <div style="font-size:13px; font-weight:600; color:#102590; flex-shrink:0;">{{ item.totalStr }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Subtotals -->
+            <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; justify-content:space-between; font-size:14px;">
+                <span style="color:#6b7280;">Tạm tính</span>
+                <span style="font-weight:500; color:#111827;">1.980.000đ</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:14px;">
+                <span style="color:#6b7280;">Phí vận chuyển</span>
+                <span style="font-weight:500; color:#111827;">30.000đ</span>
+              </div>
+            </div>
+            <div style="height:2px; background:#e5e7eb; margin:16px 0;"></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:15px; font-weight:600; color:#374151;">Tổng cộng</span>
+              <span style="font-size:22px; font-weight:700; color:#102590;">2.010.000đ</span>
+            </div>
+
+            <!-- Payment methods -->
+            <div style="margin-top:24px;">
+              <div style="font-size:13px; font-weight:600; color:#374151; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">Phương thức thanh toán</div>
+
+              <!-- Bank transfer -->
+              <div onClick="{{ selectBank }}" style="{{ bankContainerStyle }}">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="{{ bankRadioStyle }}"></div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#102590"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <span style="font-size:14px; font-weight:500; color:#111827;">Chuyển khoản ngân hàng</span>
+                  </div>
+                </div>
+                <sc-if value="{{ isBank }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:12px; background:#F2F3F4; border-radius:6px; padding:14px; font-size:13px; color:#4b5563; line-height:1.6;">
+                    Chuyển khoản trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng ghi mã đơn hàng trong nội dung chuyển khoản. Đơn hàng sẽ được xử lý sau khi xác nhận thanh toán.
+                  </div>
+                </sc-if>
+              </div>
+
+              <!-- COD -->
+              <div onClick="{{ selectCod }}" style="{{ codContainerStyle }}">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="{{ codRadioStyle }}"></div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#102590"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    <span style="font-size:14px; font-weight:500; color:#111827;">Thanh toán khi nhận hàng (COD)</span>
+                  </div>
+                </div>
+                <sc-if value="{{ isCod }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:12px; background:#F2F3F4; border-radius:6px; padding:14px; font-size:13px; color:#4b5563; line-height:1.6;">
+                    Thanh toán trực tiếp cho nhân viên giao hàng khi nhận hàng.
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" style="margin-top:20px; display:flex; align-items:center; justify-content:center; gap:8px; width:100%; height:56px; background:#102590; color:white; border:none; border-radius:6px; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; cursor:pointer;" style-hover="background:#36D1FF; color:#102590">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              Đặt hàng
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:#020035; color:white; padding:64px 0 32px;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 24px;">
+      <div data-footer-grid style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px;">
+        <div>
+          <img src="public/images/logo/logo-white-horizontal.png" alt="APLUS Technologies" style="height:40px; width:auto; margin-bottom:16px; display:block;">
+          <p style="font-size:13px; color:rgba(255,255,255,0.7); line-height:1.65; margin:0;">Chuyên gia lọc nước hàng đầu Việt Nam. Cung cấp giải pháp công nghệ nước tiên tiến nhất.</p>
+        </div>
+        <div>
+          <h3 style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 16px; color:white;">Sản phẩm</h3>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
+            <li><a href="/products?cat=he-thong-loc-nuoc" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Hệ thống lọc tổng</a></li>
+            <li><a href="/products?cat=may-loc-nuoc" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Máy lọc nước RO</a></li>
+            <li><a href="/products?cat=thiet-bi-loc-nuoc" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Thiết bị lọc nước</a></li>
+            <li><a href="/products?cat=loi-loc-nuoc" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Lõi lọc &amp; Linh kiện</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 16px; color:white;">Dịch vụ &amp; Chính sách</h3>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
+            <li><a href="/about" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Giới thiệu</a></li>
+            <li><a href="/projects" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Dự án tiêu biểu</a></li>
+            <li><a href="#" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Chính sách bảo hành</a></li>
+            <li><a href="#" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">Chính sách bảo mật</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin:0 0 16px; color:white;">Liên hệ</h3>
+          <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+            <li style="display:flex; gap:8px; align-items:flex-start;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" style="margin-top:2px; flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style="font-size:13px; color:rgba(255,255,255,0.7);">TP. Quy Nhơn, Tỉnh Bình Định</span>
+            </li>
+            <li style="display:flex; gap:8px; align-items:flex-start;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" style="margin-top:2px; flex-shrink:0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <a href="tel:0935455558" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">0935 455 558</a>
+            </li>
+            <li style="display:flex; gap:8px; align-items:flex-start;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#36D1FF" stroke-width="2" style="margin-top:2px; flex-shrink:0;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:contact@aplustechnologies.vn" style="font-size:13px; color:rgba(255,255,255,0.7);" style-hover="color:#36D1FF">contact@aplustechnologies.vn</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div style="padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); text-align:center; font-size:12px; color:rgba(255,255,255,0.5);">
+        © 2026 APLUS Technologies. Chuyên gia lọc nước hàng đầu Việt Nam.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact -->
+  <div style="position:fixed; bottom:20px; right:16px; z-index:50; display:flex; flex-direction:column; align-items:flex-end; gap:10px; width:min(272px, calc(100vw - 32px));">
+    <a href="https://zalo.me/0935455558" target="_blank" style="display:flex; align-items:center; gap:12px; width:100%; background:#0068ff; border-radius:9999px; padding:8px 20px 8px 8px; box-shadow:0 4px 16px rgba(0,104,255,0.35); outline:4px solid rgba(255,255,255,0.9);">
+      <span style="width:48px; height:48px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; border:2px solid #0068ff; font-size:10px; font-weight:900; color:#0068ff;">Zalo</span>
+      </span>
+      <span>
+        <span style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.85);">Zalo</span>
+        <span style="display:block; font-size:17px; font-weight:900; color:white;">0935455558</span>
+      </span>
+    </a>
+    <a href="tel:0935455558" style="display:flex; align-items:center; gap:12px; width:100%; background:white; border-radius:9999px; padding:8px 20px 8px 8px; box-shadow:0 2px 10px rgba(0,0,0,0.1); border:1px solid #e5e7eb;">
+      <span style="width:48px; height:48px; border-radius:50%; background:#fef2f2; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#dc2626" stroke="#dc2626" stroke-width="0.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </span>
+      <span>
+        <span style="display:block; font-size:10px; font-weight:600; color:#6b7280;">Hotline</span>
+        <span style="display:block; font-size:17px; font-weight:900; color:#102590;">0935.455.558</span>
+      </span>
+    </a>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { payment: 'bank' };
+
+  renderVals() {
+    const isBank = this.state.payment === 'bank';
+    const isCod = !isBank;
+
+    const baseBox = {
+      borderRadius: '8px',
+      padding: '16px',
+      cursor: 'pointer',
+      marginBottom: '12px',
+      transition: 'border-color 0.15s, background 0.15s',
+    };
+
+    const radioBase = {
+      width: '18px',
+      height: '18px',
+      borderRadius: '50%',
+      flexShrink: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
+
+    const orderItems = [
+      {
+        id: 1,
+        name: 'Máy lọc nước AO Smith S600',
+        qty: 1,
+        totalStr: '990.000đ',
+        image: 'https://aqualifeplus.vn/source/storage/app/public/product/238-5-1746588068.png',
+      },
+      {
+        id: 2,
+        name: 'Máy lọc nước 9 cấp Sagana',
+        qty: 1,
+        totalStr: '990.000đ',
+        image: 'https://aqualifeplus.vn/source/storage/app/public/product/163-1744700869.png',
+      },
+    ];
+
+    return {
+      isBank,
+      isCod,
+      orderItems,
+      bankContainerStyle: {
+        ...baseBox,
+        border: isBank ? '2px solid #006EF5' : '1px solid #e5e7eb',
+        background: isBank ? 'rgba(0,110,245,0.03)' : 'white',
+      },
+      codContainerStyle: {
+        ...baseBox,
+        border: isCod ? '2px solid #006EF5' : '1px solid #e5e7eb',
+        background: isCod ? 'rgba(0,110,245,0.03)' : 'white',
+        marginBottom: '0',
+      },
+      bankRadioStyle: {
+        ...radioBase,
+        border: isBank ? '5px solid #006EF5' : '2px solid #d1d5db',
+        background: isBank ? '#006EF5' : 'white',
+      },
+      codRadioStyle: {
+        ...radioBase,
+        border: isCod ? '5px solid #006EF5' : '2px solid #d1d5db',
+        background: isCod ? '#006EF5' : 'white',
+      },
+      selectBank: () => this.setState({ payment: 'bank' }),
+      selectCod: () => this.setState({ payment: 'cod' }),
+      handleSubmit: (e) => { e.preventDefault(); alert('Đặt hàng thành công!'); },
+    };
+  }
+}
+</script>
+</body>
+</html>

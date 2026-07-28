@@ -17,13 +17,14 @@ export default async function HomePage() {
       id: true,
       slug: true,
       name: true,
-      description: true,
       price: true,
       priceOriginal: true,
+      priceNumeric: true,
       category: true,
+      categoryName: true,
+      brand: true,
       image: true,
       badge: true,
-      featured: true,
     },
   })
 

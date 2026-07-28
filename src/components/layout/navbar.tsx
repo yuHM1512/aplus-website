@@ -5,6 +5,8 @@ import Image from "next/image"
 import { useState } from "react"
 import { Menu, X, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
+import { CartIcon } from "@/components/ui/cart-icon"
+import { WishlistIcon } from "@/components/ui/wishlist-icon"
 import { NAV_ITEMS, SITE_CONFIG } from "@/lib/constants"
 
 export function Navbar() {
@@ -47,6 +49,8 @@ export function Navbar() {
             <Phone className="h-4 w-4" />
             {SITE_CONFIG.phone}
           </a>
+          <WishlistIcon />
+          <CartIcon />
           <Link
             href="/survey"
             className="inline-flex h-11 items-center justify-center rounded-md bg-[#102590] px-6 text-sm font-semibold uppercase text-white hover:bg-[#36D1FF] hover:text-[#102590] transition-colors"
@@ -55,14 +59,18 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="lg:hidden p-2 text-[#102590]"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile: cart icon + hamburger */}
+        <div className="lg:hidden flex items-center gap-1">
+          <WishlistIcon />
+          <CartIcon />
+          <button
+            className="p-2 text-[#102590]"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </Container>
 
       {/* Mobile drawer */}

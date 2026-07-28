@@ -8,6 +8,7 @@ import {
   Package,
   FileText,
   MessageSquare,
+  ShoppingCart,
   Settings,
   LogOut,
 } from "lucide-react"
@@ -17,6 +18,7 @@ const navItems = [
   { label: "Tổng quan", href: "/admin", icon: LayoutDashboard },
   { label: "Sản phẩm", href: "/admin/products", icon: Package },
   { label: "Bài viết", href: "/admin/posts", icon: FileText },
+  { label: "Đơn hàng", href: "/admin/orders", icon: ShoppingCart },
   { label: "Liên hệ", href: "/admin/contacts", icon: MessageSquare },
   { label: "Cài đặt", href: "/admin/settings", icon: Settings },
 ]
