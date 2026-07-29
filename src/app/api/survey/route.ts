@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
                 where: { id: survey.id },
                 data: { sapoCustomerId: r.sapoCustomerId },
               })
-              .catch((e) => console.error("[survey] lưu sapoCustomerId lỗi:", e))
+              .catch((e: unknown) => console.error("[survey] lưu sapoCustomerId lỗi:", e))
           }
           const label = r.existed ? "đã tồn tại — giữ nguyên" : "tạo mới"
           console.log(

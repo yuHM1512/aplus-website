@@ -117,9 +117,9 @@ export async function Categories() {
   }))
 
   // Chỉ lấy danh mục có visual cho homepage cards
-  const displayCategories: CategoryItem[] = HOMEPAGE_CAT_SLUGS
+  const displayCategories = HOMEPAGE_CAT_SLUGS
     .map((slug) => allCategories.find((c) => c.slug === slug))
-    .filter((c): c is CategoryItem => c !== undefined)
+    .filter((c) => c !== undefined)
 
   const featuredCategories = displayCategories.slice(0, 2)
   const compactCategories = displayCategories.slice(2)
