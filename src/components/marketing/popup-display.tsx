@@ -113,7 +113,7 @@ export function PopupDisplay() {
   )
 
   const centerPopups = popups.filter(
-    (p) => p.type === "popup" && visiblePopups.has(p.id) && !dismissedPopups.has(p.id)
+    (p) => (p.type === "popup" || p.type === "landing_hero") && visiblePopups.has(p.id) && !dismissedPopups.has(p.id)
   )
 
   return (
