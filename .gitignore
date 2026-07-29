@@ -16,7 +16,11 @@ build/
 .env.production.local
 
 # prisma
-prisma/migrations/
+# LƯU Ý: prisma/migrations/ PHẢI được commit vào git (là lịch sử schema).
+# Trước đây thư mục này bị ignore → migrate dev không thấy lịch sử → reset & mất data.
+
+# db backups — chứa dữ liệu khách (PII), TUYỆT ĐỐI không commit
+backups/
 
 # uploads
 public/uploads/

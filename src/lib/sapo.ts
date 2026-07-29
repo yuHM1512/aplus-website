@@ -211,8 +211,9 @@ export async function getAllProducts() {
 /** Tạo đơn hàng mới trong Sapo */
 export async function createOrder(order: {
   line_items: SapoLineItem[]
-  customer?: { id: number } | SapoCustomer
+  customer?: { id: number; first_name?: string; last_name?: string } | SapoCustomer
   shipping_address: SapoAddress
+  billing_address?: SapoAddress
   email?: string
   phone?: string
   note?: string
@@ -282,6 +283,21 @@ export async function createCustomer(customer: SapoCustomer) {
     method: "POST",
     body: JSON.stringify({ customer }),
   })
+  return data.customer
+}
+
+/** Cập nhật thông tin khách hàng (tên, email, địa chỉ...) */
+export async function updateCustomer(
+  id: number,
+  updates: Partial<Omit<SapoCustomer, "id">>
+) {
+  const data = await sapoFetch<{ customer: SapoCustomer }>(
+    `/customers/${id}.json`,
+    {
+      method: "PUT",
+      body: JSON.stringify({ customer: updates }),
+    }
+  )
   return data.customer
 }
 

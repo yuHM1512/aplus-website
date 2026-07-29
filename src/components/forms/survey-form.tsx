@@ -3,42 +3,7 @@
 import { useState } from "react"
 import { ArrowRight, ArrowLeft, Check, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-const WATER_SOURCES = [
-  { value: "nuoc_may", label: "Nước máy", desc: "Nước từ nhà máy cung cấp" },
-  { value: "gieng_khoan", label: "Nước giếng khoan", desc: "Nước ngầm tự khai thác" },
-  { value: "khac", label: "Nguồn khác", desc: "Nước mưa, nước bồn..." },
-]
-
-const HOUSE_TYPES = [
-  { value: "biet_thu", label: "Biệt thự" },
-  { value: "nha_dat", label: "Nhà đất liền kề" },
-  { value: "chung_cu", label: "Căn hộ chung cư" },
-  { value: "khac", label: "Khác" },
-]
-
-const BUDGET = [
-  { value: "duoi_30tr", label: "Dưới 30 triệu" },
-  { value: "30_60tr", label: "30 - 60 triệu" },
-  { value: "60_100tr", label: "60 - 100 triệu" },
-  { value: "100_500tr", label: "100 - 500 triệu" },
-  { value: "tren_500tr", label: "Trên 500 triệu" },
-]
-
-const WATER_ISSUES = [
-  "Nước có màu vàng, nâu, đen",
-  "Nước có cặn bẩn, bùn đất, rỉ sét",
-  "Nước có clo, mùi tanh, hôi thối",
-  "Nước có vị lạ",
-  "Nước có cảm giác nhờn",
-  "Nước nhiều cặn đá vôi",
-  "Nước nhiễm kim loại nặng (asen, chì...)",
-  "Nước nhiễm khuẩn, vi rút",
-  "Viêm da, mụn kéo dài",
-  "Tóc xơ, khô cứng",
-  "Quần áo giặt bị xơ cứng",
-  "Vấn đề khác",
-]
+import { WATER_SOURCES, HOUSE_TYPES, BUDGET, WATER_ISSUES } from "@/lib/survey-options"
 
 const STEPS = [
   "Thông tin liên hệ",
@@ -55,12 +20,17 @@ export function SurveyForm() {
   const [data, setData] = useState({
     fullName: "",
     phone: "",
+    email: "",
     address: "",
     waterSources: [] as string[],
     houseType: "" as string,
     budget: "" as string,
     issues: [] as string[],
   })
+
+  // Email là tùy chọn: bỏ trống thì hợp lệ, có nhập thì phải đúng định dạng
+  const emailValid =
+    data.email.trim() === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())
 
   const toggleArray = (key: "waterSources" | "issues", value: string) => {
     setData((d) => ({
@@ -72,7 +42,7 @@ export function SurveyForm() {
   }
 
   const canProceed = () => {
-    if (step === 0) return data.fullName.length >= 2 && data.phone.length >= 9 && data.address.length >= 3
+    if (step === 0) return data.fullName.length >= 2 && data.phone.length >= 9 && data.address.length >= 3 && emailValid
     if (step === 1) return data.waterSources.length > 0
     if (step === 2) return data.houseType.length > 0
     if (step === 3) return data.budget.length > 0
@@ -146,6 +116,27 @@ export function SurveyForm() {
               onChange={(e) => setData({ ...data, fullName: e.target.value })}
               className="w-full h-11 px-4 rounded-md border border-[#B5DBFF] focus:outline-none focus:border-[#006EF5] text-sm"
             />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Email <span className="font-normal text-gray-400">(không bắt buộc — để nhận email xác nhận)</span>
+            </label>
+            <input
+              type="email"
+              inputMode="email"
+              placeholder="email@example.com"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+              className={cn(
+                "w-full h-11 px-4 rounded-md border focus:outline-none text-sm",
+                emailValid
+                  ? "border-[#B5DBFF] focus:border-[#006EF5]"
+                  : "border-red-400 focus:border-red-500"
+              )}
+            />
+            {!emailValid && (
+              <p className="mt-1 text-xs text-red-500">Email chưa đúng định dạng</p>
+            )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

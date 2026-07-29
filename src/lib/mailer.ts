@@ -1,5 +1,12 @@
 import nodemailer from "nodemailer"
 import { formatPrice } from "@/lib/cart-store"
+import {
+  WATER_SOURCES,
+  HOUSE_TYPES,
+  BUDGET,
+  labelOf,
+  labelsOf,
+} from "@/lib/survey-options"
 
 // ─── SMTP transport (Gmail App Password) ──────────────
 let cachedTransporter: nodemailer.Transporter | null = null
@@ -267,6 +274,120 @@ export async function sendNewOrderToAdmin(data: OrderEmailData): Promise<boolean
     to: adminEmail,
     subject: `[APLUS - Đơn mới] ${data.orderNumber} — ${data.fullName} — ${formatPrice(data.total)}`,
     html: wrap(`Đơn hàng mới ${data.orderNumber}`, content),
+  })
+}
+
+/* ═══════════════════════════════════════════════════════
+   SURVEY EMAILS (Khảo sát chất lượng nước)
+   ═══════════════════════════════════════════════════════ */
+
+export interface SurveyEmailData {
+  fullName: string
+  phone: string
+  email?: string | null
+  address: string
+  waterSources: string[] // values: nuoc_may | gieng_khoan | khac
+  houseType: string // value: biet_thu | ...
+  budget: string // value: duoi_30tr | ...
+  issues: string[] // label đầy đủ
+}
+
+// Render khối tóm tắt thông tin khảo sát (dùng chung cho email khách + admin)
+function surveySummaryTable(data: SurveyEmailData): string {
+  const sources = labelsOf(WATER_SOURCES, data.waterSources).join(", ") || "—"
+  const house = labelOf(HOUSE_TYPES, data.houseType)
+  const budget = labelOf(BUDGET, data.budget)
+  const issues =
+    data.issues.length > 0
+      ? data.issues.map((i) => `<li style="margin-bottom:2px;">${escapeHtml(i)}</li>`).join("")
+      : "<li>—</li>"
+
+  return `
+  <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:6px;padding:16px;margin:16px 0;">
+    <table style="width:100%;font-size:14px;">
+      <tr><td style="padding:4px 0;color:#6b7280;width:130px;vertical-align:top;">Nguồn nước:</td><td style="font-weight:600;">${escapeHtml(sources)}</td></tr>
+      <tr><td style="padding:4px 0;color:#6b7280;vertical-align:top;">Loại nhà:</td><td style="font-weight:600;">${escapeHtml(house)}</td></tr>
+      <tr><td style="padding:4px 0;color:#6b7280;vertical-align:top;">Mức đầu tư:</td><td style="font-weight:600;color:#102590;">${escapeHtml(budget)}</td></tr>
+      <tr><td style="padding:4px 0;color:#6b7280;vertical-align:top;">Vấn đề nước:</td>
+        <td><ul style="margin:0;padding-left:18px;font-size:13px;color:#374151;">${issues}</ul></td></tr>
+    </table>
+  </div>`
+}
+
+// ─── 4. Email khách hàng — xác nhận đã nhận khảo sát ──
+export async function sendSurveyConfirmationToCustomer(
+  data: SurveyEmailData
+): Promise<boolean> {
+  if (!data.email) return false // Không có email khách → bỏ qua
+
+  const content = `
+    <h2 style="margin:0 0 8px;font-size:20px;color:#102590;">Cảm ơn bạn đã đăng ký khảo sát!</h2>
+    <p style="margin:0 0 16px;font-size:14px;color:#374151;line-height:1.6;">
+      Xin chào <strong>${escapeHtml(data.fullName)}</strong>, APLUS đã nhận được thông tin khảo sát
+      chất lượng nước của bạn. Đội ngũ chuyên gia sẽ liên hệ tư vấn giải pháp phù hợp
+      <strong>trong vòng 24 giờ</strong>.
+    </p>
+
+    <div style="background:#eff4ff;border:1px solid #B5DBFF;border-radius:6px;padding:14px 16px;margin-bottom:8px;">
+      <div style="font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Thông tin liên hệ của bạn</div>
+      <div style="font-size:14px;color:#111827;line-height:1.6;">
+        <strong>${escapeHtml(data.fullName)}</strong> — ${escapeHtml(data.phone)}<br/>
+        Địa chỉ lắp đặt: ${escapeHtml(data.address)}
+      </div>
+    </div>
+
+    <div style="font-size:13px;color:#6b7280;margin-top:16px;">Nội dung khảo sát bạn đã gửi:</div>
+    ${surveySummaryTable(data)}
+
+    <p style="font-size:13px;color:#6b7280;line-height:1.6;margin-top:16px;">
+      Nếu cần hỗ trợ gấp, bạn có thể gọi hotline hoặc Zalo <strong>0935 455 558</strong>. Trân trọng!
+    </p>
+  `
+
+  return sendMail({
+    to: data.email,
+    subject: "[APLUS] Đã nhận khảo sát — Chúng tôi sẽ liên hệ trong 24 giờ",
+    html: wrap("Xác nhận đăng ký khảo sát", content),
+  })
+}
+
+// ─── 5. Email admin — khách đăng ký khảo sát mới ──────
+export async function sendNewSurveyToAdmin(data: SurveyEmailData): Promise<boolean> {
+  const adminEmail = process.env.MAIL_TO
+  if (!adminEmail) {
+    console.warn("[mailer] MAIL_TO not set — skip admin survey email")
+    return false
+  }
+
+  const content = `
+    <div style="background:#dbeafe;border-left:4px solid #006EF5;padding:12px 16px;margin-bottom:16px;border-radius:4px;">
+      <strong style="color:#1e40af;">🔔 Khách hàng mới đăng ký khảo sát — cần liên hệ tư vấn</strong>
+    </div>
+
+    <h2 style="margin:0 0 8px;font-size:20px;color:#102590;">${escapeHtml(data.fullName)}</h2>
+
+    <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:6px;padding:14px;margin-bottom:8px;">
+      <table style="width:100%;font-size:14px;">
+        <tr><td style="padding:2px 0;color:#6b7280;width:100px;">SĐT:</td><td style="font-weight:600;"><a href="tel:${escapeHtml(data.phone)}" style="color:#006EF5;">${escapeHtml(data.phone)}</a></td></tr>
+        <tr><td style="padding:2px 0;color:#6b7280;">Email:</td><td>${data.email ? escapeHtml(data.email) : "<em style='color:#9ca3af;'>không cung cấp</em>"}</td></tr>
+        <tr><td style="padding:2px 0;color:#6b7280;vertical-align:top;">Địa chỉ:</td><td>${escapeHtml(data.address)}</td></tr>
+      </table>
+    </div>
+
+    ${surveySummaryTable(data)}
+
+    <div style="text-align:center;margin-top:24px;">
+      <a href="${siteUrl()}/admin"
+         style="display:inline-block;background:#102590;color:white;padding:12px 32px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;">
+        Mở Admin
+      </a>
+    </div>
+  `
+
+  return sendMail({
+    to: adminEmail,
+    subject: `[APLUS - Khảo sát mới] ${data.fullName} — ${data.phone}`,
+    html: wrap("Khách đăng ký khảo sát mới", content),
   })
 }
 

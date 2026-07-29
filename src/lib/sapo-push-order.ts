@@ -3,7 +3,7 @@
 // Server-side only.
 
 import { prisma } from "@/lib/prisma"
-import { createOrder, findCustomer, createCustomer } from "@/lib/sapo"
+import { createOrder, findCustomer, createCustomer, updateCustomer } from "@/lib/sapo"
 import type { SapoLineItem, SapoAddress, SapoShippingLine } from "@/lib/sapo"
 
 export interface PushResult {
@@ -78,16 +78,28 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
     }
   }
 
-  // ── 2. Tìm hoặc tạo khách hàng (không bắt buộc — lỗi thì vẫn tạo đơn) ──
+  // ── 2. Tách họ & tên (Sapo yêu cầu first_name + last_name) ──
+  const nameParts = (order.fullName || "").trim().split(/\s+/)
+  const firstName = nameParts.length > 1 ? nameParts.slice(0, -1).join(" ") : nameParts[0] || ""
+  const lastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : ""
+
+  // ── 3. Tìm hoặc tạo khách hàng (không bắt buộc — lỗi thì vẫn tạo đơn) ──
   let sapoCustomerId: number | undefined
   try {
     const existing = await findCustomer(order.phone)
     if (existing.length > 0 && existing[0].id) {
       sapoCustomerId = existing[0].id
+      // Cập nhật tên nếu customer cũ chưa có tên (tránh Sapo hiện SĐT)
+      if (!existing[0].first_name && !existing[0].last_name) {
+        await updateCustomer(existing[0].id, {
+          first_name: firstName,
+          last_name: lastName,
+        })
+      }
     } else {
       const newCustomer = await createCustomer({
-        first_name: order.fullName,
-        last_name: "",
+        first_name: firstName,
+        last_name: lastName,
         email: order.email || undefined,
         phone: order.phone,
         addresses: [
@@ -97,8 +109,8 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
             city: order.district,
             province: order.province,
             phone: order.phone,
-            first_name: order.fullName,
-            last_name: "",
+            first_name: firstName,
+            last_name: lastName,
             default: true,
           },
         ],
@@ -109,28 +121,35 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
     console.error("[sapo] Không xử lý được khách hàng, tạo đơn không gắn customer:", e)
   }
 
-  // ── 3. Build địa chỉ giao + phí ship ──
+  // ── 4. Build địa chỉ giao + billing + phí ship ──
   const shippingAddress: SapoAddress = {
     address1: order.address,
     ward: order.ward,
     city: order.district,
     province: order.province,
     phone: order.phone,
-    first_name: order.fullName,
-    last_name: "",
+    first_name: firstName,
+    last_name: lastName,
   }
+
+  // Billing address = shipping address (Sapo dùng billing để hiện tên khách hàng)
+  const billingAddress: SapoAddress = { ...shippingAddress }
 
   const shippingLines: SapoShippingLine[] =
     order.shippingFee > 0
       ? [{ title: "Phí vận chuyển", price: order.shippingFee, code: "standard" }]
       : []
 
-  // ── 4. Tạo đơn trong SAPO ──
+  // ── 5. Tạo đơn trong SAPO ──
   try {
     const sapoOrder = await createOrder({
       line_items: lineItems,
-      customer: sapoCustomerId ? { id: sapoCustomerId } : undefined,
+      // Truyền cả id lẫn tên — Sapo dùng id để link, tên để hiển thị
+      customer: sapoCustomerId
+        ? { id: sapoCustomerId, first_name: firstName, last_name: lastName }
+        : { first_name: firstName, last_name: lastName, email: order.email || undefined, phone: order.phone },
       shipping_address: shippingAddress,
+      billing_address: billingAddress,
       email: order.email || undefined,
       phone: order.phone,
       note: [

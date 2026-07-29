@@ -66,7 +66,7 @@ model Tag {
   @@map("tags")
 }
 
-// ─── Contact / Survey Form ──────────────────────────────
+// ─── Contact Form ───────────────────────────────────────
 model ContactSubmission {
   id          String   @id @default(cuid())
   fullName    String
@@ -78,6 +78,27 @@ model ContactSubmission {
   createdAt   DateTime @default(now())
 
   @@map("contact_submissions")
+}
+
+// ─── Survey Form (Khảo sát chất lượng nước) ─────────────
+model SurveySubmission {
+  id           String   @id @default(cuid())
+  fullName     String
+  phone        String
+  email        String?              // Tùy chọn — dùng để gửi email xác nhận
+  address      String               // Địa chỉ lắp đặt (free text)
+  waterSources String[]             // Nguồn nước: nuoc_may | gieng_khoan | khac
+  houseType    String               // Loại nhà: biet_thu | nha_dat | chung_cu | khac
+  budget       String               // Mức đầu tư: duoi_30tr | 30_60tr | ...
+  issues       String[]             // Các vấn đề nước khách gặp (label đầy đủ)
+  status       String   @default("new") // new | contacted | closed
+
+  // Sapo integration — customer được tạo/cập nhật trên Sapo từ khảo sát này
+  sapoCustomerId Int?
+
+  createdAt    DateTime @default(now())
+
+  @@map("survey_submissions")
 }
 
 // ─── Products ───────────────────────────────────────────

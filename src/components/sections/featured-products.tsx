@@ -7,11 +7,13 @@ import { SectionHeading } from "@/components/ui/section-heading"
 import { ProductCard, type ProductCardData } from "@/components/products/product-card"
 import { cn } from "@/lib/utils"
 
+// Key = Sapo product_type gốc (lưu trong DB field `category`)
 const TABS = [
   { key: "all", label: "Tất cả" },
-  { key: "he-thong-loc-nuoc", label: "Hệ thống lọc" },
-  { key: "may-loc-nuoc", label: "Máy lọc RO" },
-  { key: "loi-loc-nuoc", label: "Lõi lọc" },
+  { key: "MÁY LỌC NƯỚC", label: "Máy lọc nước" },
+  { key: "CỘT LỌC NƯỚC", label: "Cột lọc nước" },
+  { key: "BỘ LỌC", label: "Bộ lọc" },
+  { key: "LINH KIỆN LỌC NƯỚC", label: "Linh kiện" },
 ]
 
 export function FeaturedProducts({ products }: { products: ProductCardData[] }) {
