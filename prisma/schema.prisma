@@ -33,6 +33,8 @@ model Post {
   coverImage  String?
   published   Boolean  @default(false)
   publishedAt DateTime?
+  scheduledAt DateTime?            // Lên lịch xuất bản
+  viewCount   Int      @default(0) // Lượt xem bài viết
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -44,6 +46,10 @@ model Post {
   category    Category? @relation(fields: [categoryId], references: [id])
   categoryId  String?
   tags        Tag[]
+
+  // Chiến dịch marketing
+  campaign    Campaign? @relation(fields: [campaignId], references: [id])
+  campaignId  String?
 
   @@map("posts")
 }
@@ -181,6 +187,62 @@ model OrderItem {
   quantity     Int
 
   @@map("order_items")
+}
+
+// ─── Campaign (Chiến dịch marketing) ───────────────────
+model Campaign {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  status      String   @default("planning") // planning | active | paused | completed
+  startDate   DateTime?
+  endDate     DateTime?
+  color       String   @default("#006EF5")  // Màu hiển thị trên calendar
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  posts       Post[]
+  popups      Popup[]
+
+  @@map("campaigns")
+}
+
+// ─── Popup / Banner ─────────────────────────────────────
+model Popup {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   @default("popup") // popup | top_banner | landing_hero
+  // Nội dung: upload ảnh HOẶC paste HTML
+  contentType String   @default("image") // image | html
+  imageUrl    String?                     // URL ảnh đã upload (PNG/JPEG/PDF)
+  htmlContent String?                     // HTML code do admin paste vào
+  linkUrl     String?                     // Click vào popup → điều hướng tới đâu
+  linkTarget  String   @default("_self")  // _self | _blank
+
+  // Hiển thị
+  position    String   @default("center") // center | top | bottom | fullscreen
+  showOnPages String[] @default(["/"]) // Trang nào hiển thị: ["/", "/products", ...]
+  displayFrequency String @default("every_visit") // every_visit | once_per_session | once_per_day
+  delay       Int      @default(0)        // Delay trước khi hiện (ms)
+
+  // Lịch hiển thị
+  active      Boolean  @default(false)
+  startDate   DateTime?
+  endDate     DateTime?
+
+  // Thống kê
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+
+  // Liên kết chiến dịch
+  campaign    Campaign? @relation(fields: [campaignId], references: [id])
+  campaignId  String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("popups")
 }
 
 // ─── Site Settings ──────────────────────────────────────

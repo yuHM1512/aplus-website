@@ -11,6 +11,9 @@ import {
   ShoppingCart,
   Settings,
   LogOut,
+  Megaphone,
+  Layers,
+  Calendar,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 
@@ -18,6 +21,9 @@ const navItems = [
   { label: "Tổng quan", href: "/admin", icon: LayoutDashboard },
   { label: "Sản phẩm", href: "/admin/products", icon: Package },
   { label: "Bài viết", href: "/admin/posts", icon: FileText },
+  { label: "Lịch nội dung", href: "/admin/calendar", icon: Calendar },
+  { label: "Chiến dịch", href: "/admin/campaigns", icon: Megaphone },
+  { label: "Popup / Banner", href: "/admin/popups", icon: Layers },
   { label: "Đơn hàng", href: "/admin/orders", icon: ShoppingCart },
   { label: "Liên hệ", href: "/admin/contacts", icon: MessageSquare },
   { label: "Cài đặt", href: "/admin/settings", icon: Settings },
@@ -51,7 +57,7 @@ export function AdminSidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-4 space-y-1">
+      <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const active = isActive(item.href)
           const Icon = item.icon

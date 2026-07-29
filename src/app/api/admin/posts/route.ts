@@ -1,17 +1,62 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const posts = await prisma.post.findMany({
-    orderBy: { createdAt: "desc" },
-    include: { category: true },
+  const { searchParams } = new URL(req.url)
+  const search = searchParams.get("search") || ""
+  const status = searchParams.get("status") || "" // all | draft | published | scheduled
+  const categoryId = searchParams.get("categoryId") || ""
+  const campaignId = searchParams.get("campaignId") || ""
+  const page = parseInt(searchParams.get("page") || "1")
+  const limit = parseInt(searchParams.get("limit") || "20")
+
+  // Build where clause
+  const where: Record<string, unknown> = {}
+
+  if (search) {
+    where.title = { contains: search, mode: "insensitive" }
+  }
+
+  if (status === "draft") {
+    where.published = false
+    where.scheduledAt = null
+  } else if (status === "published") {
+    where.published = true
+  } else if (status === "scheduled") {
+    where.published = false
+    where.scheduledAt = { not: null }
+  }
+
+  if (categoryId) {
+    where.categoryId = categoryId
+  }
+
+  if (campaignId) {
+    where.campaignId = campaignId
+  }
+
+  const [posts, total] = await Promise.all([
+    prisma.post.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      include: { category: true, campaign: true },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.post.count({ where }),
+  ])
+
+  return NextResponse.json({
+    posts,
+    total,
+    page,
+    totalPages: Math.ceil(total / limit),
   })
-  return NextResponse.json(posts)
 }
 
 export async function POST(req: Request) {
@@ -26,7 +71,9 @@ export async function POST(req: Request) {
     content,
     coverImage,
     published,
+    scheduledAt,
     categoryId,
+    campaignId,
     aiGenerated,
     aiPrompt,
   } = body
@@ -52,7 +99,9 @@ export async function POST(req: Request) {
       coverImage,
       published,
       publishedAt: published ? new Date() : null,
+      scheduledAt: scheduledAt ? new Date(scheduledAt) : null,
       categoryId: categoryId || null,
+      campaignId: campaignId || null,
       aiGenerated,
       aiPrompt,
     },

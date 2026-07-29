@@ -23,6 +23,16 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   }
 
   try {
+    // Xử lý logic publishedAt
+    let publishedAt = undefined
+    if (body.published) {
+      // Nếu publish ngay → set publishedAt = now (trừ khi đã có)
+      const current = await prisma.post.findUnique({ where: { id } })
+      publishedAt = current?.publishedAt || new Date()
+    } else {
+      publishedAt = null
+    }
+
     const post = await prisma.post.update({
       where: { id },
       data: {
@@ -32,8 +42,10 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
         content: body.content,
         coverImage: body.coverImage,
         published: body.published,
-        publishedAt: body.published ? new Date() : null,
+        publishedAt,
+        scheduledAt: body.scheduledAt ? new Date(body.scheduledAt) : null,
         categoryId: body.categoryId || null,
+        campaignId: body.campaignId || null,
         aiGenerated: body.aiGenerated,
       },
     })

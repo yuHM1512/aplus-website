@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Save, ArrowLeft, Sparkles, FileText, Upload, X, Loader2 } from "lucide-react"
+import { Save, ArrowLeft, Sparkles, FileText, Upload, X, Loader2, Calendar, Clock } from "lucide-react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import { useToast } from "./toast"
@@ -19,6 +19,13 @@ interface Category {
   slug: string
 }
 
+interface Campaign {
+  id: string
+  name: string
+  slug: string
+  status: string
+}
+
 interface PostFormProps {
   post?: {
     id: string
@@ -28,18 +35,31 @@ interface PostFormProps {
     content: string
     coverImage: string | null
     published: boolean
+    scheduledAt: string | null
     categoryId: string | null
+    campaignId: string | null
     aiGenerated: boolean
   }
   categories: Category[]
+  campaigns?: Campaign[]
 }
 
-export function PostForm({ post, categories }: PostFormProps) {
+type PublishMode = "draft" | "publish" | "schedule"
+
+export function PostForm({ post, categories, campaigns = [] }: PostFormProps) {
   const router = useRouter()
   const { toast } = useToast()
   const isEdit = !!post
 
+  // Xác định chế độ xuất bản ban đầu
+  const getInitialMode = (): PublishMode => {
+    if (post?.published) return "publish"
+    if (post?.scheduledAt) return "schedule"
+    return "draft"
+  }
+
   const [tab, setTab] = useState<"manual" | "ai">(post?.aiGenerated ? "ai" : "manual")
+  const [publishMode, setPublishMode] = useState<PublishMode>(getInitialMode())
   const [form, setForm] = useState({
     title: post?.title || "",
     slug: post?.slug || "",
@@ -47,7 +67,9 @@ export function PostForm({ post, categories }: PostFormProps) {
     content: post?.content || "",
     coverImage: post?.coverImage || "",
     published: post?.published || false,
+    scheduledAt: post?.scheduledAt ? new Date(post.scheduledAt).toISOString().slice(0, 16) : "",
     categoryId: post?.categoryId || "",
+    campaignId: post?.campaignId || "",
     aiGenerated: post?.aiGenerated || false,
     aiPrompt: "",
   })
@@ -57,15 +79,29 @@ export function PostForm({ post, categories }: PostFormProps) {
   const [error, setError] = useState("")
   const coverInputRef = useRef<HTMLInputElement>(null)
 
+  // Fetch campaigns khi component mount (nếu chưa truyền qua props)
+  const [campaignList, setCampaignList] = useState<Campaign[]>(campaigns)
+  useEffect(() => {
+    if (campaigns.length === 0) {
+      fetch("/api/admin/campaigns")
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data)) setCampaignList(data)
+        })
+        .catch(() => {})
+    }
+  }, [campaigns])
+
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/\u0111/g, "d")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/đ/g, "d")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "")
   }
+
   const handleTitleChange = (title: string) => {
     setForm((prev) => ({
       ...prev,
@@ -108,17 +144,36 @@ export function PostForm({ post, categories }: PostFormProps) {
     setAiLoading(false)
   }
 
-  const submitPost = async (published: boolean) => {
+  const submitPost = async () => {
     setLoading(true)
     setError("")
+
+    // Validate lịch đăng
+    if (publishMode === "schedule" && !form.scheduledAt) {
+      setError("Vui lòng chọn thời gian lên lịch")
+      setLoading(false)
+      return
+    }
+
+    if (publishMode === "schedule" && new Date(form.scheduledAt) <= new Date()) {
+      setError("Thời gian lên lịch phải ở tương lai")
+      setLoading(false)
+      return
+    }
 
     const url = isEdit ? `/api/admin/posts/${post.id}` : "/api/admin/posts"
     const method = isEdit ? "PUT" : "POST"
 
+    const payload = {
+      ...form,
+      published: publishMode === "publish",
+      scheduledAt: publishMode === "schedule" ? form.scheduledAt : null,
+    }
+
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, published }),
+      body: JSON.stringify(payload),
     })
 
     if (!res.ok) {
@@ -129,14 +184,15 @@ export function PostForm({ post, categories }: PostFormProps) {
       return
     }
 
-    toast(isEdit ? "Đã cập nhật bài viết" : "Đã tạo bài viết mới")
+    const modeLabel = publishMode === "publish" ? "xuất bản" : publishMode === "schedule" ? "lên lịch" : "lưu nháp"
+    toast(isEdit ? `Đã cập nhật & ${modeLabel} bài viết` : `Đã tạo & ${modeLabel} bài viết mới`)
     router.push("/admin/posts")
     router.refresh()
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await submitPost(form.published)
+    await submitPost()
   }
 
   return (
@@ -152,22 +208,31 @@ export function PostForm({ post, categories }: PostFormProps) {
           </h2>
         </div>
         <div className="flex items-center gap-3">
+          {/* Nút lưu nháp */}
           <button
             type="button"
-            onClick={() => submitPost(false)}
+            onClick={() => { setPublishMode("draft"); setTimeout(() => submitPost(), 0) }}
             disabled={loading}
             className="px-4 py-2.5 bg-white border border-[#E2E8F0] text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             Lưu nháp
           </button>
+          {/* Nút xuất bản / lên lịch */}
           <button
-            type="button"
+            type="submit"
             disabled={loading}
-            onClick={() => submitPost(true)}
             className="flex items-center gap-2 px-6 py-2.5 bg-ocean-blue text-white rounded-lg text-sm font-medium hover:bg-deep-blue transition-colors shadow-sm disabled:opacity-70"
           >
-            <Save className="w-4 h-4" />
-            {loading ? "Đang lưu..." : "Xuất bản"}
+            {publishMode === "schedule" ? (
+              <Calendar className="w-4 h-4" />
+            ) : (
+              <Save className="w-4 h-4" />
+            )}
+            {loading
+              ? "Đang lưu..."
+              : publishMode === "schedule"
+              ? "Lên lịch đăng"
+              : "Xuất bản"}
           </button>
         </div>
       </div>
@@ -288,6 +353,85 @@ export function PostForm({ post, categories }: PostFormProps) {
 
         {/* Sidebar */}
         <div className="space-y-6">
+          {/* Chế độ xuất bản */}
+          <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm p-6">
+            <label className="text-sm font-medium text-gray-900 mb-3 block">Chế độ xuất bản</label>
+            <div className="space-y-2">
+              <label className="flex items-center gap-3 p-3 border border-[#E2E8F0] rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                <input
+                  type="radio"
+                  name="publishMode"
+                  checked={publishMode === "draft"}
+                  onChange={() => setPublishMode("draft")}
+                  className="w-4 h-4 text-ocean-blue"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-900">Bản nháp</span>
+                  <p className="text-xs text-gray-400">Lưu nhưng chưa hiển thị</p>
+                </div>
+              </label>
+              <label className="flex items-center gap-3 p-3 border border-[#E2E8F0] rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                <input
+                  type="radio"
+                  name="publishMode"
+                  checked={publishMode === "publish"}
+                  onChange={() => setPublishMode("publish")}
+                  className="w-4 h-4 text-ocean-blue"
+                />
+                <div>
+                  <span className="text-sm font-medium text-gray-900">Xuất bản ngay</span>
+                  <p className="text-xs text-gray-400">Hiển thị trên website ngay lập tức</p>
+                </div>
+              </label>
+              <label className="flex items-center gap-3 p-3 border border-ocean-blue/30 rounded-lg cursor-pointer hover:bg-blue-50/50 transition-colors">
+                <input
+                  type="radio"
+                  name="publishMode"
+                  checked={publishMode === "schedule"}
+                  onChange={() => setPublishMode("schedule")}
+                  className="w-4 h-4 text-ocean-blue"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-ocean-blue" />
+                    <span className="text-sm font-medium text-gray-900">Lên lịch đăng</span>
+                  </div>
+                  <p className="text-xs text-gray-400">Tự động xuất bản vào thời gian chỉ định</p>
+                </div>
+              </label>
+            </div>
+
+            {/* Date-time picker cho schedule */}
+            {publishMode === "schedule" && (
+              <div className="mt-4 p-3 bg-blue-50/50 border border-ocean-blue/20 rounded-lg">
+                <label className="text-xs font-medium text-gray-600 mb-1.5 block">
+                  Thời gian xuất bản
+                </label>
+                <input
+                  type="datetime-local"
+                  value={form.scheduledAt}
+                  onChange={(e) => setForm((prev) => ({ ...prev, scheduledAt: e.target.value }))}
+                  min={new Date().toISOString().slice(0, 16)}
+                  className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg text-sm focus:border-ocean-blue outline-none bg-white"
+                />
+                {form.scheduledAt && (
+                  <p className="text-xs text-ocean-blue mt-1.5 flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {new Date(form.scheduledAt).toLocaleString("vi-VN", {
+                      weekday: "long",
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Ảnh bìa */}
           <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm p-6">
             <label className="text-sm font-medium text-gray-900 mb-3 block">Ảnh bìa</label>
 
@@ -365,6 +509,7 @@ export function PostForm({ post, categories }: PostFormProps) {
             />
           </div>
 
+          {/* Danh mục & Chiến dịch */}
           <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm p-6 space-y-4">
             <div>
               <label className="text-sm font-medium text-gray-900 mb-1.5 block">Danh mục</label>
@@ -377,6 +522,21 @@ export function PostForm({ post, categories }: PostFormProps) {
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
                 ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-900 mb-1.5 block">Chiến dịch</label>
+              <select
+                value={form.campaignId}
+                onChange={(e) => setForm((prev) => ({ ...prev, campaignId: e.target.value }))}
+                className="w-full px-3 py-2.5 border border-[#E2E8F0] rounded-lg text-sm focus:border-ocean-blue outline-none bg-white"
+              >
+                <option value="">Không thuộc chiến dịch</option>
+                {campaignList
+                  .filter((c) => c.status !== "completed")
+                  .map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
               </select>
             </div>
           </div>
