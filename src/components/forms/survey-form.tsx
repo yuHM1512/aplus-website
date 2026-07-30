@@ -214,7 +214,7 @@ export function SurveyForm() {
                   : "border-gray-200 hover:border-[#B5DBFF] text-gray-700"
               )}
             >
-              <div className="text-3xl mb-2">🏠</div>
+              <div className="text-3xl mb-2">{h.icon ?? "🏠"}</div>
               <div className="text-sm">{h.label}</div>
             </button>
           ))}

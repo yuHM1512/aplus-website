@@ -7,6 +7,7 @@ export interface SurveyOption {
   value: string
   label: string
   desc?: string
+  icon?: string
 }
 
 export const WATER_SOURCES: SurveyOption[] = [
@@ -16,10 +17,10 @@ export const WATER_SOURCES: SurveyOption[] = [
 ]
 
 export const HOUSE_TYPES: SurveyOption[] = [
-  { value: "biet_thu", label: "Biệt thự" },
-  { value: "nha_dat", label: "Nhà đất liền kề" },
-  { value: "chung_cu", label: "Căn hộ chung cư" },
-  { value: "khac", label: "Khác" },
+  { value: "biet_thu", label: "Biệt thự", icon: "🏡" },
+  { value: "nha_dat", label: "Nhà đất liền kề", icon: "🏘️" },
+  { value: "chung_cu", label: "Căn hộ chung cư", icon: "🏢" },
+  { value: "khac", label: "Khác", icon: "🏗️" },
 ]
 
 export const BUDGET: SurveyOption[] = [

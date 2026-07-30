@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   Target,
   Heart,
-  Award,
   Phone,
   FileText,
   Droplets,
@@ -328,46 +327,164 @@ export default function AboutPage() {
       {/* ═══════════════ QUY TRÌNH DỊCH VỤ ═══════════════ */}
       <section className="bg-white py-16 lg:py-20">
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#006EF5]">
+          <div className="text-center max-w-xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#006EF5] mb-3.5">
               <span className="h-px w-8 bg-[#006EF5]" />
-              Đối tác trọn gói
+              Quy trình
               <span className="h-px w-8 bg-[#006EF5]" />
             </span>
-            <h2 className="mt-3 text-2xl md:text-3xl font-bold text-[#102590]">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-[#102590] tracking-tight">
               Quy trình dịch vụ 4 bước
             </h2>
+            <p className="mt-4 text-gray-500 leading-relaxed">
+              Từ khảo sát đến bảo trì — chúng tôi đồng hành cùng bạn ở mọi bước
+            </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop: flex row with arrows · Mobile: 2-col grid */}
+          <div className="hidden lg:flex items-start">
             {[
               {
                 step: "01",
                 title: "Khảo sát nguồn nước",
-                desc: "Kỹ thuật viên đến tận nơi kiểm tra chất lượng nước, xác định vấn đề cần xử lý.",
+                desc: "Kiểm tra nguồn nước tại chỗ, phân tích TDS, pH và tạp chất để xác định nhu cầu thực tế.",
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="10.5" cy="10.5" r="6.5" />
+                    <path d="M8 10Q9.5 8.5 11 10Q12.5 8.5 14 10" strokeWidth={1.4} />
+                    <path d="M8 12.5Q9.5 11 11 12.5Q12.5 11 14 12.5" strokeWidth={1.4} />
+                    <line x1="15.5" y1="15.5" x2="21" y2="21" strokeWidth={2.5} />
+                  </svg>
+                ),
               },
               {
                 step: "02",
                 title: "Tư vấn giải pháp",
-                desc: "Đề xuất hệ thống lọc phù hợp nhất với nguồn nước, nhu cầu sử dụng và ngân sách.",
+                desc: "Đề xuất hệ thống lọc phù hợp với nguồn nước và nhu cầu thực tế của từng gia đình.",
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <circle cx="12" cy="14" r="0.8" fill="currentColor" stroke="none" />
+                  </svg>
+                ),
               },
               {
                 step: "03",
                 title: "Lắp đặt chuyên nghiệp",
-                desc: "Đội ngũ kỹ thuật lắp đặt tận nơi, hướng dẫn sử dụng chi tiết, nghiệm thu cẩn thận.",
+                desc: "Kỹ thuật viên có chứng chỉ trực tiếp lắp đặt, kiểm tra và bàn giao hệ thống tại nhà.",
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                  </svg>
+                ),
               },
               {
                 step: "04",
                 title: "Bảo trì định kỳ",
-                desc: "Theo dõi, nhắc lịch thay lõi, vệ sinh hệ thống định kỳ để đảm bảo hiệu suất.",
+                desc: "Nhắc lịch thay lõi lọc, kiểm tra định kỳ, đảm bảo hệ thống vận hành hiệu quả liên tục.",
+                icon: (
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                    <polyline points="9,16 11.5,18.5 16,13" />
+                  </svg>
+                ),
+              },
+            ].map((p, i) => (
+              <div key={p.step} className="contents">
+                {/* Step card */}
+                <div className="flex-1 flex flex-col items-center text-center px-5">
+                  <div className="relative mb-5">
+                    <div className="w-[88px] h-[88px] rounded-full border-2 border-gray-200 bg-white flex items-center justify-center text-[#006EF5] hover:border-[#006EF5] hover:bg-[#006EF5]/[0.04] transition-colors">
+                      {p.icon}
+                    </div>
+                    <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#102590] text-white text-[9px] font-bold flex items-center justify-center">
+                      {p.step}
+                    </div>
+                  </div>
+                  <h3 className="text-base font-bold text-[#102590] mb-2.5">{p.title}</h3>
+                  <p className="text-[13.5px] leading-relaxed text-gray-500 max-w-[185px]">{p.desc}</p>
+                </div>
+                {/* Arrow connector (not after last) */}
+                {i < 3 && (
+                  <div className="flex-none flex items-center mt-11">
+                    <svg width="48" height="14" viewBox="0 0 48 14" fill="none">
+                      <line x1="0" y1="7" x2="36" y2="7" stroke="#e5e7eb" strokeWidth={1.5} strokeDasharray="4 3" />
+                      <polyline points="35,3 43,7 35,11" fill="none" stroke="#36D1FF" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile: 2-col grid fallback */}
+          <div className="grid grid-cols-2 gap-6 lg:hidden">
+            {[
+              {
+                step: "01",
+                title: "Khảo sát nguồn nước",
+                desc: "Kiểm tra nguồn nước tại chỗ, phân tích TDS, pH và tạp chất.",
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="10.5" cy="10.5" r="6.5" />
+                    <path d="M8 10Q9.5 8.5 11 10Q12.5 8.5 14 10" strokeWidth={1.4} />
+                    <path d="M8 12.5Q9.5 11 11 12.5Q12.5 11 14 12.5" strokeWidth={1.4} />
+                    <line x1="15.5" y1="15.5" x2="21" y2="21" strokeWidth={2.5} />
+                  </svg>
+                ),
+              },
+              {
+                step: "02",
+                title: "Tư vấn giải pháp",
+                desc: "Đề xuất hệ thống lọc phù hợp với nguồn nước và nhu cầu.",
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <circle cx="12" cy="14" r="0.8" fill="currentColor" stroke="none" />
+                  </svg>
+                ),
+              },
+              {
+                step: "03",
+                title: "Lắp đặt chuyên nghiệp",
+                desc: "Kỹ thuật viên lắp đặt, kiểm tra và bàn giao tại nhà.",
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                  </svg>
+                ),
+              },
+              {
+                step: "04",
+                title: "Bảo trì định kỳ",
+                desc: "Nhắc lịch thay lõi, kiểm tra định kỳ, đảm bảo hiệu suất.",
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                    <polyline points="9,16 11.5,18.5 16,13" />
+                  </svg>
+                ),
               },
             ].map((p) => (
-              <div key={p.step} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-[#102590] text-white flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold">{p.step}</span>
+              <div key={p.step} className="flex flex-col items-center text-center">
+                <div className="relative mb-4">
+                  <div className="w-16 h-16 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center text-[#006EF5]">
+                    {p.icon}
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#102590] text-white text-[8px] font-bold flex items-center justify-center">
+                    {p.step}
+                  </div>
                 </div>
-                <h3 className="text-base font-bold text-[#102590] mb-2">{p.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{p.desc}</p>
+                <h3 className="text-sm font-bold text-[#102590] mb-1.5">{p.title}</h3>
+                <p className="text-xs leading-relaxed text-gray-500">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -377,43 +494,76 @@ export default function AboutPage() {
       {/* ═══════════════ VÌ SAO CHỌN APLUS ═══════════════ */}
       <section className="bg-[#F2F3F4] py-16 lg:py-20">
         <Container>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#006EF5]">
+          <div className="text-center max-w-xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#006EF5] mb-3.5">
               <span className="h-px w-8 bg-[#006EF5]" />
-              Vì sao chọn chúng tôi
+              Cam kết
               <span className="h-px w-8 bg-[#006EF5]" />
             </span>
-            <h2 className="mt-3 text-2xl md:text-3xl font-bold text-[#102590]">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-[#102590] tracking-tight">
               3 lý do khách hàng tin tưởng APLUS
             </h2>
+            <p className="mt-4 text-gray-500 leading-relaxed">
+              Chất lượng quốc tế, giải pháp riêng biệt và dịch vụ tận tâm — cam kết với mỗi gia đình
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Award,
-                title: "Chất lượng đạt chuẩn",
-                desc: "Sản phẩm chứng nhận bởi Bộ Y tế Việt Nam, WQA, WHO — cam kết loại bỏ tạp chất và mang đến nguồn nước an toàn.",
-              },
-              {
-                icon: Target,
-                title: "Giải pháp cá nhân hóa",
-                desc: "Cung cấp đa dạng hệ thống lọc, từ đầu nguồn đến điểm sử dụng, đáp ứng chính xác yêu cầu từng khách hàng.",
-              },
-              {
-                icon: Heart,
-                title: "Dịch vụ tận tâm",
-                desc: "Đội ngũ chuyên gia sẵn sàng tư vấn và hỗ trợ kỹ thuật. Bảo hành, bảo trì định kỳ đầy đủ.",
-              },
-            ].map((c) => (
-              <div key={c.title} className="bg-white rounded-xl p-8 hover:shadow-lg transition-shadow">
-                <div className="w-14 h-14 rounded-xl bg-[#B5DBFF] flex items-center justify-center mb-5">
-                  <c.icon className="h-6 w-6 text-[#006EF5]" strokeWidth={1.75} />
-                </div>
-                <h3 className="text-lg font-bold text-[#102590] mb-2">{c.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{c.desc}</p>
+            {/* Card 1: Chất lượng đạt chuẩn */}
+            <div className="group bg-white rounded-lg border border-gray-200 border-t-4 border-t-[#006EF5] p-7 md:p-8 hover:border-[#006EF5] hover:border-t-[#36D1FF] transition-colors">
+              <div className="w-[60px] h-[60px] rounded-full bg-[#B5DBFF]/35 flex items-center justify-center mb-6 group-hover:bg-[#36D1FF]/[0.18] transition-colors">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="stroke-[#006EF5] group-hover:stroke-[#36D1FF] transition-colors" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M9 12l2 2 4-4" strokeWidth={2.2} />
+                </svg>
               </div>
-            ))}
+              <h3 className="text-lg font-bold text-[#102590] mb-3">Chất lượng đạt chuẩn</h3>
+              <p className="text-sm leading-relaxed text-gray-600 mb-5">
+                Sản phẩm đạt chứng nhận quốc tế, tuân thủ tiêu chuẩn WHO về nước uống an toàn cho sức khỏe.
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                {["NSF", "WQA", "WHO"].map((badge) => (
+                  <span key={badge} className="text-[11px] font-bold text-[#006EF5] bg-[#B5DBFF]/50 px-2.5 py-1 rounded tracking-wider">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Card 2: Giải pháp cá nhân hóa */}
+            <div className="group bg-white rounded-lg border border-gray-200 border-t-4 border-t-[#006EF5] p-7 md:p-8 hover:border-[#006EF5] hover:border-t-[#36D1FF] transition-colors">
+              <div className="w-[60px] h-[60px] rounded-full bg-[#B5DBFF]/35 flex items-center justify-center mb-6 group-hover:bg-[#36D1FF]/[0.18] transition-colors">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="stroke-[#006EF5] group-hover:stroke-[#36D1FF] transition-colors" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="21" y1="4" x2="14" y2="4" />
+                  <line x1="10" y1="4" x2="3" y2="4" />
+                  <line x1="21" y1="12" x2="12" y2="12" />
+                  <line x1="8" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="20" x2="16" y2="20" />
+                  <line x1="12" y1="20" x2="3" y2="20" />
+                  <line x1="14" y1="2" x2="14" y2="6" />
+                  <line x1="8" y1="10" x2="8" y2="14" />
+                  <line x1="16" y1="18" x2="16" y2="22" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-[#102590] mb-3">Giải pháp cá nhân hóa</h3>
+              <p className="text-sm leading-relaxed text-gray-600">
+                Từ phân tích nguồn nước đến thiết kế hệ thống — mỗi giải pháp được tùy chỉnh riêng cho nhu cầu của từng hộ gia đình.
+              </p>
+            </div>
+
+            {/* Card 3: Dịch vụ tận tâm */}
+            <div className="group bg-white rounded-lg border border-gray-200 border-t-4 border-t-[#006EF5] p-7 md:p-8 hover:border-[#006EF5] hover:border-t-[#36D1FF] transition-colors">
+              <div className="w-[60px] h-[60px] rounded-full bg-[#B5DBFF]/35 flex items-center justify-center mb-6 group-hover:bg-[#36D1FF]/[0.18] transition-colors">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="stroke-[#006EF5] group-hover:stroke-[#36D1FF] transition-colors" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 18v-6a9 9 0 0118 0v6" />
+                  <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-[#102590] mb-3">Dịch vụ tận tâm</h3>
+              <p className="text-sm leading-relaxed text-gray-600">
+                Bảo hành chính hãng, bảo trì định kỳ và hỗ trợ kỹ thuật 7 ngày/tuần — chúng tôi đồng hành lâu dài cùng bạn.
+              </p>
+            </div>
           </div>
         </Container>
       </section>
@@ -484,49 +634,39 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-4 sm:grid-cols-5 gap-4 max-w-4xl mx-auto">
-            {/* Mỗi logo được style riêng để gần giống nhận diện thương hiệu */}
             {[
-              { name: "GEYSER",       color: "#1a5276", weight: "font-bold",     size: "text-sm",  tracking: "tracking-widest" },
-              { name: "A.O.Smith",    color: "#003da5", weight: "font-extrabold", size: "text-base", tracking: "" },
-              { name: "KAROFI",       color: "#0099dd", weight: "font-extrabold", size: "text-lg",  tracking: "tracking-wider" },
-              { name: "Kangaroo",     color: "#00a651", weight: "font-bold",     size: "text-base", tracking: "" },
-              { name: "MUTOSI",       color: "#1a237e", weight: "font-black",    size: "text-base", tracking: "tracking-[0.3em]" },
-              { name: "coway",        color: "#0072bc", weight: "font-bold",     size: "text-lg",  tracking: "tracking-wide", lower: true },
-              { name: "CHUNGHO",      color: "#0054a6", weight: "font-extrabold", size: "text-sm",  tracking: "tracking-wider", bg: "bg-blue-50" },
-              { name: "DAIKIOSAN",    color: "#0066cc", weight: "font-bold",     size: "text-xs",  tracking: "tracking-widest" },
-              { name: "Panasonic",    color: "#000000", weight: "font-bold",     size: "text-base", tracking: "" },
-              { name: "PHILIPS",      color: "#0b5ed7", weight: "font-bold",     size: "text-lg",  tracking: "tracking-wider" },
-              { name: "DuPont",       color: "#cc0000", weight: "font-extrabold", size: "text-base", tracking: "", border: "border-2 border-red-600 rounded-full" },
-              { name: "'TORAY'",      color: "#003399", weight: "font-extrabold", size: "text-base", tracking: "" },
-              { name: "Doulton",      color: "#1a3c6e", weight: "font-medium",   size: "text-lg",  tracking: "", italic: true },
-              { name: "easywell",     color: "#4caf50", weight: "font-bold",     size: "text-sm",  tracking: "tracking-wide", lower: true },
-              { name: "ATLAS FILTRI", color: "#003399", weight: "font-bold",     size: "text-[10px]", tracking: "tracking-wider" },
-              { name: "ecosoft",      color: "#0072bc", weight: "font-bold",     size: "text-base", tracking: "", lower: true },
-              { name: "Purolite",     color: "#003399", weight: "font-bold",     size: "text-base", tracking: "" },
-              { name: "Jacobi",       color: "#8b4513", weight: "font-extrabold", size: "text-base", tracking: "" },
-              { name: "KANGEN",       color: "#003399", weight: "font-bold",     size: "text-sm",  tracking: "tracking-widest" },
-              { name: "Cleansui",     color: "#ffffff", weight: "font-bold",     size: "text-sm",  tracking: "", redPill: true },
+              { name: "Geyser", src: "/images/brands/geyser.png" },
+              { name: "A.O.Smith", src: "/images/brands/aosmith.png" },
+              { name: "Karofi", src: "/images/brands/karofi.png" },
+              { name: "Kangaroo", src: "/images/brands/kangaroo.jpg" },
+              { name: "Mutosi", src: "/images/brands/mutosi.png" },
+              { name: "Coway", src: "/images/brands/coway.png" },
+              { name: "ChungHo", src: "/images/brands/chungho.png" },
+              { name: "Daikiosan", src: "/images/brands/daikiosan.png" },
+              { name: "Panasonic", src: "/images/brands/panasonic.jpg" },
+              { name: "Philips", src: "/images/brands/philips.png" },
+              { name: "DuPont", src: "/images/brands/dupont.png" },
+              { name: "Toray", src: "/images/brands/toray.png" },
+              { name: "Doulton", src: "/images/brands/doulton.png" },
+              { name: "Easywell", src: "/images/brands/easywell.jpg" },
+              { name: "Atlas Filtri", src: "/images/brands/atlasfiltri.png" },
+              { name: "Ecosoft", src: "/images/brands/pecosoft.png" },
+              { name: "Purolite", src: "/images/brands/purolite.jpg" },
+              { name: "Jacobi", src: "/images/brands/jacobi.jpg" },
+              { name: "Kangen", src: "/images/brands/kangen.png" },
+              { name: "Cleansui", src: "/images/brands/cleansui.png" },
             ].map((b) => (
               <div
                 key={b.name}
-                className={[
-                  "flex items-center justify-center h-16 rounded-lg transition-all duration-200",
-                  "hover:shadow-md hover:scale-105",
-                  b.bg || "bg-[#F2F3F4]/60",
-                  b.border || "",
-                  b.redPill ? "!bg-[#cc0000] rounded-full" : "",
-                ].filter(Boolean).join(" ")}
+                className="flex items-center justify-center h-16 rounded-lg bg-[#F2F3F4]/60 hover:shadow-md hover:scale-105 transition-all duration-200 p-3"
               >
-                <span
-                  className={[
-                    b.weight, b.size, b.tracking || "",
-                    b.italic ? "italic" : "",
-                    "select-none whitespace-nowrap leading-none",
-                  ].filter(Boolean).join(" ")}
-                  style={{ color: b.color }}
-                >
-                  {b.name}
-                </span>
+                <Image
+                  src={b.src}
+                  alt={`Logo thương hiệu ${b.name} — đối tác APLUS Technologies`}
+                  width={120}
+                  height={48}
+                  className="object-contain max-h-10"
+                />
               </div>
             ))}
           </div>
