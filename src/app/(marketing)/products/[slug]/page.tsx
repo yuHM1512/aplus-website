@@ -33,6 +33,7 @@ export default async function ProductDetailPage({ params }: Props) {
       category: product.category,
       id: { not: product.id },
       published: true,
+      image: { not: null },
     },
     take: 4,
     orderBy: { order: "asc" },

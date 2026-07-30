@@ -74,7 +74,8 @@ export default async function ProductsPage({
   const perPage = 24
 
   // ─── Build Prisma where clause ───
-  const where: Record<string, unknown> = { published: true }
+  // Chỉ hiển thị sản phẩm có hình ảnh
+  const where: Record<string, unknown> = { published: true, image: { not: null } }
 
   // Resolve slug → Sapo product_type key cho DB query
   const activeCatKey = activeCat ? sapoKeyFromSlug(activeCat) : undefined
@@ -98,10 +99,10 @@ export default async function ProductsPage({
       take: perPage,
     }),
     prisma.product.count({ where }),
-    prisma.product.count({ where: { published: true } }),
+    prisma.product.count({ where: { published: true, image: { not: null } } }),
     prisma.product.groupBy({
       by: ["category"],
-      where: { published: true },
+      where: { published: true, image: { not: null } },
       _count: { _all: true },
     }),
   ])

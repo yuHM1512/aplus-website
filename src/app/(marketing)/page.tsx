@@ -11,7 +11,7 @@ import { Cta } from "@/components/sections/cta"
 
 export default async function HomePage() {
   const products = await prisma.product.findMany({
-    where: { published: true },
+    where: { published: true, image: { not: null } },
     orderBy: { order: "asc" },
     select: {
       id: true,
