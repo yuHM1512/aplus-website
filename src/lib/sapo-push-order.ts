@@ -163,6 +163,7 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
       confirmed_at: new Date().toISOString(),
       shipping_lines: shippingLines,
       tags: `aplus-website,${order.orderNumber}`,
+      source_name: "web",
     })
 
     // Lưu Sapo order ID vào DB để sync trạng thái ngược
