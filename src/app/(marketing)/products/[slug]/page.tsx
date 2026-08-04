@@ -8,6 +8,7 @@ import { AddToCartButton } from "@/components/ui/add-to-cart-button"
 import { prisma } from "@/lib/prisma"
 import { SITE_CONFIG } from "@/lib/constants"
 import { shouldSkipImageOptimization } from "@/lib/images"
+import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -17,9 +18,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const p = await prisma.product.findUnique({ where: { slug } })
   if (!p) return { title: "Không tìm thấy sản phẩm" }
+
+  const url = `${SITE_CONFIG.url}/products/${p.slug}`
+  const description = p.description || `${p.name} - Mua chính hãng tại ${SITE_CONFIG.name}`
+
   return {
     title: p.name,
-    description: p.description,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: p.name,
+      description,
+      url,
+      type: "website",
+      images: p.image ? [{ url: p.image, alt: p.name }] : undefined,
+    },
   }
 }
 
@@ -41,6 +54,25 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <>
+      <ProductJsonLd
+        name={product.name}
+        description={product.description}
+        image={product.image}
+        slug={product.slug}
+        price={product.price}
+        priceNumeric={product.priceNumeric}
+        brand={product.brand}
+        category={product.categoryName || product.category}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Trang chủ", href: "/" },
+          { name: "Sản phẩm", href: "/products" },
+          { name: product.categoryName || product.category || "Sản phẩm", href: `/products?cat=${product.category}` },
+          { name: product.name, href: `/products/${product.slug}` },
+        ]}
+      />
+
       {/* Breadcrumb */}
       <section className="bg-[#F2F3F4] py-6 border-b border-gray-100">
         <Container>

@@ -9,12 +9,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
   title: {
     default: SITE_CONFIG.name,
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
-  keywords: ["lọc nước", "water filtration", "aplus technologies", "giải pháp lọc nước"],
+  keywords: [
+    "lọc nước", "máy lọc nước", "máy lọc nước Quy Nhơn", "lọc nước Bình Định",
+    "máy lọc nước RO", "hệ thống lọc nước", "lọc nước gia đình", "lọc nước công nghiệp",
+    "thay lõi lọc nước", "aplus technologies", "lọc nước Phước Sang",
+  ],
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-icon.png",
@@ -24,6 +29,27 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: SITE_CONFIG.url,
     siteName: SITE_CONFIG.name,
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+  },
+  alternates: {
+    canonical: SITE_CONFIG.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large" as const,
+      "max-snippet": -1,
+    },
   },
 };
 

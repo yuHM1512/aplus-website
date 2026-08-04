@@ -6,6 +6,8 @@ import { Calendar, Clock, ArrowLeft, Facebook, Twitter, Link2 } from "lucide-rea
 import { Container } from "@/components/ui/container"
 import { prisma } from "@/lib/prisma"
 import { formatDate } from "@/lib/utils"
+import { SITE_CONFIG } from "@/lib/constants"
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -15,9 +17,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = await prisma.post.findUnique({ where: { slug } })
   if (!post) return { title: "Không tìm thấy bài viết" }
+
+  const url = `${SITE_CONFIG.url}/blog/${post.slug}`
+  const description = post.excerpt || post.title
+
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: post.title,
+      description,
+      url,
+      type: "article",
+      publishedTime: post.publishedAt?.toISOString(),
+      modifiedTime: post.updatedAt.toISOString(),
+      images: post.coverImage ? [{ url: post.coverImage, alt: post.title }] : undefined,
+    },
   }
 }
 
@@ -43,6 +59,22 @@ export default async function BlogDetailPage({ params }: Props) {
 
   return (
     <>
+      <ArticleJsonLd
+        title={post.title}
+        description={post.excerpt}
+        coverImage={post.coverImage}
+        slug={post.slug}
+        publishedAt={post.publishedAt?.toISOString() || null}
+        updatedAt={post.updatedAt.toISOString()}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Trang chủ", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.title, href: `/blog/${post.slug}` },
+        ]}
+      />
+
       {/* Cover */}
       <section className="bg-[#102590] text-white py-16 lg:py-20">
         <Container>
