@@ -64,49 +64,46 @@ export async function POST(req: NextRequest) {
       issues: data.issues,
     }
 
-    // 2) Email — chạy nền, KHÔNG await để không làm chậm response
-    //    - Xác nhận cho khách (chỉ khi có email)
-    //    - Thông báo cho admin
-    Promise.all([
+    // 2) Email — await để đảm bảo gửi xong trước khi function kết thúc (Vercel serverless)
+    await Promise.all([
       sendSurveyConfirmationToCustomer(emailData),
       sendNewSurveyToAdmin(emailData),
     ]).catch((err) => console.error("[survey] email error:", err))
 
-    // 3) Đẩy tạo customer trên Sapo — chạy nền, KHÔNG block response.
-    //    Lưu lại sapoCustomerId vào bản khảo sát để đối chiếu về sau.
-    pushSurveyCustomerToSapo({
-      fullName: data.fullName,
-      phone: data.phone,
-      email,
-      address: data.address,
-      waterSources: data.waterSources,
-      houseType: data.houseType,
-      budget: data.budget,
-      issues: data.issues,
-    })
-      .then(async (r) => {
-        if (r.success) {
-          // Lưu liên kết sapoCustomerId (kể cả khi SĐT đã tồn tại) — chỉ ghi vào DB local,
-          // KHÔNG chỉnh sửa gì trên Sapo.
-          if (r.sapoCustomerId) {
-            await prisma.surveySubmission
-              .update({
-                where: { id: survey.id },
-                data: { sapoCustomerId: r.sapoCustomerId },
-              })
-              .catch((e: unknown) => console.error("[survey] lưu sapoCustomerId lỗi:", e))
-          }
-          const label = r.existed ? "đã tồn tại — giữ nguyên" : "tạo mới"
-          console.log(
-            `[survey] ${survey.id} → Sapo customer #${r.sapoCustomerId ?? "?"} (${label})`
-          )
-        } else if (r.skipped) {
-          console.log(`[survey] ${survey.id} — bỏ qua Sapo: ${r.error}`)
-        } else {
-          console.error(`[survey] ${survey.id} — đẩy Sapo THẤT BẠI: ${r.error}`)
-        }
+    // 3) Đẩy tạo customer trên Sapo — await để Vercel không kill trước khi hoàn tất
+    try {
+      const r = await pushSurveyCustomerToSapo({
+        fullName: data.fullName,
+        phone: data.phone,
+        email,
+        address: data.address,
+        waterSources: data.waterSources,
+        houseType: data.houseType,
+        budget: data.budget,
+        issues: data.issues,
       })
-      .catch((err) => console.error("[survey] Sapo push error:", err))
+
+      if (r.success) {
+        if (r.sapoCustomerId) {
+          await prisma.surveySubmission
+            .update({
+              where: { id: survey.id },
+              data: { sapoCustomerId: r.sapoCustomerId },
+            })
+            .catch((e: unknown) => console.error("[survey] lưu sapoCustomerId lỗi:", e))
+        }
+        const label = r.existed ? "đã tồn tại — giữ nguyên" : "tạo mới"
+        console.log(
+          `[survey] ${survey.id} → Sapo customer #${r.sapoCustomerId ?? "?"} (${label})`
+        )
+      } else if (r.skipped) {
+        console.log(`[survey] ${survey.id} — bỏ qua Sapo: ${r.error}`)
+      } else {
+        console.error(`[survey] ${survey.id} — đẩy Sapo THẤT BẠI: ${r.error}`)
+      }
+    } catch (err) {
+      console.error("[survey] Sapo push error:", err)
+    }
 
     return NextResponse.json({ success: true, id: survey.id }, { status: 201 })
   } catch (error) {

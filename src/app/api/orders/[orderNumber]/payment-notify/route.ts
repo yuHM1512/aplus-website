@@ -53,8 +53,8 @@ export async function POST(
       data: { paymentNotifiedAt: new Date() },
     })
 
-    // Fire-and-forget email admin
-    sendPaymentNotifyToAdmin({
+    // Await email để Vercel serverless không kill trước khi gửi xong
+    await sendPaymentNotifyToAdmin({
       orderNumber: updated.orderNumber,
       fullName: updated.fullName,
       phone: updated.phone,
