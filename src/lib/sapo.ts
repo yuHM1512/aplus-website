@@ -218,6 +218,7 @@ export async function createOrder(order: {
   phone?: string
   note?: string
   financial_status?: string
+  confirmed_at?: string
   shipping_lines?: SapoShippingLine[]
   tags?: string
   source_name?: string
@@ -227,7 +228,6 @@ export async function createOrder(order: {
     body: JSON.stringify({
       order: {
         ...order,
-        source_name: order.source_name || "APLUS Website",
         tags: order.tags || "aplus-website",
       },
     }),

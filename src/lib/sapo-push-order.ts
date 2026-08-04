@@ -160,9 +160,9 @@ export async function pushOrderToSapo(orderId: string): Promise<PushResult> {
         .filter(Boolean)
         .join(" | "),
       financial_status: order.paymentStatus === "paid" ? "paid" : "pending",
+      confirmed_at: new Date().toISOString(),
       shipping_lines: shippingLines,
       tags: `aplus-website,${order.orderNumber}`,
-      source_name: "APLUS Website",
     })
 
     // Lưu Sapo order ID vào DB để sync trạng thái ngược
