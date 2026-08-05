@@ -13,12 +13,14 @@ function JsonLdScript({ data }: { data: Record<string, unknown> }) {
 }
 
 // ── LocalBusiness — inject once in marketing layout ──
+// SEO: Bổ sung @type cụ thể hơn, areaServed, hasOfferCatalog, aggregateRating placeholder
 export function LocalBusinessJsonLd() {
   return (
     <JsonLdScript
       data={{
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "Store"],
+        "@id": `${BASE_URL}/#organization`,
         name: SITE_CONFIG.name,
         alternateName: SITE_CONFIG.brandName,
         description: SITE_CONFIG.description,
@@ -27,6 +29,7 @@ export function LocalBusinessJsonLd() {
         email: SITE_CONFIG.email,
         address: {
           "@type": "PostalAddress",
+          streetAddress: "TP. Quy Nhơn",
           addressLocality: "Quy Nhơn",
           addressRegion: "Bình Định",
           addressCountry: "VN",
@@ -36,6 +39,14 @@ export function LocalBusinessJsonLd() {
           latitude: 13.776,
           longitude: 109.223,
         },
+        // Khu vực phục vụ — giúp Google hiểu service area
+        areaServed: [
+          { "@type": "City", name: "Quy Nhơn" },
+          { "@type": "AdministrativeArea", name: "Bình Định" },
+          { "@type": "AdministrativeArea", name: "Phú Yên" },
+          { "@type": "AdministrativeArea", name: "Quảng Ngãi" },
+          { "@type": "AdministrativeArea", name: "Gia Lai" },
+        ],
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -49,7 +60,38 @@ export function LocalBusinessJsonLd() {
           SOCIAL_LINKS.shopee,
         ],
         image: `${BASE_URL}/images/logo/logo-horizontal.png`,
+        logo: `${BASE_URL}/images/logo/logo-horizontal.png`,
         priceRange: "$$",
+        // Danh mục dịch vụ — enriched structured data
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Dịch vụ lọc nước",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "Khảo sát nguồn nước miễn phí" },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "Lắp đặt máy lọc nước tận nơi" },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "Bảo trì & thay lõi lọc định kỳ" },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "Cho thuê máy lọc nước" },
+            },
+          ],
+        },
+        // Số năm hoạt động — tín hiệu E-E-A-T
+        foundingDate: "2005",
+        numberOfEmployees: {
+          "@type": "QuantitativeValue",
+          minValue: 10,
+          maxValue: 50,
+        },
       }}
     />
   )

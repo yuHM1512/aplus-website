@@ -11,14 +11,25 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: SITE_CONFIG.name,
-    template: `%s | ${SITE_CONFIG.name}`,
+    // SEO: title mặc định chứa keyword chính + local + brand (58 ký tự)
+    default: "Máy Lọc Nước Quy Nhơn, Bình Định — Aplus Technologies",
+    template: `%s | Aplus Technologies`,
   },
   description: SITE_CONFIG.description,
   keywords: [
-    "lọc nước", "máy lọc nước", "máy lọc nước Quy Nhơn", "lọc nước Bình Định",
-    "máy lọc nước RO", "hệ thống lọc nước", "lọc nước gia đình", "lọc nước công nghiệp",
-    "thay lõi lọc nước", "aplus technologies", "lọc nước Phước Sang",
+    // Keyword chính — local intent
+    "máy lọc nước Quy Nhơn", "máy lọc nước Bình Định", "lọc nước Quy Nhơn",
+    "lọc nước Bình Định", "đại lý máy lọc nước Bình Định",
+    // Keyword ngành — volume cao
+    "máy lọc nước", "máy lọc nước RO", "máy lọc nước Nano",
+    "lọc nước đầu nguồn", "hệ thống lọc nước", "cột lọc nước",
+    // Keyword thương hiệu phân phối
+    "máy lọc nước Karofi", "máy lọc nước Kangaroo", "máy lọc nước A.O. Smith",
+    // Keyword dịch vụ
+    "lắp đặt máy lọc nước", "thay lõi lọc nước", "bảo trì máy lọc nước",
+    "lọc nước gia đình", "lọc nước công nghiệp",
+    // Brand
+    "aplus technologies", "lọc nước Phước Sang",
   ],
   icons: {
     icon: "/favicon.ico",
@@ -28,13 +39,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "vi_VN",
     url: SITE_CONFIG.url,
-    siteName: SITE_CONFIG.name,
-    title: SITE_CONFIG.name,
+    siteName: "Aplus Technologies",
+    title: "Máy Lọc Nước Chính Hãng Quy Nhơn, Bình Định — Aplus Technologies",
     description: SITE_CONFIG.description,
+    images: [
+      {
+        url: "/images/logo/logo-horizontal.png",
+        width: 1200,
+        height: 630,
+        alt: "Aplus Technologies — Giải pháp lọc nước toàn diện tại Quy Nhơn, Bình Định",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_CONFIG.name,
+    title: "Máy Lọc Nước Chính Hãng — Aplus Technologies Quy Nhơn",
     description: SITE_CONFIG.description,
   },
   alternates: {

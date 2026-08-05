@@ -4,8 +4,9 @@ export const SITE_CONFIG = {
   name: "Aplus Technologies",
   brandName: "Lọc Nước Phước Sang",
   tagline: "Giải Pháp Lọc Nước Toàn Diện",
+  // SEO: description chứa local keyword + USP + CTA ngầm (149 ký tự)
   description:
-    "Aplus Technologies cung cấp các giải pháp lọc nước chất lượng cao cho hộ gia đình và doanh nghiệp tại Việt Nam.",
+    "Máy lọc nước chính hãng tại Quy Nhơn, Bình Định — Aplus Technologies. Tư vấn miễn phí, lắp đặt trong 24h, bảo hành trọn đời. Hotline: 0935 455 558.",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   email: "contact@aplustechnologies.vn",
   hotline: "0935 455 558",
