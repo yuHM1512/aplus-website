@@ -74,7 +74,6 @@ export default async function ProductsPage({
   const perPage = 24
 
   // ─── Build Prisma where clause ───
-  // Chỉ hiển thị sản phẩm có hình ảnh
   const where: Record<string, unknown> = { published: true, image: { not: null } }
 
   // Resolve slug → Sapo product_type key cho DB query

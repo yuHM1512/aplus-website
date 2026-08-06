@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiến Dịch Blog SEO & Landing Pages — Aplus Technologies</title>
+<style>
+  :root {
+    --surface-1: #fcfcfb;
+    --surface-2: #f5f5f3;
+    --surface-3: #eaeae7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #8a8983;
+    --border: #ddddd8;
+    --accent: #102590;
+    --accent-light: #e8edfb;
+    --ocean: #006EF5;
+    --ocean-light: #e0f0ff;
+    --series-1: #102590;
+    --series-2: #006EF5;
+    --series-3: #1baf7a;
+    --series-4: #eb6834;
+    --series-5: #e87ba4;
+    --series-6: #eda100;
+    --status-good: #1a7a3a;
+    --status-warning: #b45309;
+    --status-serious: #dc2626;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    background: var(--surface-1);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #020035 0%, #102590 50%, #006EF5 100%);
+    color: #fff;
+    padding: 48px 0 40px;
+  }
+  .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .header .subtitle { font-size: 15px; opacity: 0.85; max-width: 700px; }
+  .header .meta { margin-top: 16px; font-size: 13px; opacity: 0.65; display: flex; gap: 24px; flex-wrap: wrap; }
+  .header .badge-row { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header .badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); }
+
+  /* Nav */
+  .toc {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .toc-inner { display: flex; gap: 6px; flex-wrap: wrap; }
+  .toc a {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Section */
+  section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  h2 { font-size: 21px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary); }
+  h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; color: var(--text-primary); }
+  h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+  p { margin-bottom: 12px; color: var(--text-secondary); }
+  strong { color: var(--text-primary); }
+
+  /* Tags */
+  .tag {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .tag-tofu { background: #fef3c7; color: #92400e; }
+  .tag-mofu { background: #dbeafe; color: #1e40af; }
+  .tag-bofu { background: #dcfce7; color: #166534; }
+  .tag-local { background: #fce7f3; color: #9d174d; }
+  .tag-high { background: #fee2e2; color: #991b1b; }
+  .tag-medium { background: #fef3c7; color: #92400e; }
+  .tag-low { background: #dcfce7; color: #166534; }
+  .tag-pillar { background: var(--accent-light); color: var(--accent); }
+  .tag-blog { background: #f0fdf4; color: #166534; }
+  .tag-landing { background: #fdf2f8; color: #9d174d; }
+  .tag-case { background: #fff7ed; color: #9a3412; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin: 14px 0; }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .card-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .card h4 { font-size: 14px; font-weight: 600; margin: 0; }
+  .card p { font-size: 13px; margin-bottom: 6px; }
+  .card ul { padding-left: 16px; font-size: 13px; color: var(--text-secondary); }
+  .card li { margin-bottom: 3px; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--border); border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--surface-2); font-weight: 600; text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--surface-3); vertical-align: top; }
+  tr:hover td { background: #fafaf9; }
+
+  /* Brief card */
+  .brief {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+    border-left: 4px solid var(--accent);
+  }
+  .brief.pillar-brief { border-left-color: var(--series-1); }
+  .brief.blog-brief { border-left-color: var(--series-3); }
+  .brief.landing-brief { border-left-color: var(--series-5); }
+  .brief.case-brief { border-left-color: var(--series-4); }
+  .brief-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .brief-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+  .brief-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+  .brief-field label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .brief-field .val { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .brief h5 { font-size: 13px; font-weight: 600; margin: 12px 0 6px; color: var(--text-primary); }
+  .brief ol, .brief ul { padding-left: 18px; font-size: 13px; color: var(--text-secondary); }
+  .brief li { margin-bottom: 3px; }
+
+  /* Stats */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+  .stat-tile { background: var(--surface-2); border-radius: 10px; padding: 16px; text-align: center; }
+  .stat-tile .number { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .stat-tile .label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Alert */
+  .alert { padding: 14px 18px; border-radius: 8px; margin: 14px 0; font-size: 13px; }
+  .alert-info { background: var(--accent-light); border-left: 3px solid var(--accent); }
+  .alert-warning { background: #fef3c7; border-left: 3px solid #f59e0b; }
+  .alert-success { background: #dcfce7; border-left: 3px solid #16a34a; }
+  .alert-tip { background: #f0fdf4; border-left: 3px solid #22c55e; }
+
+  /* Flow diagram */
+  .flow { display: flex; align-items: center; gap: 0; margin: 20px 0; flex-wrap: wrap; justify-content: center; }
+  .flow-step {
+    padding: 12px 20px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    text-align: center; min-width: 120px; color: #fff;
+  }
+  .flow-arrow { font-size: 20px; color: var(--text-muted); padding: 0 4px; }
+
+  /* Landing spec */
+  .landing-spec {
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+    border: 1px solid #f9a8d4;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+  }
+  .landing-spec h4 { color: #9d174d; margin-top: 0; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 7px 0 7px 26px; position: relative;
+    font-size: 13px; color: var(--text-secondary);
+    border-bottom: 1px solid var(--surface-3);
+  }
+  .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--text-muted); font-size: 14px; }
+
+  /* Timeline */
+  .phase-bar {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin: 16px 0; border-radius: 8px; overflow: hidden;
+  }
+  .phase-segment {
+    padding: 12px 16px; color: #fff; font-size: 12px; font-weight: 600; text-align: center;
+  }
+
+  /* Pillar visual */
+  .pillar-visual {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px; margin: 16px 0;
+  }
+  .pv-card {
+    border-radius: 10px; padding: 18px; border-left: 4px solid;
+  }
+  .pv-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .pv-card .pv-url { font-size: 12px; font-family: monospace; color: var(--text-muted); margin-bottom: 8px; }
+  .pv-card ul { padding-left: 14px; font-size: 12px; color: var(--text-secondary); }
+  .pv-card li { margin-bottom: 3px; }
+
+  /* Distribution channel */
+  .channel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 14px 0; }
+  .channel-card {
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center;
+  }
+  .channel-card .ch-icon { font-size: 24px; margin-bottom: 6px; }
+  .channel-card h5 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .channel-card p { font-size: 12px; margin: 0; color: var(--text-muted); }
+
+  /* KPI */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 14px 0; }
+  .kpi { padding: 14px; border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+  .kpi .val { font-size: 22px; font-weight: 700; }
+  .kpi .desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  @media (max-width: 768px) {
+    .header h1 { font-size: 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .pillar-visual { grid-template-columns: 1fr; }
+    .phase-bar { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <h1>Chiến Dịch Blog SEO & Landing Pages</h1>
+    <div class="subtitle">Kế hoạch triển khai chi tiết cho 36 bài blog chuẩn SEO, 4 pillar pages, 3 landing pages chuyển đổi và 4 case studies — Aplus Technologies</div>
+    <div class="meta">
+      <span>Domain: aplustech.vn</span>
+      <span>Giai đoạn: T8 — T10/2026 (12 tuần)</span>
+      <span>Cập nhật: 05/08/2026</span>
+    </div>
+    <div class="badge-row">
+      <span class="badge">4 Pillar Pages</span>
+      <span class="badge">24 Cluster Articles</span>
+      <span class="badge">3 Landing Pages</span>
+      <span class="badge">4 Case Studies</span>
+      <span class="badge">1 FAQ Hub</span>
+    </div>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="container toc-inner">
+    <a href="#overview">Tổng quan</a>
+    <a href="#workflow">Quy trình</a>
+    <a href="#pillars">Pillar Pages</a>
+    <a href="#blog-briefs">Blog Briefs</a>
+    <a href="#landings">Landing Pages</a>
+    <a href="#cases">Case Studies</a>
+    <a href="#distribution">Phân phối</a>
+    <a href="#internal-link">Internal Linking</a>
+    <a href="#template">Templates</a>
+    <a href="#calendar">Calendar chi tiết</a>
+    <a href="#kpi">KPI & Đo lường</a>
+    <a href="#checklist">Master Checklist</a>
+  </div>
+</nav>
+
+<!-- ====== 1. TỔNG QUAN ====== -->
+<section id="overview">
+  <div class="container">
+    <h2>1. Tổng quan chiến dịch</h2>
+
+    <p>Chiến dịch này triển khai <strong>Content Pillar-Cluster Model</strong> nhằm xây dựng Topical Authority cho aplustech.vn trong lĩnh vực lọc nước tại khu vực Miền Trung. Mỗi nội dung được thiết kế với content brief cụ thể, tối ưu cho cả Google Search lẫn AI Answer Engine (GEO).</p>
+
+    <div class="stats-row">
+      <div class="stat-tile">
+        <div class="number">36</div>
+        <div class="label">Tổng bài viết</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">4</div>
+        <div class="label">Pillar Pages (3,000+ từ)</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">3</div>
+        <div class="label">Landing Pages chuyển đổi</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">4</div>
+        <div class="label">Case Studies thực tế</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">3</div>
+        <div class="label">Bài/tuần tần suất</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">12</div>
+        <div class="label">Tuần triển khai</div>
+      </div>
+    </div>
+
+    <h3>Phân bổ nội dung theo loại</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Loại content</th><th>Số lượng</th><th>Mục đích</th><th>Funnel</th><th>Độ dài</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-pillar">Pillar Page</span></td><td>4</td><td>Hub trung tâm — xây Topical Authority</td><td>TOFU → MOFU</td><td>3,000 — 5,000 từ</td></tr>
+          <tr><td><span class="tag tag-blog">Cluster Blog</span></td><td>24</td><td>Rank long-tail keyword, link về pillar</td><td>TOFU / MOFU</td><td>1,500 — 2,500 từ</td></tr>
+          <tr><td><span class="tag tag-landing">Landing Page</span></td><td>3</td><td>Chuyển đổi lead — Local SEO</td><td>BOFU</td><td>800 — 1,500 từ</td></tr>
+          <tr><td><span class="tag tag-case">Case Study</span></td><td>4</td><td>Social proof — E-E-A-T trust signal</td><td>BOFU</td><td>1,000 — 1,500 từ</td></tr>
+          <tr><td><span class="tag tag-tofu">FAQ Hub</span></td><td>1</td><td>Featured snippet + voice search</td><td>TOFU</td><td>2,000 — 3,000 từ</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Ba giai đoạn chiến dịch</h3>
+    <div class="phase-bar">
+      <div class="phase-segment" style="background:var(--series-1);">
+        T8: Xây nền<br><small>Pillar + TOFU content</small>
+      </div>
+      <div class="phase-segment" style="background:var(--series-2);">
+        T9: Mở rộng<br><small>MOFU + Local content</small>
+      </div>
+      <div class="phase-segment" style="background:var(--series-3);">
+        T10: Chuyển đổi<br><small>BOFU + Landing + Case</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 2. QUY TRÌNH ====== -->
+<section id="workflow">
+  <div class="container">
+    <h2>2. Quy trình sản xuất nội dung</h2>
+
+    <p>Mỗi bài viết đi qua pipeline 6 bước. Thời gian trung bình từ brief đến publish: <strong>3–4 ngày làm việc</strong>.</p>
+
+    <div class="flow">
+      <div class="flow-step" style="background:var(--series-1);">1. Keyword<br>Research</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:var(--series-2);">2. Content<br>Brief</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:var(--series-4);">3. Draft<br>Writing</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:var(--series-6);">4. SEO<br>Review</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:var(--series-3);">5. Publish<br>& Submit</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:var(--series-5);">6. Distribute<br>& Track</div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--accent-light);color:var(--accent);">1</div>
+          <h4>Keyword Research</h4>
+        </div>
+        <ul>
+          <li>Xác định primary keyword + 3–5 secondary keywords</li>
+          <li>Phân tích SERP: top 5 kết quả, People Also Ask</li>
+          <li>Check keyword difficulty & search volume</li>
+          <li>Xác định search intent (informational / commercial / transactional)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:var(--ocean-light);color:var(--ocean);">2</div>
+          <h4>Content Brief</h4>
+        </div>
+        <ul>
+          <li>Title tag (55–60 ký tự, chứa keyword chính)</li>
+          <li>Meta description (150–155 ký tự, CTA + keyword)</li>
+          <li>H2/H3 outline — dàn ý chi tiết từng phần</li>
+          <li>Internal links cần đặt (pillar + cluster liên quan)</li>
+          <li>CTA blocks: vị trí đặt Zalo/Hotline/Form</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#fff7ed;color:var(--series-4);">3</div>
+          <h4>Draft Writing</h4>
+        </div>
+        <ul>
+          <li>Viết theo outline, E-E-A-T: trích dẫn nguồn, kinh nghiệm thực tế</li>
+          <li>Ảnh minh họa: min 3 ảnh/bài, alt text chứa keyword</li>
+          <li>Tone: chuyên gia tư vấn, thân thiện, không quá bán hàng</li>
+          <li>Mỗi đoạn 2–3 câu, sử dụng bullet khi cần thiết</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#fef3c7;color:var(--series-6);">4</div>
+          <h4>SEO Review Checklist</h4>
+        </div>
+        <ul>
+          <li>Keyword density: 1–2% cho primary, 0.5% cho secondary</li>
+          <li>Title tag, meta description, H1 chứa keyword</li>
+          <li>URL slug chuẩn (tiếng Việt không dấu, ngắn gọn)</li>
+          <li>Internal links: min 3 links/bài (1 pillar + 2 cluster)</li>
+          <li>Schema markup: Article / FAQ / HowTo</li>
+          <li>Ảnh: alt text, lazy loading, WebP format</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#dcfce7;color:var(--series-3);">5</div>
+          <h4>Publish & Submit</h4>
+        </div>
+        <ul>
+          <li>Publish trên CMS admin (TipTap editor)</li>
+          <li>Submit URL lên Google Search Console</li>
+          <li>Kiểm tra render: mobile + desktop</li>
+          <li>Verify JSON-LD structured data (Rich Results Test)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon" style="background:#fce7f3;color:var(--series-5);">6</div>
+          <h4>Distribute & Track</h4>
+        </div>
+        <ul>
+          <li>Chia sẻ Facebook page + groups ngành</li>
+          <li>Đăng Zalo OA + gửi tin cho follower</li>
+          <li>Repurpose → TikTok short video / Instagram reel</li>
+          <li>Theo dõi: impressions, clicks, CTR, position trên GSC</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 3. PILLAR PAGES ====== -->
+<section id="pillars">
+  <div class="container">
+    <h2>3. Chi tiết 4 Pillar Pages</h2>
+
+    <p>Pillar pages là <strong>trung tâm liên kết</strong> của toàn bộ Topic Cluster. Mỗi pillar page cần 3,000–5,000 từ, bao quát toàn diện chủ đề và liên kết xuống tất cả cluster articles. Google và AI search engines đánh giá topical authority dựa trên mạng lưới liên kết này.</p>
+
+    <div class="alert alert-info">
+      <strong>Nguyên tắc Pillar Page:</strong> Viết rộng nhưng không sâu — để cluster articles đi sâu vào từng khía cạnh. Pillar page giống như "mục lục sống" với mỗi section tóm tắt 150–200 từ rồi link sang bài chi tiết.
+    </div>
+
+    <!-- PILLAR 1 -->
+    <div class="brief pillar-brief">
+      <div class="brief-header">
+        <div class="brief-title">Pillar 1: Kiến Thức Lọc Nước Từ A Đến Z</div>
+        <div class="brief-meta">
+          <span class="tag tag-pillar">PILLAR</span>
+          <span class="tag tag-tofu">TOFU</span>
+          <span class="tag tag-high">Ưu tiên cao</span>
+        </div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field">
+          <label>URL slug</label>
+          <div class="val"><code>/blog/kien-thuc-loc-nuoc</code></div>
+        </div>
+        <div class="brief-field">
+          <label>Primary keyword</label>
+          <div class="val">kiến thức lọc nước, máy lọc nước</div>
+        </div>
+        <div class="brief-field">
+          <label>Độ dài mục tiêu</label>
+          <div class="val">4,000 — 5,000 từ</div>
+        </div>
+        <div class="brief-field">
+          <label>Schema</label>
+          <div class="val">Article + FAQPage</div>
+        </div>
+      </div>
+      <div class="brief-field">
+        <label>Title tag (58 ký tự)</label>
+        <div class="val">"Kiến Thức Lọc Nước Từ A Đến Z — Hướng Dẫn Toàn Diện 2026"</div>
+      </div>
+      <div class="brief-field" style="margin-top:6px;">
+        <label>Meta description (152 ký tự)</label>
+        <div class="val">"Tổng hợp kiến thức về lọc nước: công nghệ RO, Nano, UF, cách chọn máy, bảo trì đúng cách. Hướng dẫn chi tiết từ chuyên gia Aplus Technologies Quy Nhơn."</div>
+      </div>
+      <h5>Dàn ý (H2/H3)</h5>
+      <ol>
+        <li><strong>H2: Tại sao cần lọc nước?</strong> — Thực trạng nguồn nước VN, các chất ô nhiễm phổ biến</li>
+        <li><strong>H2: Các công nghệ lọc nước hiện nay</strong>
+          <ul>
+            <li>H3: Công nghệ RO (thẩm thấu ngược) → link cluster "RO vs Nano"</li>
+            <li>H3: Công nghệ Nano → link cluster</li>
+            <li>H3: Công nghệ UF (siêu lọc)</li>
+            <li>H3: Lọc đầu nguồn — cột lọc composite</li>
+          </ul>
+        </li>
+        <li><strong>H2: Các chỉ số chất lượng nước</strong> — TDS, pH, độ cứng → link cluster "Cách đọc TDS"</li>
+        <li><strong>H2: Nguồn nước đầu vào phổ biến</strong>
+          <ul>
+            <li>H3: Nước máy thành phố → link "Nước máy có uống được không?"</li>
+            <li>H3: Nước giếng khoan → link "Nước giếng khoan cần lọc"</li>
+            <li>H3: Nước nhiễm phèn → link cluster "Xử lý nước nhiễm phèn"</li>
+          </ul>
+        </li>
+        <li><strong>H2: Cách chọn máy lọc nước phù hợp</strong> — Tóm tắt → link Pillar 2</li>
+        <li><strong>H2: Bảo trì máy lọc nước đúng cách</strong> — Tóm tắt → link Pillar 3</li>
+        <li><strong>H2: Thực trạng nguồn nước Miền Trung</strong> — Tóm tắt → link Pillar 4</li>
+        <li><strong>H2: FAQ — Câu hỏi thường gặp</strong> (5–7 câu, FAQPage schema)</li>
+      </ol>
+      <h5>Internal links cần đặt (8–12 links)</h5>
+      <ul>
+        <li>→ Pillar 2, 3, 4 (cross-pillar)</li>
+        <li>→ 7 cluster articles thuộc Pillar 1</li>
+        <li>→ Product categories: /products?cat=may-loc-nuoc, /products?cat=cot-loc-nuoc</li>
+      </ul>
+      <h5>CTA blocks</h5>
+      <ul>
+        <li>Sau section 2: Banner "Cần tư vấn chọn công nghệ lọc? Gọi ngay 0935 455 558"</li>
+        <li>Sau section 4: Form khảo sát nguồn nước miễn phí → /survey</li>
+        <li>Cuối bài: Zalo CTA + Hotline CTA</li>
+      </ul>
+    </div>
+
+    <!-- PILLAR 2 -->
+    <div class="brief pillar-brief">
+      <div class="brief-header">
+        <div class="brief-title">Pillar 2: Hướng Dẫn Chọn Máy Lọc Nước Phù Hợp</div>
+        <div class="brief-meta">
+          <span class="tag tag-pillar">PILLAR</span>
+          <span class="tag tag-mofu">MOFU</span>
+          <span class="tag tag-high">Ưu tiên cao</span>
+        </div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field">
+          <label>URL slug</label>
+          <div class="val"><code>/blog/huong-dan-chon-may-loc-nuoc</code></div>
+        </div>
+        <div class="brief-field">
+          <label>Primary keyword</label>
+          <div class="val">chọn máy lọc nước, mua máy lọc nước</div>
+        </div>
+        <div class="brief-field">
+          <label>Độ dài mục tiêu</label>
+          <div class="val">3,500 — 4,500 từ</div>
+        </div>
+        <div class="brief-field">
+          <label>Schema</label>
+          <div class="val">Article + FAQPage + ItemList</div>
+        </div>
+      </div>
+      <div class="brief-field">
+        <label>Title tag</label>
+        <div class="val">"Hướng Dẫn Chọn Máy Lọc Nước Phù Hợp — Chuyên Gia Tư Vấn 2026"</div>
+      </div>
+      <div class="brief-field" style="margin-top:6px;">
+        <label>Meta description</label>
+        <div class="val">"Chọn máy lọc nước theo nhu cầu: gia đình, nhà hàng, công nghiệp. So sánh Karofi, Kangaroo, A.O. Smith. Tư vấn miễn phí từ Aplus Technologies Quy Nhơn."</div>
+      </div>
+      <h5>Dàn ý (H2/H3)</h5>
+      <ol>
+        <li><strong>H2: 5 tiêu chí vàng khi chọn máy lọc nước</strong> — Nguồn nước, số người, công suất, ngân sách, thương hiệu</li>
+        <li><strong>H2: Chọn theo nguồn nước đầu vào</strong>
+          <ul>
+            <li>H3: Nước máy → RO nóng lạnh hoặc Nano</li>
+            <li>H3: Giếng khoan → cột lọc + RO</li>
+            <li>H3: Nước nhiễm phèn → hệ thống đầu nguồn</li>
+          </ul>
+        </li>
+        <li><strong>H2: Chọn theo số người trong gia đình</strong> → link cluster "Máy cho gia đình 4 người"</li>
+        <li><strong>H2: Chọn theo ngân sách</strong>
+          <ul>
+            <li>H3: Dưới 5 triệu → link cluster</li>
+            <li>H3: 5–10 triệu (phân khúc phổ biến)</li>
+            <li>H3: Trên 10 triệu — dòng cao cấp</li>
+          </ul>
+        </li>
+        <li><strong>H2: So sánh thương hiệu phổ biến</strong> → link cluster "Karofi vs Kangaroo vs A.O. Smith"</li>
+        <li><strong>H2: Máy lọc cho doanh nghiệp</strong> → link cluster "Máy cho nhà hàng, quán café"</li>
+        <li><strong>H2: Chi phí lắp đặt thực tế</strong> → link cluster "Chi phí lọc đầu nguồn"</li>
+        <li><strong>H2: FAQ</strong> (5–7 câu)</li>
+      </ol>
+      <h5>CTA blocks</h5>
+      <ul>
+        <li>Sau mỗi phân khúc giá: Link product category tương ứng + "Xem sản phẩm"</li>
+        <li>Giữa bài: "Không chắc nên chọn loại nào? Để chuyên gia Aplus khảo sát miễn phí" → /survey</li>
+        <li>Cuối: Landing page "Máy lọc nước Quy Nhơn"</li>
+      </ul>
+    </div>
+
+    <!-- PILLAR 3 -->
+    <div class="brief pillar-brief">
+      <div class="brief-header">
+        <div class="brief-title">Pillar 3: Bảo Trì Máy Lọc Nước Đúng Cách</div>
+        <div class="brief-meta">
+          <span class="tag tag-pillar">PILLAR</span>
+          <span class="tag tag-mofu">MOFU</span>
+        </div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>URL slug</label><div class="val"><code>/blog/bao-tri-may-loc-nuoc</code></div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">bảo trì máy lọc nước, thay lõi lọc nước</div></div>
+        <div class="brief-field"><label>Độ dài mục tiêu</label><div class="val">3,000 — 4,000 từ</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">Article + HowTo + FAQPage</div></div>
+      </div>
+      <h5>Dàn ý (H2/H3)</h5>
+      <ol>
+        <li><strong>H2: Vì sao bảo trì định kỳ quan trọng?</strong> — Hậu quả không bảo trì: vi khuẩn, giảm tuổi thọ máy</li>
+        <li><strong>H2: Lịch thay lõi lọc theo từng hãng</strong> (bảng so sánh Karofi/Kangaroo/A.O.Smith) → link cluster "Thay lõi bao lâu"</li>
+        <li><strong>H2: Hướng dẫn vệ sinh máy lọc tại nhà</strong> (step-by-step, HowTo schema) → link cluster</li>
+        <li><strong>H2: Dấu hiệu máy cần sửa chữa</strong> → link cluster "Dấu hiệu máy hỏng"</li>
+        <li><strong>H2: Lõi lọc chính hãng vs hàng nhái</strong> → link cluster</li>
+        <li><strong>H2: Bảng giá thay lõi 2026</strong> → link cluster "Bảng giá thay lõi"</li>
+        <li><strong>H2: Sai lầm phổ biến khi dùng máy lọc</strong> → link cluster</li>
+        <li><strong>H2: Dịch vụ bảo trì tận nhà tại Quy Nhơn</strong> — CTA mạnh</li>
+      </ol>
+    </div>
+
+    <!-- PILLAR 4 -->
+    <div class="brief pillar-brief">
+      <div class="brief-header">
+        <div class="brief-title">Pillar 4: Nguồn Nước Miền Trung — Thực Trạng & Giải Pháp</div>
+        <div class="brief-meta">
+          <span class="tag tag-pillar">PILLAR</span>
+          <span class="tag tag-local">LOCAL SEO</span>
+          <span class="tag tag-high">Ưu tiên cao</span>
+        </div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>URL slug</label><div class="val"><code>/blog/nguon-nuoc-mien-trung</code></div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nguồn nước Miền Trung, nước Quy Nhơn Bình Định</div></div>
+        <div class="brief-field"><label>Độ dài mục tiêu</label><div class="val">3,500 — 4,500 từ</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">Article + FAQPage</div></div>
+      </div>
+      <h5>Dàn ý (H2/H3)</h5>
+      <ol>
+        <li><strong>H2: Tổng quan nguồn nước khu vực Miền Trung</strong> — Đặc điểm địa lý, khí hậu ảnh hưởng chất lượng nước</li>
+        <li><strong>H2: Nước máy Quy Nhơn — Phân tích thực tế</strong> → link cluster</li>
+        <li><strong>H2: Nước giếng khoan Bình Định</strong> → link cluster</li>
+        <li><strong>H2: Vùng nước nhiễm phèn Miền Trung</strong> (bản đồ hình ảnh các vùng) → link cluster</li>
+        <li><strong>H2: Ảnh hưởng mùa mưa lũ</strong> → link cluster seasonal</li>
+        <li><strong>H2: Giải pháp lọc nước cho từng khu vực</strong>
+          <ul>
+            <li>H3: Thành thị (nước máy) — máy lọc RO/Nano</li>
+            <li>H3: Nông thôn (giếng khoan) — cột lọc + RO</li>
+            <li>H3: Ven biển — hệ thống xử lý đặc biệt → link cluster</li>
+          </ul>
+        </li>
+        <li><strong>H2: Dự án nước sạch tại Bình Định</strong> → link case studies</li>
+        <li><strong>H2: FAQ</strong></li>
+      </ol>
+      <div class="alert alert-tip">
+        <strong>Local SEO tip:</strong> Pillar 4 là vũ khí mạnh nhất cho local search. Sử dụng tên địa danh cụ thể (Quy Nhơn, An Nhơn, Phú Yên, Quảng Ngãi) trong heading và body text. Nhúng Google Maps khu vực phục vụ.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 4. BLOG BRIEFS ====== -->
+<section id="blog-briefs">
+  <div class="container">
+    <h2>4. Content Brief — 24 Cluster Articles</h2>
+
+    <p>Mỗi cluster article nhắm vào 1 long-tail keyword cụ thể, viết sâu hơn phần tương ứng trên pillar page, và luôn link ngược về pillar. Dưới đây là brief chi tiết cho từng bài, sắp xếp theo thứ tự publish.</p>
+
+    <!-- THÁNG 8 BLOGS -->
+    <h3 style="color:var(--series-1);">Tháng 8 — Nền tảng kiến thức (10 bài)</h3>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B01: Nước Máy Có Uống Được Không? 5 Sự Thật Bạn Cần Biết</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1 — Kiến thức lọc nước</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước máy có uống được không (2,900/tháng)</div></div>
+        <div class="brief-field"><label>Secondary keywords</label><div class="val">nước máy có sạch không, uống nước máy, nước sinh hoạt</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,800 — 2,200 từ</div></div>
+      </div>
+      <h5>Outline</h5>
+      <ol>
+        <li>H2: Thực trạng nước máy tại Việt Nam (số liệu Bộ Y tế)</li>
+        <li>H2: 5 chất ô nhiễm phổ biến trong nước máy (Clo dư, kim loại nặng, vi sinh, rỉ ống, cặn bẩn)</li>
+        <li>H2: Tiêu chuẩn nước uống QCVN 01:2009 — nước máy đạt hay chưa?</li>
+        <li>H2: Nước máy Quy Nhơn — tình hình thực tế (local angle) → link Pillar 4</li>
+        <li>H2: Giải pháp: nên dùng máy lọc nước nào cho nước máy? → link Pillar 2</li>
+        <li>H2: FAQ (3 câu — FAQPage schema)</li>
+      </ol>
+      <h5>Internal links</h5>
+      <ul>
+        <li>↑ Pillar 1: /blog/kien-thuc-loc-nuoc (anchor: "kiến thức lọc nước")</li>
+        <li>→ B03: "Cách đọc chỉ số TDS" (anchor: "chỉ số TDS nước")</li>
+        <li>→ Pillar 4: /blog/nguon-nuoc-mien-trung</li>
+        <li>→ Product: /products?cat=may-loc-nuoc</li>
+      </ul>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B02: So Sánh Công Nghệ RO vs Nano vs UF — Loại Nào Phù Hợp?</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước RO hay Nano tốt hơn (1,600/tháng)</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">2,000 — 2,500 từ</div></div>
+        <div class="brief-field"><label>Content type</label><div class="val">So sánh + bảng tổng hợp</div></div>
+      </div>
+      <h5>Outline</h5>
+      <ol>
+        <li>H2: 3 công nghệ lọc phổ biến — tổng quan nhanh</li>
+        <li>H2: Bảng so sánh chi tiết RO vs Nano vs UF (bảng HTML: tiêu chí, khả năng lọc, nước thải, giá, phù hợp)</li>
+        <li>H2: Khi nào chọn RO? Khi nào chọn Nano?</li>
+        <li>H2: Máy lọc UF — trường hợp nào nên dùng?</li>
+        <li>H2: Khuyến nghị từ Aplus theo từng nguồn nước → link Pillar 2</li>
+      </ol>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B03: Cách Đọc Chỉ Số TDS, pH — Nước Bao Nhiêu Là Sạch?</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">chỉ số TDS nước, nước TDS bao nhiêu là sạch</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 1,800 từ</div></div>
+        <div class="brief-field"><label>Schema đặc biệt</label><div class="val">HowTo (cách đo TDS tại nhà)</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B04: 7 Dấu Hiệu Nhận Biết Nguồn Nước Nhiễm Phèn</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước nhiễm phèn cách xử lý (1,900/tháng)</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,800 — 2,200 từ</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">Listicle + giải pháp. Ảnh minh họa nước nhiễm phèn thực tế</div></div>
+      </div>
+      <h5>Outline</h5>
+      <ol>
+        <li>H2: Nước nhiễm phèn là gì? Nguyên nhân tại sao?</li>
+        <li>H2: 7 dấu hiệu nhận biết (mỗi dấu hiệu 1 H3 + ảnh)</li>
+        <li>H2: Tác hại của nước nhiễm phèn đến sức khỏe</li>
+        <li>H2: Giải pháp xử lý — hệ thống lọc đầu nguồn → link sản phẩm cột lọc</li>
+        <li>H2: Khu vực nhiễm phèn nặng tại Bình Định → link Pillar 4</li>
+      </ol>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B05: Thay Lõi Lọc Nước Bao Lâu Một Lần? Bảng Thời Gian Theo Hãng</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3 — Bảo trì</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">thay lõi lọc nước bao lâu một lần (1,100/tháng)</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 2,000 từ</div></div>
+        <div class="brief-field"><label>Đặc biệt</label><div class="val">Bảng HTML so sánh lõi 1→10 theo Karofi, Kangaroo, A.O. Smith</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B06: Lõi Lọc Chính Hãng vs Hàng Nhái — Cách Phân Biệt</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">lõi lọc nước chính hãng, phân biệt lõi lọc thật giả</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 1,800 từ</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">So sánh hình ảnh thực tế lõi thật vs giả. Trust signal cho Aplus</div></div>
+      </div>
+    </div>
+
+    <!-- THÁNG 9 BLOGS -->
+    <h3 style="color:var(--series-2);">Tháng 9 — MOFU + Local Content (10 bài)</h3>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B07: Top 7 Máy Lọc Nước Tốt Nhất Cho Gia Đình — 2026</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2 — Hướng dẫn chọn mua</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước tốt nhất 2026, máy lọc nước cho gia đình</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">2,500 — 3,000 từ</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">Article + ItemList + Product (cho mỗi máy)</div></div>
+      </div>
+      <h5>Outline</h5>
+      <ol>
+        <li>H2: Tiêu chí đánh giá (giải thích cách chấm điểm)</li>
+        <li>H2: Top 7 — mỗi máy 1 H3: tên, ảnh, specs, ưu/nhược, giá, ai nên mua</li>
+        <li>H2: Bảng so sánh nhanh (bảng HTML tổng hợp)</li>
+        <li>H2: Mua ở đâu tại Quy Nhơn? → CTA Aplus</li>
+      </ol>
+      <div class="alert alert-tip"><strong>Tip:</strong> Bài "Top X" luôn có CTR cao trên SERP. Cập nhật tiêu đề hàng năm (thay 2026 → 2027) để giữ freshness signal.</div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B08: Nước Giếng Khoan Bình Định Có Sạch Không?</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-local">LOCAL</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 4 — Nguồn nước Miền Trung</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước giếng khoan Bình Định có sạch không</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,800 — 2,200 từ</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">Dữ liệu thực tế đo tại các huyện Bình Định. Ảnh test nước thực tế</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B09: So Sánh Karofi vs Kangaroo — Nên Chọn Hãng Nào?</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">so sánh Karofi và Kangaroo (1,300/tháng)</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">2,000 — 2,500 từ</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">Article + bảng ComparisonTable</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B10: Chất Lượng Nước Máy Quy Nhơn — Phân Tích Thực Tế</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 4</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước máy Quy Nhơn, chất lượng nước Quy Nhơn</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 2,000 từ</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B11: 5 Sai Lầm Phổ Biến Khi Sử Dụng Máy Lọc Nước</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">sai lầm dùng máy lọc nước</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 1,800 từ</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B12: Chi Phí Lắp Hệ Thống Lọc Nước Đầu Nguồn — Bảng Giá 2026</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">chi phí lắp hệ thống lọc nước đầu nguồn (long-tail, conversion cao)</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">2,000 — 2,500 từ</div></div>
+        <div class="brief-field"><label>Đặc biệt</label><div class="val">Bảng giá theo quy mô: hộ gia đình, biệt thự, nhà xưởng</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B13: Máy Lọc Nước Nào Tốt Cho Gia Đình 4 Người — Tầm 5 Triệu</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước cho gia đình 4 người, máy lọc nước dưới 5 triệu</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,800 — 2,200 từ</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B14: Mùa Mưa Lũ Miền Trung — Cách Bảo Vệ Nguồn Nước Gia Đình</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 4</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">mùa mưa nguồn nước Miền Trung, bảo vệ nguồn nước mùa lũ</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,500 — 2,000 từ</div></div>
+        <div class="brief-field"><label>Timing</label><div class="val">Publish cuối T9 — đón mùa mưa T10–T12 (seasonal content)</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B15: Hướng Dẫn Vệ Sinh Máy Lọc Nước Tại Nhà — Từng Bước</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">vệ sinh máy lọc nước, cách vệ sinh máy lọc nước tại nhà</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">HowTo (từng bước có ảnh minh họa)</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B16: Hướng Dẫn Bảo Quản Máy Lọc Nước Khi Đi Xa Lâu Ngày</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">bảo quản máy lọc nước khi đi xa, tắt máy lọc lâu ngày</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">1,200 — 1,500 từ</div></div>
+      </div>
+    </div>
+
+    <!-- THÁNG 10 BLOGS -->
+    <h3 style="color:var(--series-3);">Tháng 10 — Chuyển đổi & chuyên sâu (8 bài)</h3>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B17: Cách Chọn Máy Lọc Nước Cho Nhà Hàng, Quán Café</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước nhà hàng, lọc nước quán café</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">B2B content — nhắm chủ kinh doanh F&B tại Quy Nhơn</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B18: Nước Ion Kiềm — Khoa Học Nói Gì? Có Nên Mua Máy?</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước ion kiềm có tốt không (1,500/tháng)</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">Myth-busting, trích dẫn nghiên cứu khoa học → E-E-A-T signal</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B19: A.O. Smith vs Coway — Máy Lọc Nước Cao Cấp Nào Đáng Tiền?</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 2</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">so sánh A.O. Smith Coway</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B20: Bảng Giá Thay Lõi Lọc Các Hãng — Cập Nhật 2026</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 3</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">bảng giá thay lõi lọc nước, giá lõi lọc nước</div></div>
+        <div class="brief-field"><label>Đặc biệt</label><div class="val">Bảng giá chi tiết, cập nhật hàng quý → evergreen + freshness</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B21: Lọc Nước Giếng Khoan — Giải Pháp Toàn Diện Cho Vùng Nông Thôn</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 1</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">lọc nước giếng khoan (1,800/tháng)</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B22: Vì Sao Nên Chọn Đại Lý Lọc Nước Uy Tín Tại Địa Phương?</div>
+        <div class="brief-meta"><span class="tag tag-bofu">BOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Primary keyword</label><div class="val">đại lý lọc nước uy tín, mua máy lọc nước ở đâu</div></div>
+        <div class="brief-field"><label>Angle</label><div class="val">Trust-building: vì sao mua tại đại lý chính hãng địa phương tốt hơn online</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B23: Giải Pháp Nước Sạch Cho Khu Dân Cư Ven Biển Miền Trung</div>
+        <div class="brief-meta"><span class="tag tag-mofu">MOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Pillar 4</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">nước sạch ven biển Miền Trung, lọc nước mặn</div></div>
+      </div>
+    </div>
+
+    <div class="brief blog-brief">
+      <div class="brief-header">
+        <div class="brief-title">B24: FAQ — 20 Câu Hỏi Thường Gặp Về Máy Lọc Nước</div>
+        <div class="brief-meta"><span class="tag tag-tofu">TOFU</span><span class="tag tag-high">Ưu tiên 1</span></div>
+      </div>
+      <div class="brief-grid">
+        <div class="brief-field"><label>Cluster</label><div class="val">Cross-pillar (hub tổng hợp)</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">câu hỏi máy lọc nước, FAQ máy lọc nước</div></div>
+        <div class="brief-field"><label>Schema</label><div class="val">FAQPage — 20 cặp Q&A → nhắm Featured Snippet + Voice Search</div></div>
+        <div class="brief-field"><label>Độ dài</label><div class="val">2,500 — 3,000 từ</div></div>
+      </div>
+      <div class="alert alert-tip"><strong>GEO tip:</strong> FAQ page với câu trả lời ngắn gọn, self-contained là target #1 cho AI Overview / Google SGE. Mỗi answer nên 40–60 từ, trả lời trực tiếp.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 5. LANDING PAGES ====== -->
+<section id="landings">
+  <div class="container">
+    <h2>5. Chi tiết 3 Landing Pages</h2>
+
+    <p>Landing pages là nơi chuyển đổi cuối cùng — mỗi trang nhắm vào 1 keyword BOFU có commercial + local intent cao nhất. Thiết kế tối ưu cho conversion, không phải đọc nhiều.</p>
+
+    <!-- LANDING 1 -->
+    <div class="landing-spec">
+      <h4>Landing 1: Máy Lọc Nước Quy Nhơn — Lắp Đặt Miễn Phí, Bảo Hành Trọn Đời</h4>
+      <div class="brief-grid">
+        <div class="brief-field"><label>URL</label><div class="val"><code>/may-loc-nuoc-quy-nhon</code> (trang tĩnh, KHÔNG phải blog)</div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước Quy Nhơn (320/tháng)</div></div>
+        <div class="brief-field"><label>Secondary</label><div class="val">mua máy lọc nước Quy Nhơn, đại lý máy lọc nước Quy Nhơn</div></div>
+        <div class="brief-field"><label>Mục tiêu</label><div class="val">Lead form / Gọi Hotline / Chat Zalo</div></div>
+      </div>
+      <h5>Cấu trúc trang (top → bottom)</h5>
+      <ol>
+        <li><strong>Hero section:</strong> H1 chứa keyword + value proposition + 2 CTA buttons (Gọi ngay / Tư vấn Zalo)</li>
+        <li><strong>Trust bar:</strong> 20+ năm kinh nghiệm | 5,000+ khách hàng | Bảo hành trọn đời | Lắp đặt trong 24h</li>
+        <li><strong>Sản phẩm nổi bật:</strong> Grid 4–6 sản phẩm bán chạy nhất tại Quy Nhơn (ảnh, giá, CTA)</li>
+        <li><strong>Vì sao chọn Aplus?</strong> 4 USP icons (Chính hãng, Giá tốt, Lắp miễn phí, Bảo trì tận nhà)</li>
+        <li><strong>Dự án đã thực hiện:</strong> 2–3 case study thumbnail tại Quy Nhơn → link case study</li>
+        <li><strong>Testimonials:</strong> 3–4 review khách hàng (ảnh + tên + khu vực)</li>
+        <li><strong>Khu vực phục vụ:</strong> Google Maps embed + danh sách phường/xã phục vụ</li>
+        <li><strong>Form liên hệ:</strong> Tên, SĐT, Loại nhu cầu (dropdown), Ghi chú → submit /api/contact</li>
+        <li><strong>FAQ section:</strong> 5 câu hỏi phổ biến (FAQPage schema)</li>
+      </ol>
+      <h5>SEO on-page</h5>
+      <ul>
+        <li>Title: "Máy Lọc Nước Quy Nhơn — Chính Hãng, Lắp Miễn Phí | Aplus"</li>
+        <li>Meta: "Đại lý máy lọc nước chính hãng tại Quy Nhơn. Karofi, Kangaroo, A.O. Smith. Lắp đặt miễn phí trong 24h, bảo hành trọn đời. Gọi 0935 455 558."</li>
+        <li>Schema: LocalBusiness + Product (cho sản phẩm featured)</li>
+        <li>Internal links: ← từ tất cả blog posts Pillar 4 + product pages</li>
+      </ul>
+    </div>
+
+    <!-- LANDING 2 -->
+    <div class="landing-spec">
+      <h4>Landing 2: Máy Lọc Nước Bình Định — Giao Hàng Tận Nơi Toàn Tỉnh</h4>
+      <div class="brief-grid">
+        <div class="brief-field"><label>URL</label><div class="val"><code>/may-loc-nuoc-binh-dinh</code></div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">máy lọc nước Bình Định (210/tháng)</div></div>
+        <div class="brief-field"><label>Mục tiêu</label><div class="val">Lead form / Hotline / Zalo</div></div>
+      </div>
+      <h5>Cấu trúc trang</h5>
+      <ol>
+        <li><strong>Hero:</strong> Tương tự Landing 1 nhưng nhấn mạnh "giao hàng toàn tỉnh Bình Định"</li>
+        <li><strong>Khu vực giao hàng:</strong> Bản đồ + danh sách: Quy Nhơn, An Nhơn, Tuy Phước, Phù Cát, Phù Mỹ, Hoài Nhơn, Tây Sơn...</li>
+        <li><strong>Giải pháp theo vùng:</strong> Thành thị (nước máy) vs Nông thôn (giếng khoan) — mỗi vùng recommend sản phẩm khác</li>
+        <li><strong>Sản phẩm + Case study + Testimonials + Form</strong> (tương tự Landing 1)</li>
+      </ol>
+    </div>
+
+    <!-- LANDING 3 -->
+    <div class="landing-spec">
+      <h4>Landing 3: Cho Thuê Máy Lọc Nước Bình Định — Trả Góp 0%</h4>
+      <div class="brief-grid">
+        <div class="brief-field"><label>URL</label><div class="val"><code>/cho-thue-may-loc-nuoc</code></div></div>
+        <div class="brief-field"><label>Primary keyword</label><div class="val">cho thuê máy lọc nước, thuê máy lọc nước Bình Định</div></div>
+        <div class="brief-field"><label>Mục tiêu</label><div class="val">Lead form cho dịch vụ cho thuê</div></div>
+      </div>
+      <h5>Cấu trúc trang</h5>
+      <ol>
+        <li><strong>Hero:</strong> "Thuê Máy Lọc Nước Từ 99K/tháng — Không Cần Đầu Tư Ban Đầu"</li>
+        <li><strong>Bảng giá thuê:</strong> 3 gói (Basic / Standard / Premium) — bảng so sánh</li>
+        <li><strong>So sánh Thuê vs Mua:</strong> Bảng comparison → thuê phù hợp khi nào?</li>
+        <li><strong>Quy trình thuê:</strong> 4 bước (Đăng ký → Khảo sát → Lắp đặt → Bảo trì miễn phí)</li>
+        <li><strong>Đối tượng phù hợp:</strong> Văn phòng, nhà trọ, quán ăn, trường học</li>
+        <li><strong>Form đăng ký thuê</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 6. CASE STUDIES ====== -->
+<section id="cases">
+  <div class="container">
+    <h2>6. Chi tiết 4 Case Studies</h2>
+
+    <p>Case studies là tín hiệu E-E-A-T mạnh nhất — chứng minh <strong>Experience</strong> (kinh nghiệm thực tế) và <strong>Trustworthiness</strong> (khách hàng thật). Mỗi case study cần ảnh thực tế, số liệu cụ thể, và lời đánh giá từ khách hàng.</p>
+
+    <div class="brief case-brief">
+      <div class="brief-header">
+        <div class="brief-title">CS01: Hệ Thống Lọc Nước Trường Tiểu Học X — Bình Định</div>
+        <div class="brief-meta"><span class="tag tag-bofu">BOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <h5>Cấu trúc bài (template chuẩn)</h5>
+      <ol>
+        <li><strong>Bối cảnh:</strong> Trường có bao nhiêu HS, nguồn nước gì, vấn đề gặp phải</li>
+        <li><strong>Thách thức:</strong> Nước nhiễm gì, yêu cầu đặc biệt (an toàn cho trẻ em)</li>
+        <li><strong>Giải pháp Aplus:</strong> Sản phẩm lắp đặt, quy trình, timeline</li>
+        <li><strong>Kết quả:</strong> Chỉ số nước trước/sau (TDS, pH), ảnh before/after</li>
+        <li><strong>Đánh giá khách hàng:</strong> Quote từ ban giám hiệu + ảnh</li>
+        <li><strong>CTA:</strong> "Bạn cũng cần giải pháp lọc nước cho trường học?" → /contact</li>
+      </ol>
+    </div>
+
+    <div class="brief case-brief">
+      <div class="brief-header">
+        <div class="brief-title">CS02: Lọc Nước Công Nghiệp Nhà Máy Y — Quy Nhơn</div>
+        <div class="brief-meta"><span class="tag tag-bofu">BOFU</span></div>
+      </div>
+      <h5>Focus: B2B, công suất lớn, hệ thống phức tạp</h5>
+    </div>
+
+    <div class="brief case-brief">
+      <div class="brief-header">
+        <div class="brief-title">CS03: Lọc Nước Giếng Khoan Cho Hộ Gia Đình Tại An Nhơn</div>
+        <div class="brief-meta"><span class="tag tag-bofu">BOFU</span><span class="tag tag-local">LOCAL</span></div>
+      </div>
+      <h5>Focus: B2C, nước giếng nhiễm phèn, giải pháp cột lọc + RO</h5>
+    </div>
+
+    <div class="brief case-brief">
+      <div class="brief-header">
+        <div class="brief-title">CS04: Hệ Thống Lọc Nước Nhà Hàng Hải Sản Z — Quy Nhơn</div>
+        <div class="brief-meta"><span class="tag tag-bofu">BOFU</span></div>
+      </div>
+      <h5>Focus: F&B, yêu cầu nước sạch cho chế biến, rửa hải sản</h5>
+    </div>
+
+    <div class="alert alert-warning">
+      <strong>Lưu ý:</strong> Tên trường/nhà máy/nhà hàng cần được sự đồng ý của khách hàng trước khi đăng. Nếu chưa có case study thực tế, có thể bắt đầu bằng "Khách hàng Aplus nói gì sau 1 năm sử dụng?" — tổng hợp testimonials.
+    </div>
+  </div>
+</section>
+
+<!-- ====== 7. PHÂN PHỐI ====== -->
+<section id="distribution">
+  <div class="container">
+    <h2>7. Chiến lược phân phối đa kênh</h2>
+
+    <p>Publish bài blog chỉ là 30% công việc. 70% còn lại là <strong>phân phối + repurpose</strong> để tối đa reach và backlink. Mỗi bài blog cần được repurpose thành ít nhất 3 dạng nội dung khác.</p>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="ch-icon">🌐</div>
+        <h5>Google Search (SEO)</h5>
+        <p>Submit URL qua GSC ngay khi publish. Verify schema bằng Rich Results Test.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ch-icon">📘</div>
+        <h5>Facebook Page + Groups</h5>
+        <p>Post excerpt + link. Join groups: "Lọc nước Bình Định", "Người Quy Nhơn", "Mẹ bỉm sữa QN".</p>
+      </div>
+      <div class="channel-card">
+        <div class="ch-icon">💬</div>
+        <h5>Zalo OA</h5>
+        <p>Gửi tin nhắn tóm tắt bài mới cho followers. Link → blog.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ch-icon">🎵</div>
+        <h5>TikTok / Reels</h5>
+        <p>Video 30–60s tóm tắt bài blog. "Nước máy QN có uống được không?" dạng giải đáp nhanh.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ch-icon">🛒</div>
+        <h5>Shopee Blog / Feed</h5>
+        <p>Đăng bài tư vấn trên Shopee feed, link sản phẩm. Tăng authority cho shop.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ch-icon">🔗</div>
+        <h5>Google Business Profile</h5>
+        <p>Post update hàng tuần (ảnh + excerpt blog). Tăng local ranking signal.</p>
+      </div>
+    </div>
+
+    <h3>Repurpose Framework — Mỗi blog → 5 dạng content</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Blog gốc</th><th>→ Facebook post</th><th>→ TikTok video</th><th>→ Infographic</th><th>→ Zalo tin nhắn</th><th>→ GBP post</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>"Nước máy có uống được không?"</td>
+            <td>5 sự thật + CTA link</td>
+            <td>60s "Thí nghiệm đo TDS nước máy QN"</td>
+            <td>5 con số về chất lượng nước VN</td>
+            <td>"Bạn biết nước máy chứa bao nhiêu Clo? Đọc ngay →"</td>
+            <td>Ảnh test nước + excerpt</td>
+          </tr>
+          <tr>
+            <td>"Top 7 máy lọc nước 2026"</td>
+            <td>Carousel 7 sản phẩm</td>
+            <td>"Unbox + review nhanh top 3"</td>
+            <td>Bảng so sánh 7 máy</td>
+            <td>"Bạn đang tìm máy lọc nước? Xem 7 model tốt nhất →"</td>
+            <td>Ảnh sản phẩm + offer</td>
+          </tr>
+          <tr>
+            <td>"Chi phí lọc đầu nguồn"</td>
+            <td>Bảng giá + "Tag bạn bè cần lọc nước"</td>
+            <td>"Lọc đầu nguồn tốn bao nhiêu tiền?"</td>
+            <td>Bảng chi phí theo quy mô</td>
+            <td>"Lắp lọc đầu nguồn từ X triệu. Xem chi tiết →"</td>
+            <td>Before/after + giá</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 8. INTERNAL LINKING ====== -->
+<section id="internal-link">
+  <div class="container">
+    <h2>8. Chiến lược Internal Linking</h2>
+
+    <p>Internal linking là "hệ tuần hoàn" của Topical Authority. Google đánh giá mức độ liên kết giữa các trang để xác định chuyên môn (topical depth). Mỗi bài cần tối thiểu 3 internal links.</p>
+
+    <h3>Quy tắc liên kết</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Loại link</th><th>Từ</th><th>Đến</th><th>Số lượng</th><th>Anchor text</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cluster → Pillar</strong></td><td>Mỗi cluster article</td><td>Pillar page tương ứng</td><td>1 link/bài (bắt buộc)</td><td>Keyword chính của pillar</td></tr>
+          <tr><td><strong>Pillar → Cluster</strong></td><td>Pillar page</td><td>Tất cả cluster articles</td><td>6–8 links/pillar</td><td>Long-tail keyword của cluster</td></tr>
+          <tr><td><strong>Cluster → Cluster</strong></td><td>Bài cùng pillar</td><td>Bài liên quan cùng pillar</td><td>1–2 links/bài</td><td>Keyword phụ / contextual</td></tr>
+          <tr><td><strong>Cross-pillar</strong></td><td>Bài pillar A</td><td>Bài pillar B (khi ngữ cảnh phù hợp)</td><td>1–2 links/pillar</td><td>Keyword chính của pillar đích</td></tr>
+          <tr><td><strong>Blog → Product</strong></td><td>Blog tư vấn / so sánh</td><td>Product pages / Category pages</td><td>1–2 links/bài</td><td>Tên sản phẩm / danh mục</td></tr>
+          <tr><td><strong>Blog → Landing</strong></td><td>Mọi bài MOFU/BOFU</td><td>Landing pages local</td><td>1 link/bài</td><td>"máy lọc nước Quy Nhơn" / CTA text</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Nguyên tắc anchor text:</strong> 70% anchor text mô tả (chứa keyword), 30% anchor tự nhiên ("xem thêm tại đây", "bài viết chi tiết"). Không dùng cùng 1 anchor text cho nhiều link khác nhau. Đặt link đầu tiên cao trong bài (above the fold) nếu có thể.
+    </div>
+  </div>
+</section>
+
+<!-- ====== 9. TEMPLATES ====== -->
+<section id="template">
+  <div class="container">
+    <h2>9. Content Templates chuẩn</h2>
+
+    <p>Sử dụng templates giúp đảm bảo chất lượng đồng nhất và tốc độ sản xuất nhanh. Dưới đây là template cho từng loại content.</p>
+
+    <h3>Template A: Blog kiến thức / tư vấn (TOFU/MOFU)</h3>
+    <div class="card" style="font-size:13px; font-family: monospace; background: var(--surface-2);">
+      <pre style="white-space: pre-wrap;">
+# [Title — chứa keyword chính, 55-60 ký tự]
+
+**Meta description:** [150-155 ký tự, keyword + USP + CTA]
+
+**Intro (150-200 từ):**
+- Hook: câu hỏi / số liệu gây tò mò
+- Bối cảnh vấn đề
+- Promise: bài viết sẽ giải đáp gì
+- → Internal link đến pillar page
+
+**H2: [Phần 1 — keyword phụ trong heading]**
+- 200-300 từ
+- Ảnh minh họa + alt text
+- → Internal link đến cluster liên quan
+
+**H2: [Phần 2]** ...
+
+**H2: [Phần N]** ...
+
+**H2: Giải pháp / Khuyến nghị từ Aplus**
+- 150 từ
+- Link sản phẩm / dịch vụ liên quan
+- CTA: "Liên hệ tư vấn miễn phí"
+
+**CTA Box:** [Zalo + Hotline + Survey form]
+
+**H2: Câu hỏi thường gặp (FAQ)**
+- 3-5 câu Q&A
+- FAQPage schema markup
+
+**Kết bài (50-100 từ):**
+- Tóm tắt 1 câu
+- CTA cuối: "Gọi ngay 0935 455 558" / "Chat Zalo"
+      </pre>
+    </div>
+
+    <h3>Template B: Bài so sánh sản phẩm (MOFU)</h3>
+    <div class="card" style="font-size:13px; font-family: monospace; background: var(--surface-2);">
+      <pre style="white-space: pre-wrap;">
+# [Sản phẩm A] vs [Sản phẩm B]: Nên Chọn Loại Nào?
+
+**Intro:** Tóm tắt 2 sản phẩm, ai nên đọc bài này
+
+**H2: Tổng quan [Sản phẩm A]**
+- Specs, ưu/nhược, giá
+
+**H2: Tổng quan [Sản phẩm B]**
+- Specs, ưu/nhược, giá
+
+**H2: Bảng so sánh chi tiết**
+| Tiêu chí | SP A | SP B |
+|----------|------|------|
+| Công nghệ | ... | ... |
+| Công suất | ... | ... |
+| Giá      | ... | ... |
+| Bảo hành | ... | ... |
+
+**H2: Nên chọn [A] khi nào? Chọn [B] khi nào?**
+
+**H2: Mua ở đâu tại Quy Nhơn?**
+→ CTA Aplus + link landing page
+
+**FAQ** (3 câu)
+      </pre>
+    </div>
+
+    <h3>Template C: Case Study (BOFU)</h3>
+    <div class="card" style="font-size:13px; font-family: monospace; background: var(--surface-2);">
+      <pre style="white-space: pre-wrap;">
+# Dự Án: [Tên dự án] — [Địa điểm]
+
+**Hero image:** Ảnh thực tế công trình
+
+**H2: Bối cảnh khách hàng**
+- Ai, ở đâu, quy mô, nguồn nước gì
+
+**H2: Thách thức**
+- Vấn đề cụ thể (số liệu: TDS = X, pH = Y)
+
+**H2: Giải pháp Aplus đưa ra**
+- Sản phẩm, hệ thống, timeline lắp đặt
+- Ảnh quy trình lắp đặt
+
+**H2: Kết quả**
+- Before/After (bảng chỉ số)
+- Ảnh nước trước/sau lọc
+
+**H2: Đánh giá từ khách hàng**
+- Quote + ảnh + tên khách
+
+**CTA:** "Bạn cũng đang gặp vấn đề tương tự?"
+→ /survey hoặc /contact
+      </pre>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 10. CALENDAR CHI TIẾT ====== -->
+<section id="calendar">
+  <div class="container">
+    <h2>10. Calendar triển khai 12 tuần</h2>
+
+    <div class="alert alert-warning">
+      <strong>Tần suất:</strong> 3 nội dung/tuần — 2 blog articles + 1 nội dung khác (pillar page / landing page / product content / case study). Publish vào Thứ 2 + Thứ 4 + Thứ 6.
+    </div>
+
+    <h3 style="color:var(--series-1);">Tháng 8 — Xây nền tảng (Tuần 1–4)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:60px;">Tuần</th><th>Thứ 2</th><th>Thứ 4</th><th>Thứ 6</th><th>Việc song song</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>T1</strong><br>04–08</td>
+            <td><span class="tag tag-pillar">P1</span> Pillar: Kiến thức lọc nước</td>
+            <td><span class="tag tag-blog">B01</span> Nước máy có uống được không?</td>
+            <td>Viết meta cho top 20 product pages</td>
+            <td>Setup Google Business Profile posts weekly</td>
+          </tr>
+          <tr>
+            <td><strong>T2</strong><br>11–15</td>
+            <td><span class="tag tag-pillar">P2</span> Pillar: Hướng dẫn chọn máy lọc</td>
+            <td><span class="tag tag-blog">B02</span> RO vs Nano vs UF</td>
+            <td>Viết content cho 3 category pages</td>
+            <td>Join 5 Facebook groups local</td>
+          </tr>
+          <tr>
+            <td><strong>T3</strong><br>18–22</td>
+            <td><span class="tag tag-blog">B04</span> 7 dấu hiệu nước nhiễm phèn</td>
+            <td><span class="tag tag-blog">B05</span> Thay lõi lọc bao lâu</td>
+            <td><span class="tag tag-pillar">P3</span> Pillar: Bảo trì máy lọc nước</td>
+            <td>Tạo 3 TikTok videos từ B01, B02, B04</td>
+          </tr>
+          <tr>
+            <td><strong>T4</strong><br>25–29</td>
+            <td><span class="tag tag-blog">B06</span> Lõi lọc chính hãng vs hàng nhái</td>
+            <td><span class="tag tag-pillar">P4</span> Pillar: Nguồn nước Miền Trung</td>
+            <td><span class="tag tag-blog">B03</span> Cách đọc chỉ số TDS</td>
+            <td>Submit tất cả URL mới lên GSC</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--series-2);">Tháng 9 — Mở rộng MOFU + Local (Tuần 5–8)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:60px;">Tuần</th><th>Thứ 2</th><th>Thứ 4</th><th>Thứ 6</th><th>Việc song song</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>T5</strong><br>01–05</td>
+            <td><span class="tag tag-blog">B07</span> Top 7 máy lọc nước 2026</td>
+            <td><span class="tag tag-blog">B08</span> Nước giếng khoan Bình Định</td>
+            <td>SEO product descriptions (10 SP hot)</td>
+            <td>Facebook Ads: boost B07 + B08</td>
+          </tr>
+          <tr>
+            <td><strong>T6</strong><br>08–12</td>
+            <td><span class="tag tag-blog">B09</span> Karofi vs Kangaroo</td>
+            <td><span class="tag tag-blog">B10</span> Nước máy Quy Nhơn — thực tế</td>
+            <td><span class="tag tag-blog">B11</span> 5 sai lầm dùng máy lọc</td>
+            <td>TikTok: "Thí nghiệm nước máy QN"</td>
+          </tr>
+          <tr>
+            <td><strong>T7</strong><br>15–19</td>
+            <td><span class="tag tag-blog">B12</span> Chi phí lọc đầu nguồn</td>
+            <td><span class="tag tag-case">CS01</span> Case study trường học</td>
+            <td><span class="tag tag-landing">L1</span> Landing: Máy lọc nước Quy Nhơn</td>
+            <td>Submit Landing 1 lên GSC</td>
+          </tr>
+          <tr>
+            <td><strong>T8</strong><br>22–26</td>
+            <td><span class="tag tag-blog">B13</span> Máy cho gia đình 4 người</td>
+            <td><span class="tag tag-blog">B14</span> Mùa mưa lũ Miền Trung</td>
+            <td><span class="tag tag-blog">B15</span> Vệ sinh máy lọc tại nhà</td>
+            <td>Audit internal links tháng 8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:var(--series-3);">Tháng 10 — Chuyển đổi mạnh (Tuần 9–12)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:60px;">Tuần</th><th>Thứ 2</th><th>Thứ 4</th><th>Thứ 6</th><th>Việc song song</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>T9</strong><br>01–03</td>
+            <td><span class="tag tag-blog">B17</span> Máy lọc cho nhà hàng</td>
+            <td><span class="tag tag-blog">B18</span> Nước ion kiềm — sự thật</td>
+            <td><span class="tag tag-case">CS02</span> Case study nhà máy</td>
+            <td>Review GSC: kiểm tra impressions</td>
+          </tr>
+          <tr>
+            <td><strong>T10</strong><br>06–10</td>
+            <td><span class="tag tag-blog">B19</span> A.O. Smith vs Coway</td>
+            <td><span class="tag tag-case">CS03</span> Case study hộ gia đình</td>
+            <td><span class="tag tag-blog">B20</span> Bảng giá thay lõi 2026</td>
+            <td><span class="tag tag-landing">L2</span> Landing: Máy lọc nước Bình Định</td>
+          </tr>
+          <tr>
+            <td><strong>T11</strong><br>13–17</td>
+            <td><span class="tag tag-blog">B21</span> Lọc nước giếng khoan</td>
+            <td><span class="tag tag-landing">L3</span> Landing: Cho thuê máy lọc</td>
+            <td><span class="tag tag-blog">B22</span> Chọn đại lý uy tín</td>
+            <td><span class="tag tag-case">CS04</span> Case study nhà hàng</td>
+          </tr>
+          <tr>
+            <td><strong>T12</strong><br>20–24</td>
+            <td><span class="tag tag-blog">B24</span> FAQ 20 câu hỏi</td>
+            <td><span class="tag tag-blog">B23</span> Nước sạch ven biển MT</td>
+            <td><span class="tag tag-blog">B16</span> Bảo quản máy khi đi xa</td>
+            <td><strong>Audit toàn bộ:</strong> top 10 bài traffic, tối ưu lại</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 11. KPI ====== -->
+<section id="kpi">
+  <div class="container">
+    <h2>11. KPI & Đo lường</h2>
+
+    <h3>Mục tiêu theo tháng</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Chỉ số</th><th>Cuối T8</th><th>Cuối T9</th><th>Cuối T10</th><th>Công cụ đo</th></tr></thead>
+        <tbody>
+          <tr><td>Trang được index</td><td>15+</td><td>30+</td><td>45+</td><td>GSC → Coverage</td></tr>
+          <tr><td>Organic impressions/tháng</td><td>500+</td><td>2,000+</td><td>5,000+</td><td>GSC → Performance</td></tr>
+          <tr><td>Organic clicks/tháng</td><td>30+</td><td>150+</td><td>400+</td><td>GSC → Performance</td></tr>
+          <tr><td>Blog posts published</td><td>10</td><td>20</td><td>36</td><td>CMS admin</td></tr>
+          <tr><td>Keywords top 100</td><td>20+</td><td>50+</td><td>100+</td><td>GSC / Ahrefs</td></tr>
+          <tr><td>Keywords top 10</td><td>2–3</td><td>5–8</td><td>10–15</td><td>GSC / Ahrefs</td></tr>
+          <tr><td>Leads từ website/tháng</td><td>3–5</td><td>8–12</td><td>15–25</td><td>GA4 conversions</td></tr>
+          <tr><td>Avg. time on page</td><td>> 2 phút</td><td>> 2.5 phút</td><td>> 3 phút</td><td>GA4</td></tr>
+          <tr><td>Bounce rate</td><td>< 70%</td><td>< 65%</td><td>< 60%</td><td>GA4</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>GA4 Events cần track</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Event name</th><th>Trigger</th><th>Là conversion?</th></tr></thead>
+        <tbody>
+          <tr><td><code>contact_form_submit</code></td><td>Submit form liên hệ thành công</td><td>Yes</td></tr>
+          <tr><td><code>survey_form_submit</code></td><td>Submit form khảo sát</td><td>Yes</td></tr>
+          <tr><td><code>click_hotline</code></td><td>Click số điện thoại</td><td>Yes</td></tr>
+          <tr><td><code>click_zalo</code></td><td>Click Zalo button</td><td>Yes</td></tr>
+          <tr><td><code>click_product_cta</code></td><td>Click "Xem sản phẩm" / "Mua ngay"</td><td>No (micro)</td></tr>
+          <tr><td><code>blog_scroll_75</code></td><td>Scroll 75% bài blog</td><td>No (engagement)</td></tr>
+          <tr><td><code>landing_form_submit</code></td><td>Submit form trên landing page</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Reporting cadence</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Hàng tuần (Thứ 2)</h4>
+        <ul>
+          <li>Số bài đã publish vs kế hoạch</li>
+          <li>GSC: impressions + clicks 7 ngày</li>
+          <li>Số URL đã index mới</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Hàng tháng (ngày 1)</h4>
+        <ul>
+          <li>Full KPI dashboard theo bảng trên</li>
+          <li>Top 10 bài theo traffic → quyết định optimize</li>
+          <li>Keyword movement report</li>
+          <li>Lead attribution (bài nào tạo lead)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Hàng quý (cuối T10)</h4>
+        <ul>
+          <li>Topical Authority assessment</li>
+          <li>Content gap analysis</li>
+          <li>ROI: chi phí content vs leads generated</li>
+          <li>Lập kế hoạch quý tiếp theo (T11–T1/2027)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 12. CHECKLIST ====== -->
+<section id="checklist">
+  <div class="container">
+    <h2>12. Master Checklist — Trước khi publish mỗi bài</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>SEO On-page</h4>
+        <ul class="checklist">
+          <li>Title tag 55–60 ký tự, chứa primary keyword</li>
+          <li>Meta description 150–155 ký tự, có CTA</li>
+          <li>URL slug ngắn, tiếng Việt không dấu</li>
+          <li>H1 = title, chứa keyword (chỉ 1 H1/trang)</li>
+          <li>H2/H3 chứa secondary keywords</li>
+          <li>Keyword density 1–2% (primary)</li>
+          <li>Intro 150 từ đầu chứa keyword</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Internal Linking</h4>
+        <ul class="checklist">
+          <li>1 link về pillar page (bắt buộc)</li>
+          <li>1–2 links đến cluster articles cùng pillar</li>
+          <li>1 link đến product/category page</li>
+          <li>1 link đến landing page (nếu MOFU/BOFU)</li>
+          <li>Anchor text mô tả, chứa keyword</li>
+          <li>Link đầu tiên đặt above the fold</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Hình ảnh</h4>
+        <ul class="checklist">
+          <li>Tối thiểu 3 ảnh/bài</li>
+          <li>Alt text mô tả + keyword (mỗi ảnh khác nhau)</li>
+          <li>Ảnh tối ưu: WebP, max 200KB</li>
+          <li>Cover image: 1200x630px (OG image)</li>
+          <li>Lazy loading enabled</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Structured Data</h4>
+        <ul class="checklist">
+          <li>ArticleJsonLd cho mọi blog post</li>
+          <li>BreadcrumbJsonLd</li>
+          <li>FAQPage schema nếu có section FAQ</li>
+          <li>HowTo schema nếu có hướng dẫn từng bước</li>
+          <li>Test bằng Rich Results Test</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>CTA & Conversion</h4>
+        <ul class="checklist">
+          <li>CTA box giữa bài (sau section 2 hoặc 3)</li>
+          <li>CTA box cuối bài (Zalo + Hotline)</li>
+          <li>Link /survey hoặc /contact</li>
+          <li>FloatingContact widget hiển thị</li>
+          <li>GA4 event tracking hoạt động</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Post-publish</h4>
+        <ul class="checklist">
+          <li>Submit URL lên Google Search Console</li>
+          <li>Check mobile render (responsive)</li>
+          <li>Share Facebook page + Zalo OA</li>
+          <li>Update pillar page: thêm link đến bài mới</li>
+          <li>Lên lịch TikTok/Reels (nếu phù hợp)</li>
+          <li>Post Google Business Profile update</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-success" style="margin-top: 20px;">
+      <strong>Tóm tắt chiến dịch:</strong> 12 tuần, 36 nội dung, pipeline rõ ràng từ keyword research → content brief → draft → SEO review → publish → distribute. Mỗi bài phục vụ đúng 1 keyword intent, liên kết chặt vào Topic Cluster, và được repurpose thành 3–5 dạng content khác. KPI đo lường hàng tuần qua GSC + GA4. Mục tiêu cuối T10: 45+ trang indexed, 10+ keywords top 10, 15–25 leads/tháng từ organic.
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

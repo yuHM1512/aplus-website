@@ -13,6 +13,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
+  // Kiểm tra Blob storage đã cấu hình chưa (OIDC dùng BLOB_STORE_ID, legacy dùng BLOB_READ_WRITE_TOKEN)
+  if (!process.env.BLOB_READ_WRITE_TOKEN && !process.env.BLOB_STORE_ID) {
+    console.error("[upload] Chưa cấu hình Vercel Blob storage (cần BLOB_STORE_ID hoặc BLOB_READ_WRITE_TOKEN)")
+    return NextResponse.json(
+      { error: "Chưa cấu hình Vercel Blob storage. Vui lòng kết nối Blob store với project trên Vercel." },
+      { status: 500 }
+    )
+  }
+
   try {
     const formData = await req.formData()
     const file = formData.get("file") as File | null
@@ -44,9 +53,11 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json({ url: blob.url, filename })
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.error("[upload] Upload failed:", message)
     return NextResponse.json(
-      { error: "Upload failed" },
+      { error: `Upload failed: ${message}` },
       { status: 500 }
     )
   }

@@ -490,11 +490,15 @@ export function PostForm({ post, categories, campaigns = [] }: PostFormProps) {
                   const fd = new FormData()
                   fd.append("file", file)
                   const res = await fetch("/api/admin/upload", { method: "POST", body: fd })
-                  if (!res.ok) throw new Error()
-                  const { url } = await res.json()
-                  setForm((prev) => ({ ...prev, coverImage: url }))
+                  const data = await res.json()
+                  if (!res.ok) {
+                    toast(data.error || "Không thể tải ảnh lên", "error")
+                    setCoverUploading(false)
+                    return
+                  }
+                  setForm((prev) => ({ ...prev, coverImage: data.url }))
                 } catch {
-                  toast("Không thể tải ảnh lên", "error")
+                  toast("Không thể tải ảnh lên — lỗi kết nối", "error")
                 }
                 setCoverUploading(false)
               }}
