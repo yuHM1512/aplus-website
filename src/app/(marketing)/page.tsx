@@ -9,6 +9,8 @@ import { Services } from "@/components/sections/services"
 import { BlogTestimonials } from "@/components/sections/blog-testimonials"
 import { Cta } from "@/components/sections/cta"
 
+export const revalidate = 600
+
 export default async function HomePage() {
   const products = await prisma.product.findMany({
     where: { published: true, image: { not: null } },

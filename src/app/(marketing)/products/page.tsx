@@ -1,5 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
+import { unstable_cache } from "next/cache"
+import type { Prisma } from "@prisma/client"
 import { ChevronRight, ChevronLeft, X } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { ProductCard } from "@/components/products/product-card"
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
     "Danh mục sản phẩm lọc nước công nghệ cao APLUS Technologies. Máy lọc nước RO, hệ thống lọc tổng, lõi lọc chính hãng.",
 }
 
+export const revalidate = 300
+
 // ─── Price tiers ───────────────────────────────────────
 const PRICE_TIERS = [
   { id: "under-3m", label: "Dưới 3 triệu", min: 0, max: 3_000_000 },
@@ -33,7 +37,49 @@ const BRANDS = ["APLUS", "Karofi", "AO Smith", "Sagana", "TW"] as const
 // ─── Sort options ──────────────────────────────────────
 type SortKey = "default" | "newest" | "price-asc" | "price-desc" | "name-asc"
 
-function getOrderBy(sort: SortKey) {
+const productCardSelect = {
+  id: true,
+  name: true,
+  slug: true,
+  image: true,
+  category: true,
+  categoryName: true,
+  brand: true,
+  price: true,
+  priceOriginal: true,
+  priceNumeric: true,
+  badge: true,
+} satisfies Prisma.ProductSelect
+
+const getProductsPageData = unstable_cache(
+  async (
+    where: Prisma.ProductWhereInput,
+    orderBy: Prisma.ProductOrderByWithRelationInput,
+    page: number,
+    perPage: number
+  ) => {
+    return Promise.all([
+      prisma.product.findMany({
+        where,
+        orderBy,
+        skip: (page - 1) * perPage,
+        take: perPage,
+        select: productCardSelect,
+      }),
+      prisma.product.count({ where }),
+      prisma.product.count({ where: { published: true, image: { not: null } } }),
+      prisma.product.groupBy({
+        by: ["category"],
+        where: { published: true, image: { not: null } },
+        _count: { _all: true },
+      }),
+    ])
+  },
+  ["products-page-data"],
+  { revalidate: 300, tags: ["products"] }
+)
+
+function getOrderBy(sort: SortKey): Prisma.ProductOrderByWithRelationInput {
   switch (sort) {
     case "newest":
       return { createdAt: "desc" as const }
@@ -74,7 +120,7 @@ export default async function ProductsPage({
   const perPage = 24
 
   // ─── Build Prisma where clause ───
-  const where: Record<string, unknown> = { published: true, image: { not: null } }
+  const where: Prisma.ProductWhereInput = { published: true, image: { not: null } }
 
   // Resolve slug → Sapo product_type key cho DB query
   const activeCatKey = activeCat ? sapoKeyFromSlug(activeCat) : undefined
@@ -90,21 +136,8 @@ export default async function ProductsPage({
     ]
   }
 
-  const [products, totalCount, allCount, categoryCounts] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      orderBy: getOrderBy(sort),
-      skip: (page - 1) * perPage,
-      take: perPage,
-    }),
-    prisma.product.count({ where }),
-    prisma.product.count({ where: { published: true, image: { not: null } } }),
-    prisma.product.groupBy({
-      by: ["category"],
-      where: { published: true, image: { not: null } },
-      _count: { _all: true },
-    }),
-  ])
+  const [products, totalCount, allCount, categoryCounts] =
+    await getProductsPageData(where, getOrderBy(sort), page, perPage)
 
   // Map category key → count cho sidebar
   const countMap = new Map(

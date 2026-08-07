@@ -30,7 +30,23 @@ export function PopupDisplay() {
 
   // Check-on-visit: tự động publish bài viết đã hẹn giờ khi có visitor
   useEffect(() => {
-    fetch("/api/posts/check-scheduled", { method: "POST" }).catch(() => {})
+    const storageKey = "scheduled_posts_checked_at"
+    const lastCheckedAt = Number(localStorage.getItem(storageKey) || 0)
+
+    if (Date.now() - lastCheckedAt < 60 * 60 * 1000) return
+
+    const checkScheduledPosts = () => {
+      localStorage.setItem(storageKey, String(Date.now()))
+      fetch("/api/posts/check-scheduled", { method: "POST" }).catch(() => {})
+    }
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(checkScheduledPosts, { timeout: 5000 })
+      return () => window.cancelIdleCallback(idleId)
+    }
+
+    const timer = setTimeout(checkScheduledPosts, 3000)
+    return () => clearTimeout(timer)
   }, [])
 
   // Fetch popups cho trang hiện tại

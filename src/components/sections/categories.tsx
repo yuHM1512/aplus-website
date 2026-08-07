@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowRight,
   Box,
@@ -199,9 +200,12 @@ function CategoryVisualCard({
       ].join(" ")}
     >
       {/* Product image — top right area */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-        style={{ backgroundImage: `url(${visual.image})` }}
+      <Image
+        src={visual.image}
+        alt={visual.label}
+        fill
+        sizes={featured ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 640px) 100vw, 25vw"}
+        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
       />
       {/* Lighter overlay — lets product image show through more */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#102590]/70 via-[#102590]/45 to-[#102590]/10" />

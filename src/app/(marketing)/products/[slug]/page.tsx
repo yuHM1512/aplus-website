@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
+import { cache } from "react"
 import { ChevronRight, Check, Phone } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { AddToCartButton } from "@/components/ui/add-to-cart-button"
@@ -14,9 +15,24 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+export const revalidate = 600
+
+const getProductBySlug = cache((slug: string) => {
+  return prisma.product.findUnique({ where: { slug } })
+})
+
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    where: { published: true },
+    select: { slug: true },
+  })
+
+  return products.map((product) => ({ slug: product.slug }))
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const p = await prisma.product.findUnique({ where: { slug } })
+  const p = await getProductBySlug(slug)
   if (!p) return { title: "Không tìm thấy sản phẩm" }
 
   const url = `${SITE_CONFIG.url}/products/${p.slug}`
@@ -38,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params
-  const product = await prisma.product.findUnique({ where: { slug } })
+  const product = await getProductBySlug(slug)
   if (!product) return notFound()
 
   const related = await prisma.product.findMany({
@@ -50,6 +66,13 @@ export default async function ProductDetailPage({ params }: Props) {
     },
     take: 4,
     orderBy: { order: "asc" },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      image: true,
+      price: true,
+    },
   })
 
   return (
